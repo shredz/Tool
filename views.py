@@ -31,5 +31,6 @@ def about(request):
 def merchants(request):
 	return Response.render("general/merchants.html",{},request)
 
+
 def groupon(request):
 	return Response.render("general/groupon.html",{},request)
