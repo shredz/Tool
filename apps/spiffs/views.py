@@ -81,6 +81,22 @@ def deals (request,page):
 	
 	params = {'deals' :  deals , "names" : names,"layout":layout}
 	return Response.render("spiffs/schemes/"+str(layout)+".html" , params,request)
+
+def deallist (request,page):
+	if request.user.is_authenticated():
+		user = User.instance(request.user)
+		layout = user.get_config("Layout").value
+	else:
+		layout = 0
+	
+	deals, names = front_page(request, layout, "CJ" , int(page))	
+	
+	#return Response.html(len(deals))
+	if len(deals) == 0:
+		return Response.html("<!-- END -->")
+	
+	params = {'deals' :  deals , "names" : names,"layout":layout}
+	return Response.render("spiffs/deallist.html" , params,request)
 	
 
 def visited(request, deal_type ,deal_id):
@@ -141,11 +157,11 @@ def new_deals(request,page):
 	return Response.render("spiffs/new_deals.html" , {"deals": [left , right] , "page" : page , "nextpage" : int(page) + 1 },request)
 
 def gmap(request,page):	
-	catgs = Category.objects.values('title').distinct()[:10]
+	catgs = Category.objects.values('title').filter(parent='15').distinct()
 	return Response.render("spiffs/gmap.html" , {'catgs': catgs},request)
 
 def show_deal(request,page):	
-	catgs = Category.objects.values('title').distinct()[:10]
+	catgs = Category.objects.values('title').filter(parent=page).distinct()
 	return Response.render("spiffs/show_deal.html" , {'catgs': catgs},request)
 	
 def approve_deal(request, deal_id):

@@ -395,8 +395,8 @@ $.get("http://localhost:8000/polls/ajax/", function(data) {
 	                        </div>
 	                        
                             <div class="filter-heading browse-heading">Or browse</div>
-                                <div class="filter-heading browse-heading"><input type="radio" name="deals" value="1" onclick="ajaxcall(this.value);"> Local Deal</div>
-                                    <div class="filter-heading browse-heading"><input type="radio" name="deals" value="2"  onclick="ajaxcall(this.value);"> Internet Deal</div>
+                                <div class="filter-heading browse-heading"><input type="radio" name="deals" value="15" checked onclick="ajaxcall(this.value);"> Local Deal</div>
+                                    <div class="filter-heading browse-heading"><input type="radio" name="deals" value="22"  onclick="ajaxcall(this.value);"> Internet Deal</div>
                         </div>
                         <div class="clearfix deal-choices">
                             <div class="deal-choice float selected" menu="popmenu1">
@@ -492,10 +492,10 @@ $.get("http://localhost:8000/polls/ajax/", function(data) {
 		                        </div>
 		                    </div>
         		            
-			                <div class="float toggle-action" id="lnkListView">
+			                <div class="float toggle-action selected white-bubble" id="lnkListView">
 			                    <div class="tr corner"></div>
 		                        <div class="tl corner"></div>
-		                        <div class="main">
+		                        <div class="main" onclick="deallist();">
 		                            list view
 		                        </div>
 			                </div >
@@ -557,7 +557,7 @@ $.get("http://localhost:8000/polls/ajax/", function(data) {
         			
 			        <div class="list-view-section float" id ='list-view-section' style="display:none;width:760px;">
 			            <div class="main clearfix">			                
-			               <div id='list-inner' class='list-inner'> deal data   			           
+			               <div id='deal_list' class='list-inner' > Loading......  			           
 			                </div>    			        
 			            <div class="map-links clearfix">
 			                <div class="float-right deals-showing map-paging" id = 'list-showing-links'></div>
@@ -850,6 +850,15 @@ $.get("http://localhost:8000/polls/ajax/", function(data) {
 		        $('#deal_id').html(data);
 		   // alert('Load was performed.');
 		    });
+		}
+		function deallist()
+		{
+			$.get("http://dev.spiffcity.com/spiffs/deallist/1/", function(data) {
+			//deal_id
+		        $('#deal_list').html(data);
+		   // alert('Load was performed.');
+		    });
+		
 		}
 		</script>  
 {% endblock %}

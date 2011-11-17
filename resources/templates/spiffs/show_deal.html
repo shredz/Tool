@@ -1,62 +1,19 @@
 <div>
                         
                             <!-- Category menu -->
-                            <div class="menu_inner selected-menu menu_inner_main" id="popmenu1">
+                          <div id="popmenu1" class="menu_inner selected-menu menu_inner_main">
                                 <ul>
-                                
-			                     <li crumbtext="All Categories" class="MenuItemStyle menu_item clearfix">
-                                        <input type="radio" checked="checked" value="*" id="chkAll" onclick="MainMenuClick(this,'Category', 'All');" name="filters">
-                                            <label class="float item-text all-20" for="chkAll">Root ajax</label>
+                                {% for catg in catgs%}
+			                     <li class="MenuItemStyle menu_item clearfix" crumbText = 'All Categories'>
+                                        <input type="radio"  name='filters'
+                                            onclick="MainMenuClick(this,'Category', 'All');"
+                                            id="chkAll" name="chkAll" value="*" checked="checked" />
+                                            <label for="chkAll" class="float item-text all-20">{{catg.title}}</label>
                                     </li>
-                                
-			                     <li crumbtext="All Categories" class="MenuItemStyle menu_item clearfix">
-                                        <input type="radio" checked="checked" value="*" id="chkAll" onclick="MainMenuClick(this,'Category', 'All');" name="filters">
-                                            <label class="float item-text all-20" for="chkAll"> Washington D.C. </label>
-                                    </li>
-                                
-			                     <li crumbtext="All Categories" class="MenuItemStyle menu_item clearfix">
-                                        <input type="radio" checked="checked" value="*" id="chkAll" onclick="MainMenuClick(this,'Category', 'All');" name="filters">
-                                            <label class="float item-text all-20" for="chkAll">  Food &amp; Restaurants </label>
-                                    </li>
-                                
-			                     <li crumbtext="All Categories" class="MenuItemStyle menu_item clearfix">
-                                        <input type="radio" checked="checked" value="*" id="chkAll" onclick="MainMenuClick(this,'Category', 'All');" name="filters">
-                                            <label class="float item-text all-20" for="chkAll"> Los Angeles - San Fernando Valley </label>
-                                    </li>
-                                
-			                     <li crumbtext="All Categories" class="MenuItemStyle menu_item clearfix">
-                                        <input type="radio" checked="checked" value="*" id="chkAll" onclick="MainMenuClick(this,'Category', 'All');" name="filters">
-                                            <label class="float item-text all-20" for="chkAll"> Las Vegas </label>
-                                    </li>
-                                
-			                     <li crumbtext="All Categories" class="MenuItemStyle menu_item clearfix">
-                                        <input type="radio" checked="checked" value="*" id="chkAll" onclick="MainMenuClick(this,'Category', 'All');" name="filters">
-                                            <label class="float item-text all-20" for="chkAll">  Entertainment &amp; Arts </label>
-                                    </li>
-                                
-			                     <li crumbtext="All Categories" class="MenuItemStyle menu_item clearfix">
-                                        <input type="radio" checked="checked" value="*" id="chkAll" onclick="MainMenuClick(this,'Category', 'All');" name="filters">
-                                            <label class="float item-text all-20" for="chkAll"> National </label>
-                                    </li>
-                                
-			                     <li crumbtext="All Categories" class="MenuItemStyle menu_item clearfix">
-                                        <input type="radio" checked="checked" value="*" id="chkAll" onclick="MainMenuClick(this,'Category', 'All');" name="filters">
-                                            <label class="float item-text all-20" for="chkAll">  Computers &amp; Electronics </label>
-                                    </li>
-                                
-			                     <li crumbtext="All Categories" class="MenuItemStyle menu_item clearfix">
-                                        <input type="radio" checked="checked" value="*" id="chkAll" onclick="MainMenuClick(this,'Category', 'All');" name="filters">
-                                            <label class="float item-text all-20" for="chkAll"> New York </label>
-                                    </li>
-                                
-			                     <li crumbtext="All Categories" class="MenuItemStyle menu_item clearfix">
-                                        <input type="radio" checked="checked" value="*" id="chkAll" onclick="MainMenuClick(this,'Category', 'All');" name="filters">
-                                            <label class="float item-text all-20" for="chkAll">  Beauty &amp; Spa </label>
-                                    </li>
-                                
+                                {% endfor %}
                                 </ul>
-                                <div class="go-container"><a class="menu-button" id="lnkCategoryGo" href="#">
-				                        <img border="0" src="images/button_go.jpg"></a></div>
+                                <div class="go-container"><a href="#" id="lnkCategoryGo" class="menu-button">
+				                        <img border="0" src="images/button_go.jpg" ></a></div>
                             </div>
                             
                             <!-- Style menu -->
