@@ -1,0 +1,181 @@
+{% extends "spiffcity.html" %}
+
+
+{% block signup %}{% endblock %}
+{% block signup-control %}{% endblock %}
+
+{% block content %}
+	<div >
+			<div class="signup-form"> 
+				<form method="post" action="/members/profile/" class="deals-search-form" >
+					{% csrf_token %}
+					<table>
+						{% if needs_username_correction %}
+							<tr>         
+								<td>
+									<label>Username :</label>
+								</td> 
+								<td> 
+									<input type='hidden' name='needs_username_correction' value='needs_username_correction' />
+									{{form.username}}
+									{% if errors %}
+										{{form.errors.username}}
+									{% endif %}
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td style="display:none;">
+									{{form.username}}
+								</td>
+							</tr>
+						{% endif %}
+						
+						<tr>            
+							<td>
+								<label>Your Email :</label>
+							</td> 
+							<td> 
+								{{form.email}}
+								{% if errors %}
+									{{form.errors.email}}
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td><label>First name:</label></td>
+							<td> 
+								{{form.first_name}}
+								{% if errors %}
+									{{form.errors.first_name}}
+								{% endif %}
+							</td>
+						</tr>
+						<tr>             
+							<td><label>Last name:</label></td>
+							<td> 
+								{{form.last_name}}
+								{% if errors %}
+									{{form.errors.last_name}}
+								{% endif %}
+							</td>
+						</tr>		   		 
+						<tr>
+							<td>
+								<label>I Am :</label>
+							</td>
+							<td>  
+								{{form.gender}}
+								{% if errors %}
+									{{form.errors.gender}}
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label>DOB :</label>
+							</td> 
+							<td>  
+								<div style="display:none;">
+									{{form.dob}}
+								</div>
+								
+								<SELECT id="b-month">
+								  <OPTION value="">-Month-</OPTION>
+								  <OPTION value="1">January</option>
+								  <OPTION value="2">Feburary</OPTION>
+								  <OPTION value="3">March</OPTION>
+								  <OPTION value="4">April</OPTION>
+								  <OPTION value="5">May</OPTION>
+								  <OPTION value="6">June</OPTION>
+								  <OPTION value="7">July</OPTION>
+								  <OPTION value="8">Augest</OPTION>
+								  <OPTION value="9">September</OPTION>
+								  <OPTION value="10">October</OPTION> 
+								  <OPTION value="11">November</OPTION>
+								  <OPTION value="12">December</OPTION>	
+								</SELECT>
+								 <select id="b-day">
+								 	<OPTION value="">-Day-</OPTION>
+								 	{% for day in days %}
+								 		<option value="{{day}}">{{day}}</option>	
+								 	{% endfor %}
+								</select>
+								<select id="b-year">
+								   <option value="">-Year-</option>
+								   {% for year in years %}
+								 		<option value="{{year}}">{{year}}</option>	
+								 	{% endfor %}
+								</select>
+								{% if errors %}
+									{{form.errors.dob}}
+								{% endif %}
+							</td>
+						</tr>
+						<tr>            
+							<td><label>Zip Code :</label></td> 
+							<td> 
+								{{form.zipcode }}
+								{% if errors %}
+									{{form.errors.zipcode}}
+								{% endif %}
+							</td>
+						</tr>				
+						<tr>            
+							<td><label>Street Adress (Line 1) :</label></td> 
+							<td> 
+								{{form.street_line_1}}
+								{% if errors %}
+									{{form.errors.street_line_1}}
+								{% endif %}
+							</td>
+						</tr>	
+						<tr>            
+							<td><label>Street Adress (Line 2) :</label></td> 
+							<td> 
+								{{form.street_line_2}}
+								{% if errors %}
+									{{form.errors.street_line_2}}
+								{% endif %}
+							</td>
+						</tr>
+						
+						<tr>            
+							<td><label>City :</label></td> 
+							<td> 
+								{{form.city}}
+								{% if errors %}
+									{{form.errors.city}}
+								{% endif %}
+							</td>
+						</tr>
+						<tr>            
+							<td><label>State :</label></td> 
+							<td> 
+								{{form.state}}
+								{% if errors %}
+									{{form.errors.state}}
+								{% endif %}
+							</td>
+						</tr>
+						
+						<tr>            
+							<td><label>Country :</label></td> 
+							<td> 
+								{{form.country}}
+								{% if errors %}
+									{{form.errors.country}}
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td><label></label></td>
+							<td>
+								<input class="form-button"  type="submit" value="Submit"  id="signup-button"/>
+							</td>
+						</tr> 
+					</table>
+				</form>
+		      </div>
+			</div>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% autoescape off %}
+					<!-- Deals Listing starts -->
+					<div class="deals-container scheme-1">
+						<div class="gn-logo-container">
+							<div class="gn-logo"></div>
+							<div class="gn-deal-city"><span>Atlanta</span></div>
+						</div>
+						<div class="deal-container">
+							<div class="image-container  deal1">
+								<div class="deal-image">
+									<a href="{{deals.deal1.link}}">
+										<img src="{{deals.deal1.image_url}}" width="100%" />
+									</a>
+								</div>
+								<div class="deal-info">
+									<span class="price-diff">
+										<div id="old-price">{{deals.deal1.option.value}}</div>
+										<div id="new-price">{{deals.deal1.currency}} {{deals.deal1.price}}</div>
+									</span>
+									<div class="deal-info-text">{{deals.deal1.title}}</div>
+								</div>
+							</div>
+						</div>
+						<div class="deal-container">
+							<div class="image-container  deal2">
+								<div class="deal-image">
+									<a href="{{deals.deal2.link}}">
+										<img src="{{deals.deal2.image_url}}" width="100%" />
+									</a>
+								</div>
+								<div class="deal-info">
+									<span class="price-diff">
+										<div id="old-price">{{deals.deal2.option.value}}</div>
+										<div id="new-price">{{deals.deal2.currency}} {{deals.deal2.price}}</div>
+									</span>
+										<div class="deal-info-text">{{deals.deal2.title}}</div>
+								</div>
+							</div>
+						</div>
+						<div class="deal-container">
+							<div class="image-container  deal3">
+								<div class="deal-image">
+									<a href="{{deals.deal3.link}}">
+										<img src="{{deals.deal3.image_url}}" width="100%"/>
+									</a>
+								</div>
+								<div class="deal-info">
+									<span class="price-diff">
+										<div id="old-price">{{deals.deal3.option.value}}</div>
+										<div id="new-price">{{deals.deal3.currency}} {{deals.deal3.price}}</div>
+									</span>
+										<div class="deal-info-text">{{deals.deal3.title}}</div>
+								</div>
+							</div>
+						</div>
+						<div class="deal-information-box di-box-1">
+							<span class="deal-arrow-container l-arrow"></span>
+								<!--<span class="discount">Discounted Percentage: {{deals.deal3.discount}}%</span>-->
+								{{deals.deal3.description}}
+						</div>
+						<div class="deal-information-box di-box-2">
+							<span class="deal-arrow-container tl-arrow"></span>
+								<!--<span class="discount">Discounted Percentage: {{deals.deal1.discount}}%</span>-->
+								{{deals.deal1.description}}
+								
+						</div>
+						<div class="deal-information-box di-box-3">
+							<span class="deal-arrow-container t-arrow"></span>
+								<!--<span class="discount">Discounted Percentage: {{deals.deal2.discount}}%</span>-->
+								{{deals.deal2.description}}
+								
+						</div>
+						<div class="deal-information-box di-box-4 last">
+							<span class="deal-arrow-container r-arrow"></span>
+								<!--<span class="discount">Discounted Percentage: {{deals.deal4.discount}}%</span>-->
+								{{deals.deal4.description}}								
+						</div>
+						<div class="deal-container">
+							<div class="image-container deal4">
+								<div class="deal-image">
+									<a href="{{deals.deal4.link}}">
+										<img src="{{deals.deal4.image_url}}" width="100%"/>
+									</a>
+								</div>
+								<div class="deal-info">
+									<span class="price-diff">
+										<div id="old-price">{{deals.deal4.option.value}}</div>
+										<div id="new-price">{{deals.deal4.currency}} {{deals.deal4.price}}</div>
+									</span>
+									<div class="deal-info-text">{{deals.deal4.title}}</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					
+					<!--Deals listing ends -->
+{% endautoescape %}

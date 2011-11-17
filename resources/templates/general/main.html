@@ -1,0 +1,11 @@
+{% extends "spiffcity.html" %}
+{% block title %}Home{% endblock %}
+
+{% block deals_menu_class %}active{% endblock %}
+{% block content %}
+	{% block deal_nav %}
+		<a href="#" class="arrow-button left"  id ='prev-page' onclick='prev_deal_page();return false;'></a>
+		<a href="#" class="arrow-button right" id ='next-page' onclick='next_deal_page();return false;'></a>
+	{% endblock %}
+	<div id="deal_listing" ></div>
+{% endblock %}

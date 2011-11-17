@@ -1,0 +1,31 @@
+{% extends "spiffcity.html" %}
+{% block login %}{% endblock %}
+{% block login-control %}{% endblock %}
+{% block content %}
+	<!-- Login Box Start -->
+		<div class="login-page-box">
+			<form method="POST" action="/members/login/">
+				{% csrf_token %}
+				<table>
+					<tr>
+						<td><label>Username</label></td>
+						<td>
+							{{form.username}}
+							{{form.errors.username}}
+						</td>
+					</tr>
+					<tr>
+						<td><label>Password</label></td>
+						<td>
+							{{form.password}}
+							{{form.errors.password}}
+						</td>
+					</tr>
+					<tr>
+						<td></td><td><input type="submit" value="login" class="form-button" name="form-button" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	<!-- Login Box End -->
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "spiffcity.html" %}
+{% block headstyles %}
+		<style>
+		table {
+			background-color: white;
+		}
+	
+		th {
+			   	background-color: #EEEEEE;
+				font-size: 18px;
+				font-weight: bold;
+				height: 32px;
+				padding-top: 7px;
+		}
+	
+		td {
+				border-bottom: 1px solid #EEEEEE;
+				border-right: 1px solid #EEEEEE;
+				padding: 4px;
+				vertical-align: middle !important;
+		}
+	
+	</style>
+{% endblock %}
+
+{% block content %}
+	<div id="reload">
+			<a class="button" href="/spiffs/deals/new/{{page}}">Load More</a>
+			<a class="button" href="/spiffs/deals/new/{{nextpage}}">Next Page</a>
+	</div>
+	<table style="float:left">
+		<tr>
+			<th>Image</th>
+			<th>Source</th>
+			<th>Title</th>
+			<th>Description</th>
+			<th>Price</th>
+			<th>Visit</th>
+			<th>Actions</th>
+		</tr>
+		{% for column in deals%}
+			{% for deal in column %}
+				<tr>
+					<td style="width:250px;"><img src="{{deal.image_url}}" width="250px"/></td>
+					<td>{{deal.advertiser_name}}</td>
+					<td style="width:150px;">{{deal.title}}</td>
+					<td style="text-align:justify;width:400px;"><p style="line-height:20px;">{{deal.description}}</p></td>
+					<td>{{deal.currency}} {{deal.price}}</td>
+					<td><a href="{{deal.purchase_url}}" target="_blank">Vist</a></td>
+					<td>
+						<input type="submit" id="approve-deal-{{deal.id}}" value="Approve" onclick="approve_deal('{{deal.id}}'); return false" />
+						<input type="submit" id="reject-deal-{{deal.id}}" value="Reject" onclick="reject_deal('{{deal.id}}'); return false" />
+					</td>
+				</tr>
+			{% endfor %}
+		{% endfor %}	
+	</table>
+{% endblock %}
+
+{% if a %}
+	{% for column in deals%}
+		<div style="width:50%;float:left">
+			{% for deal in column %}
+				<div class="deal-container" id="deal-{{deal.id}}">
+					<div class="image-container  deal1">
+						<div class="deal-image">
+							<a href="{{deal.purchase_url}}">
+								<img src="{{deal.image_url}}" width="100%" />
+							</a>
+						</div>
+						<div class="deal-info">
+							<span class="price-diff">
+								<div id="new-price">{{deal.currency}} {{deal.price}}</div>
+							</span>							
+							<div class="deal-info-text">{{deal.title}}</div><br/>
+							<input type="submit" id="approve-deal-{{deal.id}}" value="Approve" onclick="approve_deal('{{deal.id}}'); return false" />
+							<input type="submit" id="reject-deal-{{deal.id}}" value="Reject" onclick="reject_deal('{{deal.id}}'); return false" />
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	{% endfor %}
+		<div id="reload">
+			<a href="/spiffs/deals/new/{{page}}">Load More</a>
+			<a href="/spiffs/deals/new/{{nextpage}}">Next Page</a>
+		</div>
+{% endif %}
+

@@ -1,0 +1,120 @@
+{% extends "spiffcity.html" %}
+{% block title %}Home{% endblock %}
+
+{% block mainstyle %}style.css{% endblock %}
+
+{% block deals_menu_class %}active{% endblock %}
+{% block content %}
+	{% block deal_nav %}
+		<a href="#" class="arrow-button left"  id ='prev-page' onclick='prev_deal_page();return false;'></a>
+		<a href="#" class="arrow-button right" id ='next-page' onclick='next_deal_page();return false;'></a>
+	{% endblock %}
+	
+	<!-- Deals Listing starts -->
+					<div class="deals-container">
+						<div class="gn-logo-container">
+							<div class="gn-logo"></div>
+							<div class="gn-deal-city"><span>Atlanta</span></div>
+						</div>
+						<div class="deal-container">
+							<div class="image-container  deal1">
+								<div class="deal-image">
+									<img src="{{media}}/media/images/tikka.jpg" width="100%" />
+								</div>
+								<div class="deal-info">
+									<span class="price-diff">
+										<div id="old-price">$50</div>
+										<div id="new-price">$25</div>
+									</span>
+									<div class="deal-info-text">Title of Deal 1</div>
+								</div>
+							</div>
+						</div>
+						<div class="deal-container">
+							<div class="image-container  deal2">
+								<div class="deal-image">
+									<img src="{{media}}/media/images/tikka.jpg" width="100%" />
+								</div>
+								<div class="deal-info">
+									<span class="price-diff">
+										<div id="old-price">$50</div>
+										<div id="new-price">$25</div>
+									</span>
+										<div class="deal-info-text">Title of Deal 2</div>
+								</div>
+							</div>
+						</div>
+						<div class="deal-container">
+							<div class="image-container  deal3">
+								<div class="deal-image">
+									<img src="{{media}}/media/images/tikka.jpg" width="100%"/>
+								</div>
+								<div class="deal-info">
+									<span class="price-diff">
+										<div id="old-price">$50</div>
+										<div id="new-price">$25</div>
+									</span>
+										<div class="deal-info-text">Title of Deal 3</div>
+								</div>
+							</div>
+						</div>
+						<div class="deal-information-box di-box-1">
+							<span class="deal-arrow-container l-arrow"></span>
+								<ul>
+									<li>Text of first highlight sd asg asghsdag asg</li>
+									<li>Text of second highlight</li>
+
+								</ul>
+								
+								<span class="discount">Discounted Percentage: 10%</span>
+									
+									
+						</div>
+						<div class="deal-information-box di-box-2">
+							<span class="deal-arrow-container tl-arrow"></span>
+								<ul>
+									<li>Text of first highlight sd asg asghsdag asg</li>
+									<li>Text of second highlight</li>
+
+								</ul>
+								
+								<span class="discount">Discounted Percentage: 10%</span>
+						</div>
+						<div class="deal-information-box di-box-3">
+							<span class="deal-arrow-container t-arrow"></span>
+								<ul>
+									<li>Text of first highlight sd asg asghsdag asg</li>
+									<li>Text of second highlight</li>
+
+								</ul>
+								
+								<span class="discount">Discounted Percentage: 10%</span>
+						</div>
+						<div class="deal-container">
+							<div class="image-container deal4">
+								<div class="deal-image">
+									<img src="{{media}}/media/images/tikka.jpg" width="100%"/>
+								</div>
+								<div class="deal-info">
+									<span class="price-diff">
+										<div id="old-price">$50</div>
+										<div id="new-price">$25</div>
+									</span>
+									<div class="deal-info-text">Title of Deal 4</div>
+								</div>
+							</div>
+						</div>
+						<div class="deal-information-box di-box-4 last">
+							<span class="deal-arrow-container l-arrow"></span>
+								<ul>
+									<li>Text of first highlight sd asg asghsdag asg</li>
+									<li>Text of second highlight</li>
+
+								</ul>
+								
+								<span class="discount">Discounted Percentage: 10%</span>
+						</div>
+					</div>
+					
+					<!--Deals listing ends -->
+{% endblock %}

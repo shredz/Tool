@@ -1,0 +1,855 @@
+{% extends "spiffcity.html" %}
+{% block headstyles %}
+	
+	 <link href="http://cdndev.spiffcity.com/media/css/gmap/dealmap.css?v=08012011" rel="stylesheet" type="text/css" />
+	  <link href="http://cdndev.spiffcity.com/media/css/gmap/dhtmlwindow_css.css?v=08012011" rel="stylesheet" type="text/css" />
+	<!--[if IE]>
+    <link rel="stylesheet" href="http://www.thedealmap.com/css/ie.css?v=08012011" type="text/css" />
+	<![endif]-->
+	  <link href="http://cdndev.spiffcity.com/media/css/gmap/style.css?v=08012011" rel="stylesheet" type="text/css" />
+
+	<script type="text/javascript">
+		var CurrentDate = "11/11/2011 11:25:14 PM";
+		var __appversion = "08012011";
+		var __tileversion = "45";
+		var iVisit = 0;
+		var iFeaturedDealCurrentPage = -1;
+		var iQuickListCurrentPage;
+		var sDealId = '';
+		/* Start QueryString Parameters */
+		var sLocation = '';
+		var dlat = '';
+		var dlon = '';
+		dlat = dlat != 0 ? dlat : "";
+		dlon = dlon != 0 ? dlon : "";
+		var sCategory = '';
+		var sStyle = '';
+		var sKeyword = '';
+		var iFeaturedDealCurrentPage = '';
+		var iQuickListCurrentPage = '';
+		/* End QueryString Parameters */
+		var sFeaturedDealDefaultLocation = ""; // Store in web.config
+		var IsConnected = false;
+		var UserID = "";
+		var uEmailAddress = "";
+		var uFirstName = "";
+		var uLastName = "";
+		var uCity = "";
+		var uState = "";
+		var uCountry = "";
+		var uLatitude = "";
+		var uLongitude = "";
+		var uPhotoUrl = "";
+		var mapControl = null;
+		var rootDomain = "http://www.thedealmap.com/";
+		function RediredctToAddDeal() {
+		    window.location.href = "../submit";
+		}
+
+(function() {
+$.get("http://localhost:8000/polls/ajax/", function(data) {
+        alert(data);
+    });
+});
+	</script>
+
+	<script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/Header.js?v=08012011"></script>
+	
+
+	<script src="http://www.google.com/jsapi?key=ABQIAAAAENAXNT0oq12QchWqjpHfxBQUck7JsdZaGfWkK-bFlF2ccQ2ePBQBq1DNQAu4oRtP5oDwa25VHd53Ng&sensor=false" type="text/javascript"></script>
+    <script>
+	    google.load("maps", "2");
+        google.setOnLoadCallback(mapsAPILoaded);
+    </script>
+    <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/jquery-jtemplates.js?v=08012011"></script> 
+ <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/jquery.cookie.js?v=08012011"></script> 
+ <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/Footer.js?v=08012011"></script> 
+  <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/DealMaster.js?v=08012011"></script> 
+  <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/animatedcollapse.js?v=08012011"></script> 
+   <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/popupmenu.js?v=08012011"></script>
+<script type="text/javascript" src="http://www.thedealmap.com/JavaScript/JScript.js?v=08012011"></script>
+<script type="text/javascript" src="http://www.thedealmap.com/JavaScript/dhtmlwindow.js?v=08012011"></script>
+<script type="text/javascript" src="http://www.thedealmap.com/JavaScript/modal.js?v=08012011"></script>
+<script type="text/javascript" src="http://www.thedealmap.com/JavaScript/query.countdown.js?v=08012011"></script>
+<script type="text/javascript" src="http://www.thedealmap.com/JavaScript/popup.js?v=08012011"></script>>
+
+	 <style type="text/css">
+        #mask
+        {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 9000;
+            background-color: #000;
+            display: none;
+        }
+        #boxes .window
+        {
+            /*position:absolute;*/
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 440px;
+            height: 200px;
+            display: none;
+            z-index: 9999;
+            padding: 20px;
+        }
+        #boxes #dialog
+        {
+            width: 375px;
+            height: 203px;
+            padding: 10px;
+            background-color: #ffffff;
+        }
+        #boxes #dialog1
+        {
+            width: 375px;
+            height: 203px;
+        }
+        #dialog1 .d-header
+        {
+            background: url(images/login-header.png) no-repeat 0 0 transparent;
+            width: 375px;
+            height: 150px;
+        }
+        #dialog1 .d-header input
+        {
+            position: relative;
+            top: 60px;
+            left: 100px;
+            border: 3px solid #cccccc;
+            height: 22px;
+            width: 200px;
+            font-size: 15px;
+            padding: 5px;
+            margin-top: 4px;
+        }
+        #dialog1 .d-blank
+        {
+            float: left;
+            background: url(images/login-blank.png) no-repeat 0 0 transparent;
+            width: 267px;
+            height: 53px;
+        }
+        #dialog1 .d-login
+        {
+            float: left;
+            width: 108px;
+            height: 53px;
+        }
+        #boxes #dialog2
+        {
+            background: url(images/notice.png) no-repeat 0 0 transparent;
+            width: 326px;
+            height: 229px;
+            padding: 50px 0 20px 25px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <script type="text/javascript">
+        //randomize the background image
+        var numOfBackgrounds = 3;
+        var cn = "bg" + Math.ceil(Math.random()*numOfBackgrounds)
+        
+        $("body").addClass(cn);
+    </script>
+	<form name="aspnetForm" method="post" action="Default.aspx" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTE2NjM5Mzg0OTVkZC2sy5dZrEXlNQGRzvDz0nKWuJ/u" />
+</div>
+
+	<!--main Div starts -->
+	<div class='header' id="header">
+        <div class='clearfix'>
+            <div class="header-top clearfix">
+            <div class='logo-container float'>
+                <a class='logo-medium' href = "http://www.thedealmap.com/"></a>
+            </div>
+            
+            <div class="header-links white-border-bubble float">
+                <div class="bl corner">                    
+                </div>
+                <div class="br corner"></div>
+                <div class="inner">
+                    <!-- Checks if current page is homepage -->
+                    
+                        <span class="selected">Find a Deal</span>
+                     
+                                        
+                    <span class="divider">|</span>
+                     <!-- Checks if current page is Add Deal page -->
+                    
+                        <a href="http://www.thedealmap.com/submit">Add a Deal</a>
+                    
+                    <span class="divider">|</span>
+                    <!-- Checks if current page is Mobile page -->
+                    
+                        <a href="http://www.thedealmap.com/mobile">Get Mobile Apps</a>
+                                                           
+                </div>
+            </div>                        
+            </div>
+             
+            <div class="section-three clearfix">
+                <div class="signup-top-link clearfix" onclick = "ToggleHeaderSignup()">
+                    <div class="float">Get <span class="city-display"></span> deal alerts </div>
+                    <div class="float signup-arrow arrow-close"></div>
+                </div>
+            </div>
+            
+            <div id = "HeaderEmailSignup" class="header-email-signup clearfix white-border-bubble" >
+                <div class="tl corner"></div>
+                <div class="tr corner"></div>
+                <div class="bl corner"></div>
+                <div class="br corner"></div>
+               <div class="inner clearfix">
+                    <input type=hidden id = "HeaderSignupLocation" value = "" />
+                    <div class='left-head-section float'>
+                        <div class="location-message header-signup-text float" id = 'headerLocationMessage'>
+                            
+                                Get the Daily Deals Email:
+                            
+                        </div>
+                        
+                        <input type="text" class="email-input float" />
+                            
+                        <a class="signup-button float" onclick="HeaderSignupEmail()"></a>
+                    </div>
+                    <div class="header-follow-container float-right">
+                    <div class="header-signup-text float">
+                        Follow us to get deals too:
+                    </div>
+                    
+                    <a class="social-icon rss" rel='alternate' type='application/rss+xml' href="http://blog.thedealmap.com/feeds/posts/default" target="_blank"></a>                    
+                    <a class="social-icon twitter" href = "http://twitter.com/thedealmap" target=_blank></a>
+                </div>
+                </div>
+                <a class="close-x" onclick = 'HideHeaderSignup(true)'></a>
+            </div>
+            
+        </div>
+        
+                
+        
+            <div id="announcement_banner">
+                
+                <a href="http://blog.thedealmap.com/" class="main_link" target="_blank">
+                    <p>We're excited to announce The Dealmap has been acquired by Google. <span class="pseudo_link">Read more.</span></p>
+                </a>
+                <a href="#" id="hide_announcement"></a>
+            </div>
+            
+
+    </div>
+    
+    
+	<!--- top banner close -->
+	    
+    <link rel="stylesheet" href="http://www.thedealmap.com/css/homepage/style.css?v=08012011" type="text/css" />
+    <link rel="stylesheet" href="http://www.thedealmap.com/css/centerd.css?v=08012011" type="text/css" />
+	<script type="text/javascript">
+        var tilelayer = null;
+        var MIN_ZOOM_LEVEL = 10;
+        var DEFAULT_ZOOM_LEVEL = 13;
+        var PAGE_SIZE = 50;
+		animatedcollapse.addDiv('cat', 'fade=0,speed=100,group=pets,show=1')
+		animatedcollapse.addDiv('stl', 'fade=0,speed=100,group=styler,show=1')
+		animatedcollapse.ontoggle = function($, divobj, state) { //fires each time a DIV is expanded/contracted
+			//$: Access to jQuery
+			//divobj: DOM reference to DIV being expanded/ collapsed. Use "divobj.id" to get its ID
+			//state: "block" or "none", depending on state
+		}
+		animatedcollapse.init()
+	</script>
+	
+	<script src="http://www.thedealmap.com/JavaScript/retweet.js" type="text/javascript"></script>
+	<script type="text/javascript" src="http://www.thedealmap.com/javascript/jcarousel.js"></script> 
+	
+	
+	<div class='white-border-bubble clearfix map-section clearfix map-wrapper-section'><div class='tl corner'></div><div class='tr corner'></div><div class='bl corner'></div><div class='br corner'></div><div class='main'><div class='inner clearfix'><div id="ctl00_MainContent_Bubble2">
+	
+	       <div class="sample-overlay-container">
+	            <div class="SampleEmail">
+	                
+                    <div class='white-bubble clearfix sample-email-bubble clearfix'><div class='tl corner'></div><div class='tr corner'></div><div class='bl corner'></div><div class='br corner'></div><div class='main'><div class='inner clearfix'><div id="ctl00_MainContent_sampleBubble">
+	
+                        <div class="close-x" onclick = "hideSampleEmail()"></div>
+                        <div class="sample-message">Sample Email</div>
+                        <div class="sample"></div> 
+                    </div>
+                    
+</div></div></div></div>
+                </div>
+        
+                <div class="grey-transitional"></div>
+	       </div>
+	       
+	       <div class = 'top-deals-carousel clearfix'>
+	            <div class="top-deal-message float">
+	                Today's top deals in <br />
+	                <span id = 'TopCityDisplay'>San Francisco</span>
+	                <a class='get-deal-alert' href = "http://www.thedealmap.com/signup/emails/?city=san-francisco-ca" target="_blank">Get Deal Alerts</a>
+	            </div>
+	            <div class="carousel-container float" id = 'top-deals-carousel'>
+	                <div class="carousel deal-carousel">
+	                    <ul class="carousel-inner clearfix" id = 'dealcarousel'></ul>
+	                </div>
+	            </div>
+	       </div>
+	       
+	       <div id="StaticMapContainer" style="display: none;">
+			    <div id="StaticMap" class="gray_map">				
+				    <div class="overlay">
+					    <div class="overlaybox1L">
+						    <div class="overlaybox1TL">
+							    <div class="overlaybox1TR">
+								    <div class="overlaybox1TM">
+								    </div>
+							    </div>
+						    </div>
+						    <div class="overlaybox1M">
+							    <div class="overlaybox1Content">
+								    <div class="email-message">
+								        Tell us your location <br />
+								        to see awesome deals in your city:
+								    </div>
+								    <div class="div_input clearfix">
+									    <input class="input float signup-input" id="txtLocation1" value="Enter City,State or Zip" size="20" type="text" name="textfield" value="Texsssss">
+									    <div class="input_button float">
+										    <a href="#" id="lnkLocation1">
+											    <img border="0" src="images/button_go.jpg"></a></div>
+								    </div>
+							    </div>
+						    </div>
+						    <div class="overlaybox1BL">
+							    <div class="overlaybox1BR">
+								    <div class="overlaybox1BM">
+								    </div>
+							    </div>
+						    </div>
+					    </div>
+				    </div>
+			    </div>
+		    </div>
+
+    		
+		    
+		
+		    <div id="DynamicContentContainer" class="clearfix DynamicContentContainer" style="display: none;">	
+		        <div class="email-overlay"  id = 'emailCapture' style="display:none;">
+                    <a class="close-x" onclick = '$("#emailCapture").hide()'>close</a>
+                    <div class="inner clearfix signup-container">
+                        <div class="gushing">
+                            Find out what the New York Times, Oprah, and CNN have been talking about
+                        </div>
+                        <div class="email-message">
+			            Sign up to today to get the daily deals email:
+			            </div>
+        			    
+			            <div class="best-deals">
+			                We aggregate the most local deals and send you the best ones each day.
+    			            
+			            </div>
+			            <div class="email-field clearfix">
+			                <input class="input float signup-input" id="emailCaptureText" value="Enter your email address" size="20" type="text" name="textfield">
+    			            
+			                <div class="float city-select-container">
+			                    <div class='fake-select-wrapper clearfix'>
+			                        <a class="select-arrow"></a>
+			                        <div class="fake-select clearfix round-corners">
+			                            <div class='selected-item'></div>
+			                            <div class="all-options">
+			                            <div optvalue = 'atlanta,ga' class='fake-option'>atlanta</div><div optvalue = 'austin,tx' class='fake-option'>austin</div><div optvalue = 'baltimore,md' class='fake-option'>baltimore</div><div optvalue = 'boston,ma' class='fake-option'>boston</div><div optvalue = 'charleston,sc' class='fake-option'>charleston</div><div optvalue = 'charlotte,nc' class='fake-option'>charlotte</div><div optvalue = 'chicago,il' class='fake-option'>chicago</div><div optvalue = 'cleveland,oh' class='fake-option'>cleveland</div><div optvalue = 'columbus,oh' class='fake-option'>columbus</div><div optvalue = 'dallas,tx' class='fake-option'>dallas</div><div optvalue = 'denver,co' class='fake-option'>denver</div><div optvalue = 'fort lauderdale,fl' class='fake-option'>fort lauderdale</div><div optvalue = 'fort worth,tx' class='fake-option'>fort worth</div><div optvalue = 'houston,tx' class='fake-option'>houston</div><div optvalue = 'indianapolis,in' class='fake-option'>indianapolis</div><div optvalue = 'kansas city,mo' class='fake-option'>kansas city</div><div optvalue = 'las vegas,nv' class='fake-option'>las vegas</div><div optvalue = 'los angeles,ca' class='fake-option'>los angeles</div><div optvalue = 'memphis,tn' class='fake-option'>memphis</div><div optvalue = 'miami,fl' class='fake-option'>miami</div><div optvalue = 'minneapolis,mn' class='fake-option'>minneapolis</div><div optvalue = 'nashville,tn' class='fake-option'>nashville</div><div optvalue = 'new orleans,la' class='fake-option'>new orleans</div><div optvalue = 'new york,ny' class='fake-option'>new york</div><div optvalue = 'orlando,fl' class='fake-option'>orlando</div><div optvalue = 'philadelphia,pa' class='fake-option'>philadelphia</div><div optvalue = 'phoenix,az' class='fake-option'>phoenix</div><div optvalue = 'pittsburgh,pa' class='fake-option'>pittsburgh</div><div optvalue = 'portland,or' class='fake-option'>portland</div><div optvalue = 'richmond,va' class='fake-option'>richmond</div><div optvalue = 'sacramento,ca' class='fake-option'>sacramento</div><div optvalue = 'san antonio,tx' class='fake-option'>san antonio</div><div optvalue = 'san diego,ca' class='fake-option'>san diego</div><div optvalue = 'san francisco,ca' class='fake-option'>san francisco</div><div optvalue = 'san jose,ca' class='fake-option'>san jose</div><div optvalue = 'seattle,wa' class='fake-option'>seattle</div><div optvalue = 'st louis,mo' class='fake-option'>st louis</div><div optvalue = 'tampa,fl' class='fake-option'>tampa</div><div optvalue = 'ventura,ca' class='fake-option'>ventura</div><div optvalue = 'washington,dc' class='fake-option'>washington</div>
+			                        </div>
+			                        </div>
+			                    </div>
+					        </div>
+					        <div class="float">
+					            <a id="EmailSignupButton" class="signup-button"></a>
+    			                <a class="example-link" onclick = "viewSampleEmail()">View Sample Email</a>
+					        </div>
+    					    
+			            </div>
+                    </div>
+                </div>
+                
+                <div class="grey-transitional"></div>
+                <div class="map-filter-container float">
+                    
+                    <div class="filter-inner">
+                        <div class="top-filter-section">
+                            <div class="filter-heading">I'm looking for</div>
+                            
+                            
+                                <input id="txtKeyword" class="input main_map_input inactive" title="enter keyword (e.g., pizza)" value="enter keyword (e.g., pizza)" type="text" name="textfield">
+                            
+	                        <div class="clearfix">
+                                <div class="search-in float">in</div>
+                                
+                                    <input class="main_map_input inactive" title="city , state / zip" value="city , state / zip" type="text" id="txtLocation2">
+                            
+	                            <a id="lnkKeyword" href="#" class="menu-button float"></a>
+	                        </div>
+	                        
+                            <div class="filter-heading browse-heading">Or browse</div>
+                                <div class="filter-heading browse-heading"><input type="radio" name="deals" value="1" onclick="ajaxcall(this.value);"> Local Deal</div>
+                                    <div class="filter-heading browse-heading"><input type="radio" name="deals" value="2"  onclick="ajaxcall(this.value);"> Internet Deal</div>
+                        </div>
+                        <div class="clearfix deal-choices">
+                            <div class="deal-choice float selected" menu="popmenu1">
+                                <div class="tl"></div>
+                                <div class="tr"></div>
+                                Category
+                            </div>
+                            <div class="deal-choice float" menu="popmenu2">
+                                <div class="tl"></div>
+                                <div class="tr"></div>
+                                Type
+                            </div>
+                        </div>
+                        
+                        <div id="deal_id">
+                        
+                            <!-- Category menu -->
+                            <div id="popmenu1" class="menu_inner selected-menu menu_inner_main">
+                                <ul>
+                                {% for catg in catgs%}
+			                     <li class="MenuItemStyle menu_item clearfix" crumbText = 'All Categories'>
+                                        <input type="radio"  name='filters'
+                                            onclick="MainMenuClick(this,'Category', 'All');"
+                                            id="chkAll" name="chkAll" value="*" checked="checked" />
+                                            <label for="chkAll" class="float item-text all-20">{{catg.title}}</label>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                                <div class="go-container"><a href="#" id="lnkCategoryGo" class="menu-button">
+				                        <img border="0" src="images/button_go.jpg" ></a></div>
+                            </div>
+                            
+                            <!-- Style menu -->
+                            <div id="popmenu2" class="menu_inner">
+            <ul>
+                <li class="MenuItemStyle menu_item clearfix" crumbText = 'Daily deals'>
+                    <input type="radio"  name='filters' onclick="MainMenuClick(this,'Style');" value="Daily-Deals" id="chkDaily" />
+                    <label for="chkDaily" class="float item-text deal-of-day">Daily deals</label>
+                </li>
+                <li class="MenuItemStyle menu_item clearfix" crumbText = 'Printable deals'>
+                    <input type="radio"  name='filters' onclick="MainMenuClick(this,'Style');" value="Printable-Deals" id="chkPrint" />
+                    <label for="chkPrint" class="float item-text printable-deals-20">Printable deals</label>
+                </li>
+                <li class="MenuItemStyle menu_item clearfix" crumbText = 'Expires Soon'>
+                    <input type="radio"  name='filters' onclick="MainMenuClick(this,'Style');" value="Expires-Soon" id="chkExpires" />
+                    <label for="chkExpires" class="float item-text expires-soon-20">Expires Soon</label>
+                </li>
+                    
+                   <li class="MenuItemStyle menu_item clearfix" crumbText = 'Over 50% off'>
+                    <input type="radio"  name='filters' onclick="MainMenuClick(this,'Style');" value="Over-50%-Off" id="Checkbox1" />
+                    <label for="Checkbox1" class="float item-text over-50-off">Over 50% off</label>
+                </li>
+                   
+               <li class="MenuItemStyle menu_item clearfix" crumbText = 'Dealmap Favorites'>
+                    <input type="radio"  name='filters' onclick="MainMenuClick(this,'Style');" value="Dealmap-Favorites" id="Checkbox2" />
+                    <label for="Checkbox2" class="float item-text dealmap-source-20">Dealmap Favorites</label>
+               </li>
+            </ul>
+            
+            <div class="go-container"><a href="#" id="lnkStyleGo" class="menu-button">
+				    <img border="0" src="images/button_go.jpg" ></a></div>
+        </div>
+                            <div id="KeywordContainer" style="display: none;" class="menu_inner search-box">
+				                        <div>
+					                        <div class="search-message">
+					                            Enter Keyword to see deals:
+					                        </div>
+					                        
+				                        </div>
+	                            </div>
+                        </div>
+                    </div>
+                </div>
+			    <div id = 'NoDealsPopup' class="NoDealsPopup" style="display:none;">
+			        <div class="close-container">
+			            <a class="close-x" onclick='$("#NoDealsPopup").hide()'></a>
+			        </div>
+			        <div class="no-deals-inner">
+			            We have not found any deals for your location.
+			        </div>
+			    </div>
+    			
+    			<div class="">
+    			    <div class="">
+		               
+                		
+        		        <div class="" id="ChangeLocation">
+		                    <div class="selected white-bubble toggle-action float" id="lnkMapView">
+		                        <div class="tr corner"></div>
+		                        <div class="tl corner"></div>
+		                        <div class="main">
+		                            map view
+		                        </div>
+		                    </div>
+        		            
+			                <div class="float toggle-action" id="lnkListView">
+			                    <div class="tr corner"></div>
+		                        <div class="tl corner"></div>
+		                        <div class="main">
+		                            list view
+		                        </div>
+			                </div >
+		                </div>
+        		        
+        		        <div class="float-right">
+    		                <div class="float deals-showing" id = 'map-showing-container'></div>
+    		                <div class="float clearfix" id ='list-showing-container'>
+		                    <div id ='list-showing-message' class="float deals-showing" style="display:none;"></div>
+            		        
+		                    <div class="paging-options float clearfix">
+		                        <div class="float">
+		                            Show: 
+		                            <select id = 'dealsPerPage'>
+		                                <option value ="20">20 deals per page</option>
+		                                <option value ="50" selected="selected">50 deals per page</option>
+		                                <option value ="75">75 deals per page/option>
+		                            </select>
+		                        </div>
+		                        <div id = 'pagin-links' class="float" style="display:none;">
+            		                
+		                        </div>
+		                    </div>
+		                </div>
+		                    <div class="float map-paging" id='map-paging'></div>
+            		    </div>
+		                <div class="float deals-showing" id ='HeatMapMessage' style="display:none">The best local deals, coupons and discounts, on a map</div>
+            		    
+        		        
+            		    
+		            </div>
+		          
+		           <div class="dynamic-map-section" id = 'dynamic-map-section'>
+			            <div id="DynamicMapContainer" class="DynamicMapContainer">			    
+                            <div class='float map-wrapper'>
+                                <div id="DynamicMap" class="dynamic_map">
+			                            </div>
+			                            <div id="RefreshDealsContainer" style="display: none;">
+				                            <a id="lnkRefreshDeals" href="#">
+					                            <img border="0" src="images/refresh_deals.png"></a>
+			                            </div>
+                            </div>			    
+			            </div>
+			            <div id ='map-bottom-trans' class='trans-back map-bottom-abs'></div>
+			            <div id = 'heat-map-info' class="heat-map-info map-bottom-abs">
+			                <div class="heat-top">Zoom in on the map or use the location search box to see great deals in your city.</div>
+			                <div class="clearfix heat-bottom">
+			                    <div class="float">A handful of deals</div>
+			                    <div class="float heat-check"></div>
+			                    <div class="float">Holy tons of deals</div>
+			                </div>
+			            </div>
+			            <div class="map-deal map-bottom-abs" id ='map-deal-container' style="display:none"></div>
+			            
+			            <div class="email-cta">
+			            
+			            </div>			            
+			        </div>
+        			
+			        <div class="list-view-section float" id ='list-view-section' style="display:none;width:760px;">
+			            <div class="main clearfix">			                
+			               <div id='list-inner' class='list-inner'> deal data   			           
+			                </div>    			        
+			            <div class="map-links clearfix">
+			                <div class="float-right deals-showing map-paging" id = 'list-showing-links'></div>
+			            </div>
+			        </div>
+    			</div>
+			   
+		    </div>
+		
+</div></div></div></div>
+		<div class='white-bubble clearfix map-section clearfix'><div class='tl corner'></div><div class='tr corner'></div><div class='bl corner'></div><div class='br corner'></div>
+		
+		
+		
+		
+		</div>
+			
+ <div id="ScriptShareThis"  style="display: none;"><script type="text/javascript" src="http://w.sharethis.com/button/sharethis.js#publisher=4786d03c-c354-411b-8f06-b379aeff49ae&amp;type=website&amp;embeds=true"></script></div>
+	
+			
+			
+
+		<div class="map_overlay" id="ChangeLocationContainer" style="display: none;">
+			<div class="map_div_wrap">
+				<div class="map_overlay_top">
+					<div class="map_overlay_left_corn">
+						<img src="images/map_overlay_left_corn.png"></div>
+					<div class="map_overlay_mid_bg">
+						<div>
+							<img src="images/spacer.gif" height="3"></div>
+						<div class="map_wh_text" align="center">
+							<strong>Change Location</strong></div>
+					</div>
+					<div class="map_overlay_right_corn">
+						<img src="images/map_overlay_right_corner.png"></div>
+				</div>
+			</div>
+			<div class="map_overlay_bot_wrap">
+				<div class="map_overlay_left2_corner">
+					<img src="images/map_overlay_left2_corner.png"></div>
+				<div class="map_top">
+					<img alt="" src="images/spacer.gif" height="7"></div>
+				<div class="map_mid_div">
+					<table border="0" cellspacing="0" cellpadding="0" width="100%">
+						<tbody>
+						    <tr>
+						        <td></td>
+						        <td>
+						            <a class="change-close-link" onclick='$("#ChangeLocationContainer").hide();'></a>
+						        </td>
+						    </tr>
+							<tr>
+								<td align="center" style="padding-left:20px;">
+									
+								</td>
+								<td>
+									<a href="#" id="lnkLocation2">
+										<img border="0" src="images/btn_go.jpg">
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="bot_div_wrap">
+					<div class="map_overlay_left_bot">
+						<img src="images/map_overlay_left_bot.png"></div>
+					<div class="map_overlay_mid_bot">
+						<img alt="" src="images/spacer.gif" height="7"></div>
+					<div class="map_overlay_right_bot">
+						<img src="images/map_overlay_right_bot.png"></div>
+				</div>
+			</div>
+		</div>
+		<div id="DealOverlayContainer" style="display: none;">
+		</div>
+       
+
+		<script src="http://www.thedealmap.com/JavaScript/MapView.js?v=08012011" type="text/javascript"></script>
+		<script src="http://www.thedealmap.com/JavaScript/carousel.js?v=08012011" type="text/javascript"></script>
+		<div id="EMailPopUp" style="display:none; z-index:5000;text-align:center;" onclick="return false;">
+        <table style="padding-left:25px;padding-right:25px;height: 250px;">
+			<tr>
+				<td colspan="2">
+					<br />
+				</td>
+			</tr>
+            <tr>
+                <td valign="top">
+                    <strong>From</strong>&nbsp;&nbsp;&nbsp;
+                    <br />
+                    <input id="txtFrom" type="text" name="txtFrom" style="width: 190px" />
+                </td>
+                <td>
+                    <strong>To</strong>&nbsp;&nbsp;&nbsp;
+                    <br />
+                    <input id="txtTo" type="text" name="txtTo" style="width: 190px" />
+                    
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <strong>Subject</strong>&nbsp;&nbsp;&nbsp;
+                    <br />
+                    <input id="txtSubject" type="text" name="txtSubject" style="width: 388px" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                   <strong>Body</strong>&nbsp;&nbsp;&nbsp;
+                    <br />
+                    <textarea id="txtBody" name="txtBody" rows="5" cols="47">
+                        </textarea>
+                </td>
+            </tr>
+            <tr>
+				<td colspan="2">
+					<br />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="button" id="btnSubmit" value="Submit" onclick="SendMail();return false;" />
+					<input type="button" id="btnCancel" value="Cancel" onclick="CloseEMailPopUp();" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<div id="MailLoading" style="display: none;">
+						<img src="images/bkp_loading.gif" height="28">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<div id="lblMsgEMail" style="color: Red;">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<br />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<br />
+				</td>
+			</tr>
+        </table>
+       </div> 
+		
+		<script type="text/javascript" src="http://www.thedealmap.com/javascript/jquery.autocomplete.js"></script>
+		<script type="text/javascript">
+		    function setUpAutocomplete()
+		    {
+		         var data = "Core Selectors Attributes Traversing Manipulation CSS Events Effects Ajax Utilities".split(" ");
+		         var url = "ajax/ajaxHelpers.aspx"
+		         var options = 
+		            {
+		                width:157, 
+		                extraParams:{a:"searchcity"},
+		                onItemSelected:itemSelect,
+		                cacheLength:0,
+		                parse:parseJson
+		            };
+                $("#txtLocation2").autocomplete(url, options);
+		    }
+		    
+		    function parseJson(data)
+            {
+                var parsed = [];
+                var results = eval(data);
+                for(var i = 0;i<results.length;i++)
+                {   
+                    var parts = results[i].split(",");
+                    var row = results[i];
+                    var arr = new Array();
+                    arr.push(row);
+                    
+                    parsed[parsed.length] = {
+			            data: arr,
+			            value: row,
+			            result: row
+		            };
+                }
+                
+                return parsed;
+            }
+		    
+		    function itemSelect(li)
+		    {
+		        $("#txtLocation2").val(li.result);
+                if(window.currentSearchLocation == $("#txtLocation2").val())
+                    return; 
+                    
+                $("#lnkKeyword").click();
+                UpdateHeaderEmailSignupLocation($("#txtLocation2").val())
+                window.currentSearchLocation = $("#txtLocation2").val();
+		    }
+		    setUpAutocomplete();
+		</script>
+
+		
+		
+		
+		
+			    
+	<!--main Div close -->
+	<div id="registerProfileDiv" style="display: none;z-index: 5000; text-align: center;" onclick="return false;">
+		<table style="padding-left:25px;padding-right:25px;">
+			<tr>
+				<td colspan="2">
+					<br />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<strong>Enter Your Email</strong>&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
+					<input id="txtEMail" type="text" name="txtEMail" style="width: 200px" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<br />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<div id="lblMsgRegister" style="color: Red;">
+					</div>
+				</td>
+			</tr>
+				<tr>
+				<td colspan="2">
+					<br />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="button" id="btnSubmit" value="Submit" onclick="RegisterUser();return false;" />&nbsp;&nbsp;&nbsp;
+					<input type="button" id="btnCancel" value="Cancel" onclick="CloseRegistrationForm();" />
+				</td>
+				
+			</tr>
+			<tr>
+				<td  colspan="2" align="center">
+					<div id="RegisterLoading" style="display: none;">
+						<img src="../images/bkp_loading.gif" height="28">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<br />
+				</td>
+			</tr>
+		</table>
+	</div>
+	</form>  
+    
+
+        <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+        try {
+        var pageTracker = _gat._getTracker("UA-1109899-8");
+        pageTracker._trackPageview();
+        } catch(err) {}</script>
+    
+		<script>
+		function ajaxcall(val)
+		{
+		$.get("http://dev.spiffcity.com/spiffs/deals/sdeal/"+val+"/", function(data) {
+			//deal_id
+		        $('#deal_id').html(data);
+		   // alert('Load was performed.');
+		    });
+		}
+		</script>  
+{% endblock %}

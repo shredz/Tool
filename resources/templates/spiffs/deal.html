@@ -1,0 +1,89 @@
+{% extends "spiffcity.html" %}
+
+{% block title %} Deal | {{deal.title}} {% endblock %}
+
+{% block headscripts %}
+<script src="http://connect.facebook.net/en_US/all.js#appId=220934191291689&amp;xfbml=1"></script>
+<script type="text/javascript">
+	window.onload = function() {
+	  FB.init({appId: '{{appId}}', xfbml: true, cookie: true, redirect_uri: 'http://dev.spiffcity.com/members/invite/'});
+	}
+	
+	function fbsharefeed (){
+		FB.ui({
+				  method: 'feed',
+				  name: '{{deal.title}}',
+				link: '{{deal.link}}',
+				picture: '{{deal.image_url}}',
+				description: '{{deal.description}}',
+        });
+	}
+</script>
+{% endblock %}
+
+{% block content %}
+	<!-- Deal's Info Html -->
+		<div class="deal-detail-main">
+			<div class="sub-deal-detail">
+				<div id="top-div">
+					<h1>{{deal.title}}</h1>
+					<h3>{{deal.description}}</h2>
+				</div>
+				<div id="left-side">
+					<div id="deal-image-container">
+						<a href="{{deal.purchase_url}}" target="_blank">
+							<img src="{{deal.image_url}}" height="300px"/>
+						</a>
+					</div >
+					
+					<!--
+						<div id="deal-map">
+					
+						</div>
+					-->
+				</div>
+				
+				<div id="right-side">
+					<!--<div>
+						<h4>Time Left</h4>
+						<span class="time-view">
+							<p>{{deal.left.days}} DAYS , {{deal.left.hours}} HOURS, {{deal.left.mins}} Mins</p>
+						</span>
+					</div>-->
+					<div>
+						<h4>Price</h4>
+						<span>
+							<p>{{deal.currency}} {{deal.price}}</p>
+						</span>
+						
+						<center>
+							<a href="{{deal.purchase_url}}" target="_blank">BUY NOW</a>
+						</center>
+						
+					</div>
+					{% if user %}
+					<div>
+						<h4>Share</h4>
+						<p>
+							<!--
+							<a href="/social/share/deal/{{deal.id}}/" id="sharedeal" onclick="fbsharefeed();return false;">Share On Facebook</a><br/>-->
+							<a href="/members/like/{{deal.id}}/" id="likedeal" onclick="return likedeal();">Add to my deals</a>
+						</p>
+						
+						<div id="iframe_share" style="display:none;">
+							
+						</div>
+					</div>
+					{% endif %}
+				</div>
+				<div id="fb-root"></div>
+				<fb:like href="" send="true" width="450" show_faces="true" action="like" font=""></fb:like>
+				<fb:comments href="{{deal.link}}" num_posts="10" width="600">
+				</fb:comments>
+			</div>
+				
+			
+				
+			</div>						
+	<!-- Deal's Info Html Ends -->
+{% endblock %}

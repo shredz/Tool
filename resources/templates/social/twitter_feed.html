@@ -1,0 +1,27 @@
+<div class="tweet-list">
+{% for news in feed %}
+	<div class="tweet">
+		<div class="user-image">
+			<img src="{{news.user.profile_image_url}}">
+		</div>
+		<div class="tweet-content">
+			<div class="tweet-row">
+				<span class="username">
+					<a class="screen_name">{{news.user.screen_name}}</a>
+					<span class="full_name">{{news.user.name}}</span>
+				</span>
+			</div>
+			<div class="tweet-row">
+				<div class="tweet-text">
+					{{news.text}}
+				</div>
+			</div>
+			<div class="tweet-row">
+				<div class="tweet-timestamp">
+					{{news.created_at}}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endfor %}
+</div>

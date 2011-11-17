@@ -1,0 +1,557 @@
+/*@import url("base.css");*/
+
+body{
+	margin:0;
+	padding:0;
+	font-family:verdana; font-size:13px;
+}
+a{text-decoration:none;} 
+.wrapper{
+	margin:0 auto;
+	width:1245px;
+	min-height:200px;
+	
+	
+}
+.container{
+	float:left;
+	width:100%;
+	min-height:200px;
+	background:#343434;
+}
+.header{
+	float:left;
+	background:#191919;
+	width:100%;
+	height:80px;
+}
+.content-area{
+
+}
+.left-tool-bar{
+
+	float:left;
+	height:606px;
+	background:#343434;
+	border-right:3px solid #2f2f2f;
+}
+
+* html body .container{
+	height:200px;
+	
+}
+* html body .wrapper{
+	height:200px;
+}
+
+.footer{
+	float:left;
+	width:95%;
+	height:50px;
+	background:#333333;;
+}
+
+
+.block{margin-left:5px; margin-bottom:5px; text-align:center; }
+.graph{float:left; width:450px; height:150px; background:#dddddd;}
+.deals{float:left; width:450px; height:150px; background:#dddddd;}
+.friends{float:left; width:285px; height:150px; background:#dddddd;}
+.events{float:left; width:300px; height:240px; background:#dddddd;}
+.spiffs{float:left; width:418px; height:150px; background:#dddddd;}
+.rewards{float:left; width:465px; height:150px; background:#dddddd;}
+.invite{float:left; width:300px; position:relative; top:-105px; height:100px; background:#dddddd; display:none;}
+.companies{float:left; width:890px; height:190px; background:#dddddd;}
+
+/*DEAL WINDOW CSS*/
+
+.deal-window{
+	float:left;
+	background:#ffffff;
+	border:1px solid #dddddd;
+	padding:5px;
+	margin-right:5px;
+	margin-bottom:5px;
+}
+.image-container{
+	float:left;
+	width:340px;
+	background:#dddddd;
+}
+.deal-info{
+	float:left;
+	width:97.5%;
+	min-height:20px;
+	padding:4px;
+	background:url(/media/images/deal-info-bg.png) repeat-x left top;
+}
+.deal-time{
+	float:left;
+	width:100%;
+	background:url(/media/images/deal-time-bg.png) repeat-x left top;
+}
+.deal-time .time-left{
+	float:left;
+	color:#ffffff;
+	font-weight:bold;
+	padding:5px 5px;
+	
+}
+.deal-time .time-view{
+    float:right;
+	padding:5px 5px;
+	color:#ffffff;
+}
+.deal-time .time-view div{
+	float:left;
+	margin-right:5px;
+}
+.mini{
+	float:left;
+	font-size:10px;
+	padding-top:2px;
+}
+
+.price-diff{
+	relative:absolute;
+	left:0;
+	top:0;
+	float:left;
+	background:#78db0f;
+	color:#ffffff;
+	font-weight:bold;
+	padding:5px;
+	margin-right:5px;
+}
+.price-diff div {
+	float:left;
+	font-size:16px;
+	
+}
+.price-diff #new-price {
+	margin-left:10px;
+}
+.price-diff #old-price {
+	text-decoration:line-through;
+}
+
+.image-container{
+	border:5px solid #ffffff;
+}
+.image-container img {
+	float:left;
+	width:100px;
+	height:200px;
+	background:url(/media/images/png.jpg) no-repeat left top;
+}
+.deal-image{
+	
+}
+/*DEAL WINDOW CSS END*/
+.logo{
+	float:left;
+	width:220px;
+	height:65px;
+	background:yellow;
+	margin-top:7px;
+	margin-left:35px;
+	background:url(/media/images/logo.png);
+}
+.button{
+	float:left;
+	background:#4f4c4c;
+	color:#ffffff;
+	font-size:14px;
+	padding:5px 20px;
+}
+.button:hover {
+	background:url(/media/images/deal-time-bg.png) repeat-x left top;
+} 
+
+#search-button{
+	margin-top:45px;
+	margin-left:20px;
+}
+.main-menu{
+	float:left;
+	margin-top:36px;
+}
+.main-menu li {
+	float:left;
+	list-style-type:none;
+}
+.main-menu li a {
+	float:left;
+	font-size:24px;
+	color:#ffffff;
+	background:#7b7a7a;
+	padding:5px;
+	margin-left:5px;
+}
+.active{
+	background:#343434!important;
+	height:40px;
+}
+.facebook-connect{
+	float:right;
+	width:132px;
+	height:18px;
+	background:url(/media/images/connect-facebook.png) no-repeat left top;
+	margin-top:55px;
+	
+}
+.user-control{
+	float:right;
+	margin-top:53px;
+	margin-right:20px;
+}
+.user-control li {
+	float:left;
+	list-style-type:none;
+}
+.user-control li a {
+	float:left;
+	padding:2px 10px;
+	color:#ffffff;
+	font-size:14px;
+	background:#4f4c4c;
+} 
+
+.left-menu{
+	margin-top:90px;
+	padding:0;
+	float:left;
+	width:34px;
+	min-height:20px;
+}
+* html body .left-menu{
+	height:20px;
+}
+.left-menu li {
+	list-style-type:none;
+	background:url(/media/images/left-menu-sep.png) no-repeat 2px top;
+	width:34px;
+	height:38px;.footer-button-set li{
+	float:left;
+	list-style-type:none;
+}
+}
+.left-menu li a {
+	float:left;
+	width:18px;
+	height:18px;
+	margin-left:9px;
+	position:relative;
+	background:#555555;
+	top:-7px;
+}
+.deals-container{
+	float:left;
+	min-height:550px;
+	width:95%;
+	margin-left:10px;
+	margin-top:10px;
+}
+.footer-button-set{
+	float:left;
+	padding:0;
+	margin-left:10px;
+}
+.footer-button-set li{
+	float:left;
+	list-style-type:none;
+}
+.footer-button-set li a{
+	float:left;
+	margin-right:15px;
+}
+#settings{
+	background:url(/media/images/settings-icon.png) no-repeat 2px top
+}
+#user{
+	background:url(/media/images/user-icon.png) no-repeat 2px top
+}
+#globe{
+	background:url(/media/images/globe-icon.png) no-repeat 2px top
+}
+#listview{
+	background:url(/media/images/listview-icon.png) no-repeat 2px top
+}
+.copyright{
+	float:right;
+	color:#ffffff;
+	margin-top:19px;
+	margin-left:10px;
+}
+.div{
+	float:left;
+	width:200px;
+	height:30px;
+	padding:5 0 0 5px;
+	margin-top:17px;
+	margin-left:50px;
+}
+.pic{
+	float:left;
+	width:27px;
+	height:22px;
+	background:url(/media/images/buttons.png) no-repeat left top;
+}
+.ali{
+	float:left;
+	width:35px;
+	height:22px;
+	background: url(/media/images/buttons.png) no-repeat -30px top;
+}
+.a{
+	float:left;
+	width:30px;
+	height:22px;
+	background: url(/media/images/buttons.png) no-repeat -68px top;
+}
+.b{
+	float:left;
+	width:27px;
+	height:22px;
+	background: url(/media/images/buttons.png) no-repeat -105px top;
+}
+.c{
+	float:left; 
+	width:27px; 
+	height:22px; 
+	background: url(/media/images/buttons.png) no-repeat -135px top;
+}
+.d{
+	float:left;
+	width:27px;
+	height:22px;
+	background: url(/media/images/buttons.png) no-repeat -165px top;
+}
+
+.login-box{
+    float:left;
+	position:absolute;
+	right:30px;
+	top:82px;
+	background:#191919;
+	color:#ffffff;
+	width:250px;
+	padding:10px;
+}
+
+.login-box table tr td {
+	/* height:30px; */
+}
+.login-box table tr td label {
+	float:left;
+	padding:0 8px;
+}
+
+.login-box #submit-button{
+	float:right;
+}
+
+.login-page-box{
+    float:left;
+	color:#ffffff;
+}
+
+.login-page-box table tr td label {
+	float:left;
+	padding:0 8px;
+}
+
+
+.form-button{
+    float:left;
+    background:#78db0f;
+	border:none!important;
+	padding:5px 5px 25px 5px;
+	font-size:15px;
+	color:#ffffff;
+	height:25px!important;
+	width:100px!important;
+}
+.cross{float:left; color:#ffffff; padding:0 5px;}
+.cross2{float:left; color:#ffffff; padding:0 5px;}
+.search-cross{color:#ffffff;}
+.parda{
+	float:left;
+	width:100%;
+	height:100%;
+	background:#ffffff;
+	display:block;
+	position:absolute;
+	opacity:0.9;
+	z-index:9998;
+}
+.signup-form-container{
+	float:left;
+	min-height:100px;
+	border:5px solid #ffffff;
+	background:#191919;
+	left:30%;
+	top:3%;
+	position:absolute;
+	z-index:9999;
+	padding-bottom:20px;
+}
+.signup-form{
+	float:left;
+	width:420px;
+}
+.signup-form table{
+	float:left;
+	
+}
+.signup-form table tr{
+	float:left;
+	width:100%;
+}
+.signup-form table tr td {
+	float:left;
+	/* height:30px; */
+	color:#ffffff;
+	padding:5px 10px;
+}
+.signup-form table tr td input{
+	width:200px;
+	height:25px;
+}
+.signup-form table tr td label {
+	float:left;
+	width:130px;
+	text-align:right;
+}
+
+.signup-button{
+    float:left;
+	width:100px!important;
+} 
+.search-form-box{
+	top:90px;
+	left:283px;
+	float:left;
+	background:#191919;
+	width:320px;
+	min-height:90px;
+	position:absolute;
+	padding:10px;
+	opacity:0.95;
+}
+.search-form-box form{
+	float:left;
+	width:300px;
+}
+.search-form-box form ul{
+	float:left;
+	width:400px;
+	margin:0;
+	padding:0;
+}
+.search-form-box form ul li{
+	float:left;
+	width:100%;
+	height:45px;
+	list-style-type:none;
+}
+.search-form-box form ul li input{
+	float:left;
+	height:25px;
+}
+
+.search-form-box label{
+	float:left;
+	width:115px;
+	color:#ffffff;
+	
+}
+.search-form-box ul li  span {
+	float:left;
+	width:210px;
+}
+.cross-container{
+	height:30px!important;
+}
+#search-keyword-field{
+	width:180px;
+}
+#search-city-field{
+	width:70px;
+}
+#deal-search-button{
+	margin-left:9px;
+}
+
+.left-menus-bar{
+    position:absolute;
+	float:left;
+	width:70px;
+	background:#191919;
+	margin:0;
+	padding:8px;
+	opacity:0.9;
+}
+.footer-menus-bar{
+    position:absolute;
+	float:left;
+	width:110px;
+	background:#191919;
+	margin:0;
+	padding:8px;
+	opacity:0.9;
+}
+
+#settings-menu{
+	top:180px;
+	left:45px;
+}
+#user-menu{
+	top:205px;
+	left:45px;
+}
+#marchents{
+	bottom:-20px;
+	left:56px;
+}
+#company-info{
+	bottom:-20px;
+	left:279px;
+}
+#follow-us{
+	bottom:-20px;
+	left:432px;
+}
+.left-menus-bar li {
+	float:left;
+	list-style-type:none;
+	width:100%;
+}
+.footer-menus-bar li {
+	float:left;
+	list-style-type:none;
+	width:100%;
+}
+
+.left-menus-bar li a{
+	float:left;
+	color:#ffffff;
+	border-bottom:1px solid #333333;
+	padding:2px 5px;
+	width:60px;
+	
+}
+
+.footer-menus-bar li a {
+	float:left;
+	color:#ffffff;
+	border-bottom:1px solid #333333;
+	padding:2px 5px;
+	width:100px;
+}
+
+.left-menus-bar li a:hover {
+	background:url(/media/images/deal-time-bg.png) repeat-x left top;
+}
+.footer-menus-bar li a:hover{
+	background:url(/media/images/deal-time-bg.png) repeat-x left top;
+}

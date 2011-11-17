@@ -1,0 +1,135 @@
+	{% if feed %}
+		<div class="feedlist">
+			{% for news in feed.data %}
+				<textarea class="debuginfo">
+					{{news}}
+				</textarea>
+			
+				
+				{% if news.type == "link" and news.name %}
+					<div class="feed">	
+						<div class="feedleft">
+							<img src="http://graph.facebook.com/{{news.from.id}}/picture" />
+						</div>
+			
+						<div class="feedright">
+							<div class="feedtop">
+								<strong><a href="#">{{news.from.name}}</a></strong>
+							</div>
+				
+							<div class="feedactions">
+								{% if news.likes %}
+									like ({{news.likes.count}}) &nbsp; 
+								{% endif %}
+								
+								{% if news.comments %}
+									comment ({{news.comments.count}})
+								{% endif %}
+							</div>
+				
+							<div class="feedmessage">
+								{{news.message}}
+							</div>
+				
+							<div class="feedcontent">
+								{% if news.type == "link"  %}				
+									{% if news.picture %}
+										<div class="leftside">
+											<img src="{{news.picture}}" />
+										</div>
+									{% endif %}
+							
+									<div class="rightside">
+										<h2 class="name"><a href="{{news.link}}" target="_blank">{{news.name}}</a></h2>
+										<h3 class="caption" >{{news.caption}}</h3>
+										<p class="description">{{news.description}}</p>
+									</div>
+								{% endif %}			
+							</div>		
+						</div>
+					</div>
+				{% else %}{% if news.type == "status" and news.message %}
+					<div class="feed">
+						<div class="feedleft">
+							<img src="http://graph.facebook.com/{{news.from.id}}/picture" />
+						</div>
+			
+						<div class="feedright">
+							<div class="feedtop">
+								<strong><a href="#">{{news.from.name}}</a></strong>
+							</div>
+				
+							<div class="feedactions">
+								{% if news.likes %}
+									like ({{news.likes.count}}) &nbsp; 
+								{% endif %}
+								
+								{% if news.comments %}
+									comment ({{news.comments.count}})
+								{% endif %}
+							</div>
+				
+							<div class="feedmessage">
+								{{news.message}}
+							</div>	
+						</div>
+					</div>
+				{% else %}{% if news.type == "video" or news.type == "photo" %}
+					<div class="feed">	
+						<div class="feedleft">
+							<img src="http://graph.facebook.com/{{news.from.id}}/picture" />
+						</div>
+			
+						<div class="feedright">
+							<div class="feedtop">
+								<strong><a href="#">{{news.from.name}}</a></strong>
+							</div>
+				
+							<div class="feedactions">
+								{% if news.likes %}
+									like ({{news.likes.count}}) &nbsp; 
+								{% endif %}
+								
+								{% if news.comments %}
+									comment ({{news.comments.count}})
+								{% endif %}
+							</div>
+				
+							<div class="feedmessage">
+								{{news.message}}
+							</div>
+				
+							<div class="feedcontent">
+									{% if news.picture %}
+										<div class="leftside">
+											<img src="{{news.picture}}" />
+										</div>
+									{% endif %}
+									
+									<div class="rightside">
+										<h2 class="name" >
+											{% if news.type == "video" %}
+												<a href="{{news.source}}" target="_blank" >{{news.name}}</a>
+											{% else %}
+												<a href="{{news.link}}" target="_blank" >{{news.name}}</a>
+											{% endif %}			
+										</h2>
+										
+										<h3 class="caption">{{news.caption}}</h3>
+										<p class="description">{{news.description}}</p>
+									</div>
+								
+							</div>		
+						</div>
+					</div>
+				{% else %}
+					<div class="feed" style="display:none;">
+						{{news.type}}
+					</div>
+				{% endif %}{% endif %}{% endif %}
+				
+			
+			
+			{% endfor %}
+		</div>
+	{% endif %}

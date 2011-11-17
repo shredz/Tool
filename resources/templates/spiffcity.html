@@ -1,0 +1,389 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<title>Spiffcity |{% block title %}{% endblock %}</title>
+		{% block meta %}{% endblock %}
+		
+		{% block jquery %}
+			<script type="text/javascript" src="{{media}}/media/js/jquery.js" ></script>
+			<!-- http://code.jquery.com/jquery-1.6.2.min.js -->
+		{% endblock %}
+		
+		<script type="text/javascript" src="{{media}}/media/js/corners.js" ></script>
+		<script type="text/javascript" src="{{media}}/media/js/ready.js"></script>
+		<script type="text/javascript" src="{{media}}/media/js/boxes.js"></script>
+		<script type="text/javascript" src="{{media}}/media/js/list_deals.js" ></script>
+                
+		
+		{% block headscripts %}{% endblock %}
+		<link rel="stylesheet" href="{{media}}/media/css/{% block mainstyle %}style.css{% endblock %}" type="text/css" media="screen" />
+		{% block headstyles %}{% endblock %}
+	</head>
+	
+	{% autoescape off %}	
+	<body>
+		{% block deal_nav %}
+		{% endblock %}
+		
+		<!--left Menus Start -->
+		<ul id="marchents" class="footer-menus-bar">
+			<li><a href="#" >First</a></li>
+			<li><a href="#" >Second</a></li>
+			<li><a href="#" >Third</a></li>
+			<li><a href="#" >Fourth</a></li>
+			<li><a href="#" >Fifth</a></li>
+			<li><a href="#" >Sixth</a></li>
+		</ul>
+		<ul id="company-info" class="footer-menus-bar">
+			<li><a href="#" >First</a></li>
+			<li><a href="#" >Second</a></li>
+			<li><a href="#" >Third</a></li>
+			<li><a href="#" >Fourth</a></li>
+			<li><a href="#" >Fifth</a></li>
+			<li><a href="#" >Sixth</a></li>
+		</ul>
+		<ul id="follow-us" class="footer-menus-bar">
+			<li><a href="#" >First</a></li>
+			<li><a href="#" >Second</a></li>
+			<li><a href="#" >Third</a></li>
+			<li><a href="#" >Fourth</a></li>
+			<li><a href="#" >Fifth</a></li>
+			<li><a href="#" >Sixth</a></li>
+		</ul>
+	    <!--left Menus End -->
+		<!--left Menus Start -->
+		<ul id="settings-menu" class="left-menus-bar">
+			<li><a href="#" >First</a></li>
+			<li><a href="#" >Second</a></li>
+			<li><a href="#" >Third</a></li>
+			<li><a href="#" >Fourth</a></li>
+			<li><a href="#" >Fifth</a></li>
+			<li><a href="#" >Sixth</a></li>
+		</ul>
+		<ul id="user-menu" class="left-menus-bar">
+			<li><a href="#" >First</a></li>
+			<li><a href="#" >Second</a></li>
+			<li><a href="#" >Third</a></li>
+			<li><a href="#" >Fourth</a></li>
+
+		</ul>
+
+		<!-- left Menus End -->
+		<!--Search Box Start -->
+		<div class="search-form-box">
+			<form method="POST" action="http://dev.spiffcity.com/spiffs/deals/gmap/1">
+				{% csrf_token %}
+				<ul>
+					<li class="cross-container">
+						<a href="#" class="search-cross" >x</a>
+					</li>
+					<li>
+						<label>Keyword</label>
+						<span>
+							<input type="text" id="keyword_str" name="keyword" />
+						</span>
+					</li>
+					<li>
+						<label>City, State, ZIP</label>
+						<span>
+							<input type="text" id="search-city-field" name="keyword" />
+							<input type="submit" class="form-button" id="deal-search-button" value="search" />
+						</span>
+					</li>
+                   	 <li>
+						<label><input type="radio" id="keyword_local" name="search-radio-field" value="local" />Local Deals</label>
+                        <label style="width:117px;"><input type="radio" id="keyword_internet" name="search-radio-field" value="internet" />Internet Deals</label>
+						
+					</li>
+				</ul>
+			</form>
+		</div>
+		<!-- Search Box End -->
+		{% if not user%}
+			{% block login %}
+				<!-- Login Box Start -->
+					<div class="login-box">
+						<form method="POST" action="/members/login/">
+							{% csrf_token %}
+							<table>
+								<tr>
+									<td><a class="cross" href="#" >x</a></td><td></td><td></td>
+								</tr>
+								<tr>
+									<td><label>username</label></td><td><input type="text" name="username" /></td>
+								</tr>
+								<tr>
+									<td><label>Password</label></td><td><input type="password" name="password" /></td>
+								</tr>
+								<tr>
+									<td></td><td><input type="submit" value="login" class="form-button" name="form-button" /></td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				<!-- Login Box End -->
+			{% endblock %}
+			
+			{% if landing %}
+				<div class="parda2">
+				</div>
+				
+				<div class="get-location">
+					<div style="width:100%;float:left;">
+						<span style="float:right;color:white;cursor:pointer" id="close_location_box">X</span>
+					</div>
+					
+					<div style="float:left">
+						<form onsubmit="return false;">
+							<table>
+								<tr>
+									<td colspan="2">
+										<center><h1>Your Location</h1></center>
+									</td>
+								</tr>
+								<tr>
+									<td><label>Location</label></td><td><span><input type="text" id="location-collect" name="location-collect" value="{{city.City}}"/></span></td>
+								</tr>
+								<tr>
+									<td><label>E-Mail</label></td><td><span><input type="text" id="email-collect" name="location-collect" /></span></td>
+								</tr>
+								<tr>
+									<td><label></label></td><td><span><input id="form-button-1" class="form-button" type="submit" value="next" /></span></td>
+								</tr>
+							</table>
+						</form>
+					</div>	
+					
+					<div style="float: right; border-left: 1px solid rgb(204, 204, 204); height: 200px;">
+						<table>
+								<tr>
+									<td colspan="2">
+										<center><h1>Or</h1></center>
+									</td>
+								</tr>
+								<tr>
+									<td  ><label></label></td><td><span><a href="/social/facebook/connect/" class="facebook-connect" ><img src="{{media}}/media/images/fconnect.gif" /></a></span></td>
+								</tr>
+						</table>
+						
+					</div>
+				</div>
+				
+				<!--
+				<div class="get-email">
+					<form onsubmit="return false;">
+						<table>
+							<tr>
+								<td colspan="2">
+									<center><h1>Your E-Mail</h1></center>
+								</td>
+							</tr>
+							<tr>
+								<td><label>E-Mail</label></td><td><span><input type="text" id="email-collect" name="location-collect" /></span></td>
+							</tr>
+							<tr>
+								<td><label></label></td><td><span><input id="form-button-2" class="form-button" type="submit" value="next" /></span></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				-->
+			{% endif %}
+			
+			{% block signup %}
+			<div class="parda"></div>
+			<!-- Signup Form Start -->
+			<div class="signup-form-container">
+				<div class="signup-form"> 
+				<form method="post" action="/members/signup/" class="deals-search-form" >
+					{% csrf_token %}
+					<table>
+						<tr>
+							<td colspan="2"><a href="#" class="cross2" >x</a></td>
+						</tr>
+						<tr>
+							<td><label>First name:</label></td><td> <input type="text" name="first_name"/></td>
+						</tr>
+						<tr>             
+							<td><label>Last name:</label></td><td> <input type="text" name="last_name"  /></td>
+						</tr>
+						<tr>            
+							<td>
+								<label>Username :</label>
+							</td> 
+							<td> 
+								<input type="text" name="username"/>
+							</td>
+						</tr>
+						
+						<tr>            
+							<td>
+								<label>Your Email :</label>
+							</td> 
+							<td> 
+								<input type="text" name="email"/>
+							</td>
+						</tr>			   		
+						<tr>            
+							<td><label>Re-write Email :</label></td> <td> <input type="text"  name="email2" /></td>
+						</tr>				
+						<tr>            
+							<td><label>password :</label></td> <td> <input type="password" name="password" /></td>
+						</tr>			   		 
+						<tr>
+							<td>
+								<label>I Am :</label>
+							</td>
+							<td>      
+								<SELECT name="gender">
+								  <OPTION value="N">-Select-Sex-</OPTION><BR/>
+								  <OPTION value="M">Male</OPTION><BR/>
+								  <OPTION value="F">Female</OPTION><BR/>
+								</SELECT>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label>DOB :</label>
+							</td> 
+							<td>  
+								<input type="hidden" name="dob" id="id_dob">
+								
+								<SELECT id="b-month">
+								  <OPTION value="">-Month-</OPTION>
+								  <OPTION value="1">January</option>
+								  <OPTION value="2">Feburary</OPTION>
+								  <OPTION value="3">March</OPTION>
+								  <OPTION value="4">April</OPTION>
+								  <OPTION value="5">May</OPTION>
+								  <OPTION value="6">June</OPTION>
+								  <OPTION value="7">July</OPTION>
+								  <OPTION value="8">Augest</OPTION>
+								  <OPTION value="9">September</OPTION>
+								  <OPTION value="10">October</OPTION> 
+								  <OPTION value="11">November</OPTION>
+								  <OPTION value="12">December</OPTION>	
+								</SELECT>
+								 <select id="b-day">
+								 	<OPTION value="">-Day-</OPTION>
+								 	{% for day in days %}
+								 		<option value="{{day}}">{{day}}</option>	
+								 	{% endfor %}
+								</select>
+								<select id="b-year">
+								   <option value="">-Year-</option>
+								   {% for year in years %}
+								 		<option value="{{year}}">{{year}}</option>	
+								 	{% endfor %}
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><label></label></td>
+							<td>
+								<input class="form-button"  type="submit" value="Submit"  id="signup-button"/>
+							</td>
+						</tr> 
+					</table>
+				</form>
+		      </div>
+			</div>
+			{% endblock %}
+			<!-- Signup Form End -->
+		{% endif %}
+		<div class="wrapper">
+			<div class="container">
+				<div class="header" id="header">
+					<a href="/" class="logo" ></a>
+					<div class="header-items-container">
+					<!--
+					<form class="location-form">
+						<label>Location : </label>
+						<div class="editable">
+							<a href="#" class="setting-value" ><span>{{loc}}</span></a>
+							<input type="text" name="location-field" class="hidden-field" id="location-field" />
+						</div>
+					</form>
+					-->
+					<a href="#" class="button" id="search-button" >SEARCH</a> 
+					
+					<ul class="user-control">
+						{% block usercontrols %}
+							{% if user %}
+								<li><a href="/members/logout/">Logout</a></li>
+							{% else %}
+								{% block login-control %}
+									<li><a href="#" id="login-window-button" >Login</a></li>
+								{% endblock %}
+								{% block signup-control %}
+									<li><a href="/members/signup/" id="signup-window-button">Signup</a></li>
+								{% endblock %}
+							{% endif %}
+						{% endblock %}
+						<li><a href="/members/invite/">Invite</a></li>
+					</ul>
+					
+					<!--
+					{% if not twitter %} 
+						<a href="/social/twitter/connect/" class="facebook-connect" ><img src="{{media}}/media/images/tconnect.png"/></a>
+					{% endif %}
+					-->
+					
+					{% if not facebook %} 
+						<a href="/social/facebook/connect/" class="facebook-connect" ><img src="{{media}}/media/images/fconnect.gif" /></a>
+					{% endif %}
+					
+					
+					
+					<ul class="main-menu">
+						<li>
+							<a href="/" class="{% block deals_menu_class %}{% endblock %}" >Get Deals</a>
+						</li>
+						<li>
+							<a href="/social/" class="{% block social_menu_class %}{% endblock %}" >Get Social</a>
+						</li>
+						<li>
+							<a href="/members/" class="{% block spiffed_menu_class %}{% endblock %}" >Get Spiffed</a>
+						</li>
+					</ul>
+					</div>
+				</div>
+				
+				<div class="left-tool-bar">
+					<ul class="left-menu" >
+						{% block left_tool_bar %}
+							<li><a id="settings" href="/members/settings/" ></a></li>
+							<li><a id="user" href="/members/" ></a></li>
+							<li><a id="globe" href="/" ></a></li>
+							<li><a id="listview" href="/lv/" ></a></li>
+						{% endblock %}
+					</ul>
+				</div>
+				
+				<div class="content-area" id="content-area">{% block content %}{% endblock %}</div>
+				<!--
+					<div class="rightcolumn" id="rightcolumn">{% block rightcolumn %}{% endblock %}</div>
+				-->
+				<div class="footer" id="footer">
+					{% block footer %}
+						<ul class="footer-button-set">
+							<li><a class="button" id="am" href="/merchants" >Advertisers and Merchants</a></li>
+							<li><a class="button" id="companyInfo" href="/about-us" >Company Info</a></li>
+							<li><a class="button" id="followUs" href="#" >Follow Us</a></li>
+						</ul>
+						<div class="div">
+							 {% for link in social_links%}
+							 	<a href="{{link.link}}" class="{{link.cssclass}}"></a>	
+							 {%	endfor %}
+						</div>
+						<div class="copyright">&copy; Copyright <span>spiff city</span> 2011-2012. All rights reserved.</div>
+					{% endblock %}
+				</div>
+				<!-- 
+					<div class="bodyend" id="bodyend">{% block bodyend %}{% endblock %}</div>
+				-->
+			</div>
+		</div>
+	</body>
+	{% endautoescape %}
+</html>

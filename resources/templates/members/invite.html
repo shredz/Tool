@@ -1,0 +1,84 @@
+{% extends "spiffcity.html" %}
+
+{% block headscripts %}
+<script src="http://connect.facebook.net/en_US/all.js"></script>
+<script type="text/javascript">
+	window.onload = function() {
+	  FB.init({appId: '{{appId}}', xfbml: true, cookie: true, redirect_uri: 'http://dev.spiffcity.com/members/invite/'});
+	}
+	
+	function fbinvite (){
+		FB.ui({
+				  method: 'send',
+				  picture: 'http://cdn.spiffcity.com/images/logo.png',
+				  description: 'SpiffCity provides an incredible deal every day with discounts up to 90% off. Invite your friends to join and you will lock in residual rewards from their purchases',
+				  name: 'Invitation To Spiffcity',
+				  link: 'http://spiffcity.com/members/signup/?f={{user.id}}'
+        });
+	}
+</script>
+{% endblock %}
+
+
+
+{% block content %}
+		{% if message  %}
+			<span style="color:white;">{{message}}</span>
+		{% endif %}
+		
+		<div >
+			<div class="signup-form"> 
+				<form method="post" action="/members/invite/" class="deals-search-form" >
+					{% csrf_token %}
+					<table>
+						<tr>
+							<td><label>Email:</label></td>
+							<td> 
+								{{form.email}}
+								{{form.errors.email}}
+							</td>
+						</tr>
+						<tr>             
+							<td><label>First name:</label></td>
+							<td> 
+								{{form.first_name}}
+								{{form.errors.first_name}}
+							</td>
+						</tr>
+						<tr>            
+							<td>
+								<label>Last Name :</label>
+							</td> 
+							<td> 
+								{{form.last_name}}
+								{{form.errors.last_name}}
+							</td>
+						</tr>
+						<tr>
+							<td><label></label></td>
+							<td>
+								<input class="form-button"  type="submit" value="Submit"  id="signup-button"/>
+							</td>
+						</tr> 
+						
+						<tr>
+							<td><label>OR </label></td>
+						</tr>
+						
+						<tr>
+							<td><label>From Facebook :</label></td>
+							<td>
+								<input class="form-button"  type="submit" value="Invite Friends"  id="signup-button" onclick="fbinvite();return false;"/>
+							</td>
+						</tr> 
+						
+					</table>
+				</form>
+			</div>
+		
+		
+			<div>
+				<div id="fb-root"></div>
+			</div>
+		</div>
+{% endblock %}

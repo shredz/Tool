@@ -1,0 +1,27 @@
+{% extends "spiffcity.html" %}
+{% block content %}
+	<center><span class="heading">Settings</span></center>
+	<form  method="post" name="settings" style="width:100%">
+		{% csrf_token %}
+		<table class="settings-view-table">
+			<tr>
+				{% for row in table %}
+					{% for title, config in row.items %}
+						<td>
+							<h1>{{ title }}</h1>
+							<div class="editable" id="settings-item">
+								<a href="#" class="setting-value" ><span>{{ config.value }}</span></a>
+								<input type="text" name="{{ config.id }}" class="hidden-field" id="setting-name-{{ config.id }}" />
+							</div>
+						</td>	
+					{% endfor %}		
+				{% endfor %}
+			</tr>
+		</table>
+	</form>	
+	<center>
+		<span class="heading">
+			<input type="submit" style="float:right!important" class="form-button" id="settings-submit" value="Submit" />
+		</span>
+	</center>
+{% endblock %}

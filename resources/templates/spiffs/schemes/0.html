@@ -1,0 +1,21 @@
+{% autoescape off %}
+					<!-- Deals Listing starts -->
+					<div class="schemes-container" >						
+						<div class="content-box">
+							<ul class="deal-list-view">
+								{% for name,deal in deals.items%}
+									<li>
+										<img src="{{deal.image_url}}" />
+										<span>
+											<h1>{{deal.title}}</h1>
+										</span>
+										<span>{{deal.description}}</span>
+										<span>{{deal.currency}} {{deal.price}}</span>
+										<a href="{{deal.link}}" id="view-full-deal-button"  >view full deal</a>
+									</li>
+									
+								{% endfor %}
+							</ul>						
+						</div>
+					</div>
+{% endautoescape %}

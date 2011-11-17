@@ -1,0 +1,160 @@
+{% extends "spiffcity.html" %}
+{% block title %} Dashboard for {{user.username }}{% endblock %}
+{% block spiffed_menu_class %}active{% endblock %}
+{% block content %}
+<div class="panels-container">
+	<div class="panel" id="activity-points">
+		<h1>Activity Points / Spiff Credits</h1>
+		<!--Graph Here -->
+		<center>GRAPH HERE </center>
+	</div>
+	
+	<div class="panel" id="deals">
+		<h1>My Deals</h1>
+		<table>
+			{% for mydeal in mydeals %}
+				<tr>
+					<td class="number">{{forloop.counter}}</td><td>{{mydeal.deal.title}}</td><td>Location</td><td><span class="old-price"     >{{mydeal.deal.currency}} {{mydeal.deal.price}}</span><span class="new-price">{{mydeal.deal.currency}} {{mydeal.deal.price}}</span></td>
+				</tr>	
+			{% endfor %}
+		</table>
+	</div>
+	<div class="panel" id="friends">
+		<h1>Invite Friends</h1>
+		<div > 
+				<form method="post" action="/members/invite/" class="deals-search-form" >
+					{% csrf_token %}
+					<table>
+						<tr>
+							<td style="text-align:left"><span>Email:</span> <br/>
+								{{iform.email}}
+								{{iform.errors.email}}
+							</td>
+						</tr>
+						<tr>             
+							<td style="text-align:left"><span>First name:</span><br/>
+								{{iform.first_name}}
+								{{iform.errors.first_name}}
+							</td>
+						</tr>
+						<tr>            
+							<td style="text-align:left">
+								<span>Last Name :</span><br/>
+								{{iform.last_name}}
+								{{iform.errors.last_name}}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input class="form-button"  type="submit" value="Submit"  id="signup-button"/>
+							</td>
+						</tr> 
+					</table>
+				</form>
+			</div>
+	</div>
+	<div class="panel" id="events">
+		<h1>My Events</h1>
+			<table>
+				<tr>
+					<td></td><td>Event Name</td>
+				</tr>
+				<tr>
+					<td></td><td>Event Name</td>
+				</tr>
+				<tr>
+					<td></td><td>Event Name</td>
+				</tr>
+				<tr>
+					<td></td><td>Event Name</td>
+				</tr>
+				<tr>
+					<td></td><td>Event Name</td>
+				</tr>
+			</table>
+	</div>
+	<div class="panel" id="activity-spiff">
+		<h1>Activities Spiff</h1>
+			<table>
+				{% for point in recent_points %}
+					<tr>
+						<td class="number">{{forloop.counter}}</td>
+						<td> 
+							{{point.activity.user.username}}
+						</td>
+						<td class="points">
+							{{point.points}}
+						</td>
+						<td>
+							{{point.activity.added}}
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+	</div>
+	<div class="panel" id="rewards">
+		<h1>Rewards</h1>
+			<table>
+				{% for point in recent_points %}
+					<tr>
+						<td class="number">{{forloop.counter}}</td>
+						<td>
+							{% if point.activity.activity_type.title == "BOUGHT_DEAL" %}
+								Bought
+							{% else %}{% if point.activity.activity_type.title == "SHARED_DEAL" %}
+								Shared 
+							{% endif %}{% endif %}
+						</td>
+						<td>
+							{% if point.activity.activity_type.title == "BOUGHT_DEAL" %}
+								<a href="/spiffs/deal/{{point.activity.userdeal.deal.id}}/">{{point.activity.userdeal.deal.title }}</a>
+							{% else %}{% if point.activity.activity_type.title == "SHARED_DEAL" %}
+								<a href="/spiffs/deal/{{point.activity.deal.id}}/">{{point.activity.deal.title }}</a>
+							{% endif %}{% endif %}
+						</td>
+						
+						<td class="points">{{point.points}}</td>
+					</tr>
+				{% endfor %}
+			</table>
+	</div>
+	<div class="panel" id="invite">
+		<h1>Invite Friends</h1>
+		<div > 
+				<form method="post" action="/members/invite/" class="deals-search-form" >
+					{% csrf_token %}
+					<table>
+						<tr>
+							<td style="text-align:left"><span>Email:</span> <br/>
+								{{iform.email}}
+								{{iform.errors.email}}
+							</td>
+						</tr>
+						<tr>             
+							<td style="text-align:left"><span>First name:</span><br/>
+								{{iform.first_name}}
+								{{iform.errors.first_name}}
+							</td>
+						</tr>
+						<tr>            
+							<td style="text-align:left">
+								<span>Last Name :</span><br/>
+								{{iform.last_name}}
+								{{iform.errors.last_name}}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input class="form-button"  type="submit" value="Submit"  id="signup-button"/>
+							</td>
+						</tr> 
+					</table>
+				</form>
+			</div>
+	</div>
+	<div class="panel" id="companies">
+		<h1>Activity Points / Spiff Credits</h1>
+	</div>
+</div>
+{% endblock %}
+
