@@ -1,0 +1,6 @@
+{{ para_list }}
+<select name="pardd" id="pardd">
+{% for par in para_list %}
+    <option value="{{ par.parent }}">{{ par.parent }}</option>
+{% endfor %}
+</select>

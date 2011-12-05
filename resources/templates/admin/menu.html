@@ -1,0 +1,106 @@
+
+<div id="menu">
+  <ul class="nav left sf-js-enabled" style="display: block;">
+
+
+ <li id="Category"  {% if request.path_info == "/admin/" %} class="selected" {% endif %}><a href="/admin/" class="top" >Dashboard</a>
+  </li>
+ <li id="auth"  {% if request.path_info == "/admin/auth/group/" or request.path_info == "/admin/auth/user/" or request.path_info|slice:"18" == "/admin/auth/group/"  or request.path_info|slice:"17" == "/admin/auth/user/" %} class="selected" {% endif %}>
+  	<a href="" class="top">Auth</a>
+  		<ul style="display: none; visibility: hidden;">
+			<li><a href="/admin/auth/group/" >Groups</a></li>
+			<li><a href="/admin/auth/user/" >Users</a></li>
+            
+		</ul>
+  </li>
+    <li id="core"  {% if request.path_info == "/admin/core/category/" or request.path_info|slice:"21" == "/admin/core/category/"  %} class="selected" {% endif %} >
+  	<a href="/admin/core/category/" class="top">Category
+</a>
+  		
+  </li>
+ <li id="geo" {% if request.path_info|slice:"19" == "/admin/geo/country/" or request.path_info|slice:"20" == "/admin/geo/location/" %} class="selected" {% endif %} >
+  	<a href="" class="top">Location</a>
+  		<ul style="display: none; visibility: hidden;">
+			<li><a href="/admin/location/country/" >Countrys</a></li>
+			<li><a href="/admin/location/state/" >State</a></li>
+			<li><a href="/admin/location/city/" >City</a></li>
+			<!-- <li><a href="/admin/location/address_deal_map/" >Address</a></li> -->
+            
+		</ul>
+  </li>
+ <li id="security" {% if request.path_info|slice:"29" == "/admin/security/allowedhosts/"  %} class="selected" {% endif %}>
+  	<a href="/admin/security/allowedhosts/" class="top">Allowed hosts</a>
+  		<!-- <ul style="display: none; visibility: hidden;">
+			<li><a href="/admin/security/allowedhosts/" >Allowed hosts</a></li>     
+		</ul> -->
+  </li>			
+  <li id="sites" {% if request.path_info|slice:"18" == "/admin/sites/site/" %} class="selected" {% endif %} >
+  	<a href="/admin/sites/site/" class="top">Sites</a>
+  		<!-- <ul style="display: none; visibility: hidden;">
+			<li><a href="/admin/sites/site/" >Sites</a></li>
+		</ul> -->
+  </li>
+  <!-- <li id="social" >
+  	<a href="" class="top">Social</a>
+  		<ul style="display: none; visibility: hidden;">
+			<li><a href="/admin/social/account/" >Accounts</a></li>
+		</ul>
+  </li> -->
+  <li id="social" {% if request.path_info|slice:"19" == "/admin/spiffs/deal/" or request.path_info == "/admin/temp/temp/1/" %} class="selected" {% endif %}>
+  	<a href="/admin/spiffs/deal/" class="top">Deals</a>
+  		
+  </li>
+			
+    
+   <li id="point"  {% if request.path_info|slice:"13" == "/admin/point/" %} class="selected" {% endif %} >
+  	<a href="" class="top">Point System</a>
+  		<ul style="display: none; visibility: hidden;">
+			<li><a href="/admin/point/point/" >Points <!-- {{ request.path_info|slice:"3" }} --> </a></li>
+			<li><a href="/admin/point/rule/" >Rules</a></li>
+			<!-- <li><a href="/admin/point/userpointdetail/" >User Point Details</a></li> -->
+		</ul>
+  </li>
+   <li id="affilate" {% if request.path_info|slice:"25" == "/admin/affilate/affilate/" %} class="selected" {% endif %} >
+  	<a href="/admin/affilate/affilate/" class="top">Affilate</a>
+   </li>
+ <li id="changePassword" {% if request.path_info == "/admin/password_change/"   %} class="selected" {% endif %}> <a href="/admin/password_change/" class="top">Change Password</a>
+  </li>
+
+  </ul>
+
+</div>
+
+<script>
+function  url()
+{
+  //window.setTimeout(afterDelay(), 60000);
+  
+  /*function afterDelay()
+  {
+    abc = document.URL;
+    alert(abc);
+  }*/
+  
+  if( abc == 'http://dev.spiffcity.com/admin/')
+  {
+    //document.getElementById("Category").className += "selected";
+    //$('#Category').addClass('selected');
+    document.getElementById('Category').classList.add('selected');
+    return true;
+  }
+  else
+  if( abc == 'http://dev.spiffcity.com/admin/auth/group/' )
+  {
+    //$('#auth').addClass('selected');
+    document.getElementById('auth').classList.add('selected');
+    return true;
+  }
+  else
+  {
+    return false;
+    
+  }
+  
+}
+</script>
+

@@ -1,0 +1,14 @@
+<script type="text/javascript">
+    function ValuePass(Objsel)
+    {
+        window.location='http://dev.spiffcity.com/admin/auth/user/'+Objsel.value;
+    }
+</script>   
+{% load i18n %}
+<h3>{% blocktrans with title as filter_title %} By {{ filter_title }} {% endblocktrans %}</h3>
+<select onchange="return ValuePass(this);">
+{% for choice in choices %}
+    <option value="{{ choice.query_string|iriencode  }}" {% if request.GET.urlencode != '' %} class="selected" {% endif %}>
+   {{ choice.display }}</option>
+{% endfor %}
+</select>

@@ -1,0 +1,161 @@
+{% extends "admin/base_site.html" %}
+{% load adminmedia admin_list i18n %}
+{% load url from future %}
+{% block extrastyle %}
+  {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/changelists.css" />
+  {% if cl.formset %}
+    <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css" />
+  {% endif %}
+  {% if cl.formset or action_form %}
+    {% url 'admin:jsi18n' as jsi18nurl %}
+    <script type="text/javascript" src="{{ jsi18nurl|default:'../../jsi18n/' }}"></script>
+  {% endif %}
+  {{ media.css }}
+  {% if not actions_on_top and not actions_on_bottom %}
+    <style>
+      #changelist table thead th:first-child {width: inherit}
+    </style>
+  {% endif %}
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+{{ media.js }}
+{% if action_form %}{% if actions_on_top or actions_on_bottom %}
+<script type="text/javascript">
+(function($) {
+    $(document).ready(function($) {
+        $("tr input.action-select").actions();
+    });
+})(django.jQuery);
+</script>
+{% endif %}{% endif %}
+{% endblock %}
+
+{% block bodyclass %}change-list{% endblock %}
+
+{% if not is_popup %}
+  {% block breadcrumbs %}
+    <div class="breadcrumbs">
+      <a href="../../">
+        {% trans "Home" %}
+      </a>
+       &rsaquo;
+       <a href="../">
+         {{ app_label|capfirst }}
+      </a>
+      &rsaquo;
+      {{ cl.opts.verbose_name_plural|capfirst }}
+    </div>
+  {% endblock %}
+{% endif %}
+
+{% block coltype %}flex{% endblock %}
+
+{% block content %}
+  <div id="content-main">
+    {% block object-tools %}
+  <!--    <div style="margin:0px 180px">
+<ul class="object-tools">
+          
+            <li>
+              <a class="addlink" href="/admin/temp/temp/1/">
+                Import Process
+              </a>
+            </li>
+          
+        </ul>
+</div>
+<div style="margin:0px 99px">
+<ul class="object-tools">
+          
+            <li>
+              <a class="addlink" href="export/">
+                Export
+              </a>
+            </li>
+          
+        </ul>
+</div> -->
+      {% if has_add_permission %}
+        <ul class="object-tools">
+          {% block object-tools-items %}
+            <li>
+              <a href="add/{% if is_popup %}?_popup=1{% endif %}" class="addlink">
+                {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
+              </a>
+            </li>
+          {% endblock %}
+        </ul>
+      {% endif %}
+    {% endblock %}
+    {% if cl.formset.errors %}
+        <p class="errornote">
+        {% blocktrans count cl.formset.errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+        </p>
+        {{ cl.formset.non_form_errors }}
+    {% endif %}
+    
+    <!--{% for message in messages %}
+      <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    {% endfor %}
+    -->
+  
+    <div class="module{% if cl.has_filters %} filtered{% endif %}" id="changelist">
+    {% block search %}{% search_form cl %}{% endblock %}
+      {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
+      
+      <form id="changelist-form" action="" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %}>
+      {% block filters %}
+        {% if cl.has_filters %}
+          <div id="changelist-filter" style="float:right;">
+            {% for spec in cl.filter_specs %}{% admin_list_filter2 cl spec %}{% endfor %}
+          </div>
+        {% endif %}
+      {% endblock %}
+            
+      {% csrf_token %}
+      {% if cl.formset %}
+        <div>{{ cl.formset.management_form }}</div>
+      {% endif %}
+
+      {% block result_list %}
+          {% if action_form and actions_on_top and cl.full_result_count %}{% admin_actions %}{% endif %}
+          {% result_list cl %}
+          {% if action_form and actions_on_bottom and cl.full_result_count %}{% admin_actions %}{% endif %}
+      {% endblock %}
+      
+      {% block pagination %}{% pagination cl %}{% endblock %}
+      </form>
+    </div>
+  </div>
+<script type="text/javascript">
+  
+  
+//document.write("Old string =  " + myOldString); 
+//document.write("<br />New string = " + myNewString);
+  
+  
+  
+  
+  var encoded = document.getElementById('result_list').innerHTML;
+  //var decoded = $('<td>').html(encoded).val();
+var vall = '<thead><tr><th scope="col" class="action-checkbox-column">&lt;img border="0" alt="" src="http://cdndev.spiffcity.com/media/uploads/cat_image/icon_not_avalable.png" height="40" /></td> </tr><tr class="row2"> <td class="action-checkbox"><input class="action-select" value="119" name="_selected_action" type="checkbox"></td>  <th><a href="119/">Cell Phones</a></th>  <td>&lt;img border="0" alt="" src="http://cdndev.spiffcity.com/media/" height="40" /&gt;</td> </tr><tr class="row1"> <td class="action-checkbox"><input class="action-select" value="118" name="_selected_action" type="checkbox"></td>  <th><a href="118/">Cameras</a></th>  <td>&lt;img border="0" alt="" src="http://cdndev.spiffcity.com/media/" height="40" /&gt;</td> </tr><tr class="row2"> <td class="action-checkbox"><input class="action-select" value="117" name="_selected_action" type="checkbox"></td>  <th><a href="117/">Other</a></th>  <td>&lt;img border="0" alt="" src="http://cdndev.spiffcity.com/media/" height="40" /&gt;</td> </tr><tr class="row1"> <td class="action-checkbox"><input class="action-select" value="116" name="_selected_action" type="checkbox"></td>  <th><a href="116/">Televisions</a></th>  <td>&lt;img border="0" alt="" src="http://cdndev.spiffcity.com/media/" height="40" /&gt;</td> </tr><tr class="row2"> <td class="action-checkbox"><input class="action-select" value="115" name="_selected_action" type="checkbox"></td>  <th><a href="115/">Women’s Shoes</a></th>  <td>&lt;img border="0" alt="" src="http://cdndev.spiffcity.com/media/" height="40" /&gt;</td> </tr><tr class="row1"> <td class="action-checkbox"><input class="action-select" value="114" name="_selected_action" type="checkbox"></td>  <th><a href="114/">Men’s Shoes</a></th>  <td>&lt;img border="0" alt="" src="http://cdndev.spiffcity.com/media/" height="40" /&gt;</td> </tr><tr class="row2"> <td class="action-checkbox"><input class="action-select" value="113" name="_selected_action" type="checkbox"></td>  <th><a href="113/">Travel</a></th>  <td>&lt;img border="0" alt="" src="http://cdndev.spiffcity.com/media/" height="40" /&gt;</td> </tr>';
+
+
+var tempval = $("#result_list").val(vall.replace('&lt;', '<'));
+var tempval2 = "test is practise";
+var visitorName1 = "&lt;";
+var visitorName2 = "&gt;";
+var output = encoded.replace(/&lt;/g,'<');
+var output2 = output.replace(/&gt;/g,'>');
+//alert(output2);
+ document.getElementById('result_list').innerHTML = output2;
+
+decodedvalue = encoded.replace("&lt;", "<img");
+decodedvalue = decodedvalue.replace("&gt;", ">");
+//alert(tempval);
+  </script>
+
+{% endblock %}

@@ -190,4 +190,3 @@ try:
 	admin.site.register(User)	
 except:
 	pass
-	

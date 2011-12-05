@@ -1,0 +1,518 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<title>Spiffcity |{% block title %}{% endblock %}</title>
+		{% block meta %}{% endblock %}
+		
+		{% block jquery %}
+			<script type="text/javascript" src="{{media}}/media/js/jquery.js" ></script>
+			<script type="text/javascript" src="{{media}}/media/js/jcarousel.js" ></script>
+			<script type="text/javascript" src="{{media}}/media/js/scroller.js" ></script>
+			<script type="text/javascript" src="{{media}}/media/js/jquery.ui.autocomplete.js" ></script>
+			<!-- http://code.jquery.com/jquery-1.6.2.min.js -->
+		{% endblock %}
+		
+		<script type="text/javascript" src="{{media}}/media/js/corners.js" ></script>
+		<script type="text/javascript" src="{{media}}/media/js/ready.js"></script>
+		<script type="text/javascript" src="{{media}}/media/js/boxes.js"></script>
+		<script type="text/javascript" src="{{media}}/media/js/list_deals.js" ></script>
+                
+		
+		{% block headscripts %}{% endblock %}
+		<link rel="stylesheet" href="{{media}}/media/css/{% block mainstyle %}style.css{% endblock %}" type="text/css" media="screen" />
+		<link rel="stylesheet" href="{{media}}/media/css/skin.css" type="text/css" media="screen" />
+                <link rel="stylesheet" href="{{media}}/media/css/spiffcity_main.css" type="text/css" media="screen" />
+		{% block headstyles %}{% endblock %}
+                
+                
+                
+                
+                <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/Header.js?v=08012011"></script>
+	
+
+	<script src="http://www.google.com/jsapi?key=ABQIAAAAENAXNT0oq12QchWqjpHfxBQUck7JsdZaGfWkK-bFlF2ccQ2ePBQBq1DNQAu4oRtP5oDwa25VHd53Ng&sensor=false" type="text/javascript"></script>
+    <script>
+	    google.load("maps", "2");
+        google.setOnLoadCallback(mapsAPILoaded);
+    </script>
+    <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/jquery-jtemplates.js?v=08012011"></script> 
+ <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/jquery.cookie.js?v=08012011"></script> 
+ <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/Footer.js?v=08012011"></script> 
+  <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/DealMaster.js?v=08012011"></script> 
+  <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/animatedcollapse.js?v=08012011"></script> 
+   <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/popupmenu.js?v=08012011"></script>
+<script type="text/javascript" src="http://www.thedealmap.com/JavaScript/JScript.js?v=08012011"></script>
+<script type="text/javascript" src="http://www.thedealmap.com/JavaScript/dhtmlwindow.js?v=08012011"></script>
+<script type="text/javascript" src="http://www.thedealmap.com/JavaScript/modal.js?v=08012011"></script>
+<script type="text/javascript" src="http://www.thedealmap.com/JavaScript/query.countdown.js?v=08012011"></script>
+<script type="text/javascript" src="http://www.thedealmap.com/JavaScript/popup.js?v=08012011"></script>
+
+	
+	<script>
+		
+	/*function ajax_search(val)
+		{
+		$.get("http://dev.spiffcity.com/spiffs/deals/ajax_search/", function(data) {
+			//deal_id
+		        $('#results').html(data);
+		   // alert('Load was performed.');
+		    });
+		}	
+	*/	
+	function fn_ajax_search(val)/*function for search*/
+		{
+		var temp =$('#txtphone').val();
+		var val='Illinois';
+		alert(temp);
+		$.get("http://dev.spiffcity.com/spiffs/deals/ajax_search/"+temp+"/", function(data) {
+			//deal_id
+		        $('#results').html(data);
+			$('div#City_container.City_container').show('slow');
+		   // alert('Load was performed.');
+		    });
+		}
+	function change_list(val)
+		{
+		alert(val);
+		var temp = 'test';
+		$.get("http://dev.spiffcity.com/spiffs/deals/ajax_list_deal/"+val+"/", function(data) {
+			//deal_id
+		        $('div.MainList_Cont').remove();
+			$('div.Grey_List_Midd').html(data);
+			
+		    });
+		
+		}
+		
+	function close_popup() /*function for closing the city list div*/
+		{
+		$('a#city_cont_close.city_cont_close').click(function () {
+			$('div#City_container.City_container').hide("slow");
+			});
+		}
+		function setUpAutocomplete()
+		    {
+		         var data = "Core Selectors Attributes Traversing Manipulation CSS Events Effects Ajax Utilities".split(" ");
+		         var url = "ajax/ajaxHelpers.aspx"
+		         var options = 
+		            {
+		                width:157, 
+		                extraParams:{a:"searchcity"},
+		                onItemSelected:itemSelect,
+		                cacheLength:0,
+		                parse:parseJson
+		            };
+                $("#txtphone").autocomplete(data,options);
+		    }
+		setUpAutocomplete();
+	</script>
+	
+	</head>
+	
+		
+    <body>
+	
+	      <div class="City_container" style='display:none;'><!--City_container Start-->
+            	
+                <div class="City_cont_top"><!--City_cont_top Start-->
+                	
+                    <div class="State_Nav"><!--State_Nav Start-->	
+                    
+                    	<h2>Search U.S. by State:</h2>	
+                        
+                        <div class="State_chooser"><!--State_chooser Start-->
+                        	
+                            <ul>
+                            	 <li><a href="#">A</a></li>  
+                                 <li><a href="#">B</a></li>  
+                                 <li><a href="#">C</a></li> 
+                                 <li><a href="#">D</a></li>  
+                                 <li><a href="#">E</a></li>  
+                                 <li><a href="#">F</a></li>  
+                                 <li><a href="#" class="active">G</a></li>  
+                                 <li><a href="#">H</a></li>  
+                                 <li><a href="#">I</a></li>
+                                 <li><a href="#">J</a></li>  
+                                 <li><a href="#">K</a></li>  
+                                 <li><a href="#">L</a></li>  
+                                 <li><a href="#">M</a></li>  
+                                 <li><a href="#">N</a></li>  
+                                 <li><a href="#">O</a></li>  
+                                 <li><a href="#">P</a></li>  
+                                 <li><a href="#">Q</a></li>  
+                                 <li><a href="#">R</a></li>  
+                                 <li><a href="#">S</a></li>  
+                                 <li><a href="#">T</a></li>  
+                                 <li><a href="#">U</a></li>  
+                                 <li><a href="#">V</a></li>  
+                                 <li><a href="#">W</a></li>  
+                                 <li><a href="#">X</a></li>  
+                                 <li><a href="#">Y</a></li>  
+                                 <li><a href="#">Z</a></li>
+                            </ul>
+                            
+                        </div><!--State_chooser End-->
+                        <div class="State_name"><a href="#">Canada</a></div>
+                        <div class="State_country"><a href="#">Other Countries</a></div>
+                    
+                    </div><!--State_Nav  End-->
+                    
+                    <div class="State_division_box"><!--State_division_box Start-->
+                    
+                    	<h2>Georgia</h2>
+                        
+                        <div class="State_division_box2"><!--State_division_box2 Start-->
+                        	
+                             <ul>
+                                <li><a href="#">Athens, GA</a></li>
+                                <li><a href="#">AtlantaAt </a></li>
+                                <li><a href="#"  class="active">Augusta</a></li>
+                                <li><a href="#">Columbus GA</a></li>
+                            </ul>
+                            
+                            <ul>
+                                <li><a href="#">Athens, GA</a></li>
+                                <li><a href="#">AtlantaAt </a></li>
+                                <li><a href="#">Augusta</a></li>
+                                <li><a href="#">Columbus GA</a></li>
+                            </ul>
+                            <ul>
+                                <li><a href="#">Athens, GA</a></li>
+                                <li><a href="#">Atlanta</a></li>
+                                <li><a href="#">Augusta</a></li>
+                                <li><a href="#">Columbus GA</a></li>
+                            </ul>
+                            <ul>
+                                <li><a href="#">Athens, GA</a></li>
+                                <li><a href="#">Atlanta</a></li>
+                                <li><a href="#">Augusta</a></li>
+                                <li><a href="#">Columbus GA</a></li>
+                            </ul>
+                        
+                        </div><!--State_division_box2 End-->
+                    
+                    </div><!--State_division_box End-->
+                    
+                    
+                    
+                    
+                    
+                </div><!--City_cont_top  End-->
+                
+                <div class="City_cont_bottom"><!--City_cont_bottom Start-->
+                	<img src="images/hide_button.png" alt="hide" />
+                </div><!--City_cont_bottom  End-->
+           	
+            </div><!--City_container End-->
+        
+        <!--Search Box Start -->
+		<div class="search-form-box">
+			<form method="POST" action="http://dev.spiffcity.com/spiffs/deals/gmap/1">
+				{% csrf_token %}
+				<ul>
+					<li class="cross-container">
+						<a href="#" class="search-cross" >x</a>
+					</li>
+					<li>
+						<label>Keyword</label>
+						<span>
+							<input type="text" id="keyword_str" name="keyword" />
+						</span>
+					</li>
+					<li>
+						<label>City, State, ZIP</label>
+						<span>
+							<input type="text" id="search-city-field" name="keyword" />
+							<input type="submit" class="form-button" id="deal-search-button" value="search" />
+						</span>
+					</li>
+                   	 <li>
+						<label><input type="radio" id="keyword_local" name="search-radio-field" value="local" />Local Deals</label>
+                        <label style="width:117px;"><input type="radio" id="keyword_internet" name="search-radio-field" value="internet" />Internet Deals</label>
+						
+					</li>
+				</ul>
+			</form>
+		</div>
+		<!-- Search Box End -->
+                {% if not user%}
+			{% block login %}
+				<!-- Login Box Start -->
+					<div class="login-box">
+						<form method="POST" action="/members/login/">
+							{% csrf_token %}
+							<table>
+								<tr>
+									<td><a class="cross" href="#" >x</a></td><td></td><td></td>
+								</tr>
+								<tr>
+									<td><label>username</label></td><td><input type="text" name="username" /></td>
+								</tr>
+								<tr>
+									<td><label>Password</label></td><td><input type="password" name="password" /></td>
+								</tr>
+								<tr>
+									<td></td><td><input type="submit" value="login" class="form-button" name="form-button" /></td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				<!-- Login Box End -->
+			{% endblock %}
+			
+			{% if landing %}
+				<div class="parda2">
+				</div>
+				
+				<div class="get-location">
+					<div style="width:100%;float:left;">
+						<span style="float:right;color:white;cursor:pointer" id="close_location_box">X</span>
+					</div>
+					
+					<div style="float:left">
+						<form onsubmit="return false;">
+							<table>
+								<tr>
+									<td colspan="2">
+										<center><h1>Your Location</h1></center>
+									</td>
+								</tr>
+								<tr>
+									<td><label>Location</label></td><td><span><input type="text" id="location-collect" name="location-collect" value="{{city.City}}"/></span></td>
+								</tr>
+								<tr>
+									<td><label>E-Mail</label></td><td><span><input type="text" id="email-collect" name="location-collect" /></span></td>
+								</tr>
+								<tr>
+									<td><label></label></td><td><span><input id="form-button-1" class="form-button" type="submit" value="next" /></span></td>
+								</tr>
+							</table>
+						</form>
+					</div>	
+					
+					<div style="float: right; border-left: 1px solid rgb(204, 204, 204); height: 200px;">
+						<table>
+								<tr>
+									<td colspan="2">
+										<center><h1>Or</h1></center>
+									</td>
+								</tr>
+								<tr>
+									<td  ><label></label></td><td><span><a href="/social/facebook/connect/" class="facebook-connect" >Connect</a></span></td>
+								</tr>
+						</table>
+						
+					</div>
+				</div>
+				
+				<!--
+				<div class="get-email">
+					<form onsubmit="return false;">
+						<table>
+							<tr>
+								<td colspan="2">
+									<center><h1>Your E-Mail</h1></center>
+								</td>
+							</tr>
+							<tr>
+								<td><label>E-Mail</label></td><td><span><input type="text" id="email-collect" name="location-collect" /></span></td>
+							</tr>
+							<tr>
+								<td><label></label></td><td><span><input id="form-button-2" class="form-button" type="submit" value="next" /></span></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				-->
+			{% endif %}
+			
+			{% block signup %}
+			<div class="parda"></div>
+			<!-- Signup Form Start -->
+			<div class="signup-form-container">
+				<div class="signup-form"> 
+				<form method="post" action="/members/signup/" class="deals-search-form" >
+					{% csrf_token %}
+					<table>
+						<tr>
+							<td colspan="2"><a href="#" class="cross2" >x</a></td>
+						</tr>
+						<tr>
+							<td><label>First name:</label></td><td> <input type="text" name="first_name"/></td>
+						</tr>
+						<tr>             
+							<td><label>Last name:</label></td><td> <input type="text" name="last_name"  /></td>
+						</tr>
+						<tr>            
+							<td>
+								<label>Username :</label>
+							</td> 
+							<td> 
+								<input type="text" name="username"/>
+							</td>
+						</tr>
+						
+						<tr>            
+							<td>
+								<label>Your Email :</label>
+							</td> 
+							<td> 
+								<input type="text" name="email"/>
+							</td>
+						</tr>			   		
+						<tr>            
+							<td><label>Re-write Email :</label></td> <td> <input type="text"  name="email2" /></td>
+						</tr>				
+						<tr>            
+							<td><label>password :</label></td> <td> <input type="password" name="password" /></td>
+						</tr>			   		 
+						<tr>
+							<td>
+								<label>I Am :</label>
+							</td>
+							<td>      
+								<SELECT name="gender">
+								  <OPTION value="N">-Select-Sex-</OPTION><BR/>
+								  <OPTION value="M">Male</OPTION><BR/>
+								  <OPTION value="F">Female</OPTION><BR/>
+								</SELECT>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label>DOB :</label>
+							</td> 
+							<td>  
+								<input type="hidden" name="dob" id="id_dob">
+								
+								<SELECT id="b-month">
+								  <OPTION value="">-Month-</OPTION>
+								  <OPTION value="1">January</option>
+								  <OPTION value="2">Feburary</OPTION>
+								  <OPTION value="3">March</OPTION>
+								  <OPTION value="4">April</OPTION>
+								  <OPTION value="5">May</OPTION>
+								  <OPTION value="6">June</OPTION>
+								  <OPTION value="7">July</OPTION>
+								  <OPTION value="8">Augest</OPTION>
+								  <OPTION value="9">September</OPTION>
+								  <OPTION value="10">October</OPTION> 
+								  <OPTION value="11">November</OPTION>
+								  <OPTION value="12">December</OPTION>	
+								</SELECT>
+								 <select id="b-day">
+								 	<OPTION value="">-Day-</OPTION>
+								 	{% for day in days %}
+								 		<option value="{{day}}">{{day}}</option>	
+								 	{% endfor %}
+								</select>
+								<select id="b-year">
+								   <option value="">-Year-</option>
+								   {% for year in years %}
+								 		<option value="{{year}}">{{year}}</option>	
+								 	{% endfor %}
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><label></label></td>
+							<td>
+								<input class="form-button"  type="submit" value="Submit"  id="signup-button"/>
+							</td>
+						</tr> 
+					</table>
+				</form>
+		      </div>
+			</div>
+			{% endblock %}
+			<!-- Signup Form End -->
+		{% endif %}
+        
+        <div id="HeaderWrap"><!--HeaderWrap Strat-->
+	    <div id="HeaderMain"><!--HeaderMain Start-->
+		<div id="Header_Container"><!--Header_Container Start-->
+		    <div class="Header_Left"><!--Header_Left Start-->
+			<a href="/"><img src="{{media}}/media/images/logo.jpg" alt="Logo" title="Logo" /></a>
+		    </div><!--Header_Left End-->
+		    <div class="Header_Right"><!--Header_Right Start-->
+			
+			<div class="Header_Top_Menu"><!--Header_Top_Menu Start-->
+			    <a href="/spiffs/deals/map/2/" class="menu11"><span>Buy Property</span></a>
+			    <a href="/social/" class="menu2"><span>Buy Property</span></a>
+			    <a href="/members/" class="menu3"><span>Buy Property</span></a>
+			</div><!--Header_Top_Menu End-->
+
+			<div class="Header_Search_Cont"><!--Header_Search_Cont Start-->
+                            
+			    <div class="Header_Top_SName1">
+                                {% if  user.username %}
+                                Welcome {% firstof user.first_name user.username %}
+                                {% endif %}
+                            </div>
+			    
+                            <div class="Header_Top_Search" style='background-image: url("{{media}}/media/images/search_Bg.png");'><!--Header_Top_Search Start-->
+                                <!--<a href="#" class="button" id="search-button" >SEARCH</a> -->
+				<input name="" onfocus='setUpAutocomplete()' value='Search/Catagories' type="text" class="textbox" id="txtphone" onblur="validate_field('Search/Catagories');"  onclick="this.value='';"/>
+				<div class="search_Box">
+				    <a href="#" onclick='fn_ajax_search()' id='search_btn'><img alt="Search" src="{{media}}/media/images/{% block searchimage %}search.png{% endblock %}"></a>
+				
+				</div>
+				
+			    </div><!--Header_Top_Search  End-->
+			
+                        
+
+                        </div><!--Header_Search_Cont End-->
+
+                
+
+                <div class="Header_Top_Right"><!--Header_Top_Right Start-->
+
+                
+
+                	<div class="Top"> <a href="/social/facebook/connect/">
+			    <img src="{{media}}/media/images/face_on.png" alt="Like" title="Like" onmouseover="this.src='images/face_hover.png'" onmouseout="this.src='images/face_on.png'"/></a>
+
+                    </div>
+
+                    
+
+                    <div class="Bottom">
+
+                   	<a href="/social/facebook/connect/">Connect</a> |
+                        {% block usercontrols %}
+                            {% if user %}
+				<a href="/members/logout/">Logout</a>
+			    {% else %}
+				{% block login-control %}
+                                    <a href="#" id="login-window-button" >Login</a> |
+				{% endblock %}
+				{% block signup-control %}
+                                    <a href="/members/signup/" id="signup-window-button">Signup</a>
+				{% endblock %}
+			    {% endif %}
+			{% endblock %}
+                
+
+                </div><!--Header_Top_Right End-->
+
+                    
+
+                
+
+            </div><!--Header_Right  End-->
+
+        
+
+        </div><!--Header_Container End-->
+	
+	
+
+        
+
+    </div><!--HeaderMain  End-->
+
+
+
+</div><!--HeaderWrap End-->

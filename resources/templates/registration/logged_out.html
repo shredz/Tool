@@ -1,0 +1,33 @@
+{% load adminmedia %}
+{% load i18n %}
+<!-- hader -->
+{% include "admin/header.html" %}
+<!-- end heade -->
+<!-- menu part -->
+<!-- end menu part -->
+<div id="content">
+<div class="box">
+  <div class="left"></div>
+  <div class="right"></div>
+  <div class="heading">
+    <h1 style="background-image: url({% admin_media_prefix %}img/admin/user.png);">Logout</h1>
+    <div  class="buttons"> </div>
+  </div>
+
+  <div class="content" >
+		{% block breadcrumbs %}<div class="breadcrumbs"><a href="../">{% trans 'Home' %}</a></div>{% endblock %}
+
+{% block content %}
+
+<p>{% trans "Thanks for spending some quality time with the Web site todaydd." %}</p>
+
+<p><a href="../">{% trans 'Log in again' %}</a></p>
+
+{% endblock %}
+</div>
+</div>
+</div>
+<!-- footer part -->
+<div id="links" height="">
+ &nbsp;&nbsp;&nbsp;&copy; 2010-2011, <a href="/">Spiffcity</a> All rights reserved.</div>
+</body></html>

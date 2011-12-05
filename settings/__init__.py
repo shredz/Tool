@@ -40,7 +40,7 @@ DATABASES = {
         'USER': 'spiffdb',
         'HOST': 'localhost',
         'PORT': '3306',
-        'PASSWORD': 'spiff19@3#2',
+        'PASSWORD': 'spiffq7c4Ereb',
         'TABLEOPTS': 'ENGINE=InnoDB'
     }
 }
@@ -49,8 +49,8 @@ DATABASE_ENGINE = 'mysql'
 TIME_ZONE = 'America/New_York'
 LANGUAGE_CODE = 'en-us'
 SITE_ID = 1
-USE_I18N = False
-USE_L10N = False
+USE_I18N = True
+USE_L10N = True
 MEDIA_URL = 'http://cdndev.spiffcity.com' # NOTE: This will be entirely served by nginx for high performance
 STATIC_URL = '/static/'
 ADMIN_MEDIA_PREFIX = 'http://cdndev.spiffcity.com/admin/'
@@ -80,6 +80,7 @@ SECRET_KEY = 'SPIFF7j6l$2%6twd_1=_ldu95=k0@#$8qlft9xxxx9l+(uo4^iowglCITY'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
+    'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -88,6 +89,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.csrf.CsrfResponseMiddleware',
     
     'libs.middlewares.DomainMiddleware'
     
@@ -121,6 +123,7 @@ DEBUG_TOOLBAR_CONFIG = {
 TEMPLATE_CONTEXT_PROCESSORS = (
 	'django.core.context_processors.request',
 	'django.contrib.auth.context_processors.auth',
+	'django.contrib.messages.context_processors.messages',
 )
 
 INSTALLED_APPS = (
@@ -135,15 +138,19 @@ INSTALLED_APPS = (
 
 	# Site Modules
     'apps.core',
+    'apps.temp',
     'apps.geo',
     'apps.importer',
     'apps.reporting',
     'apps.social',
     'apps.spiffs',
     'apps.security',
-    'apps.members',    
+    'apps.point',
+    'apps.affilate',
+    'apps.members',
     'apps.importer.commisionjunction',
-    'apps.importer.linkshare'
+    #'apps.importer.linkshare'
+    'apps.location',
 )
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 #SESSION_ENGINE = 'django.contrib.sessions.backends.file'
@@ -177,7 +184,7 @@ CRED = {
 	"FACEBOOK_RETURN_URL"	: 'http://dev.spiffcity.com/social/facebook/connect/',
 	"TWITTER_CONSUMER_KEY"  : '269aR7JnBaLyTqtBPJ2rA', #1Fyl5KWsuFN1ObLMssaLnA',
 	"TWITTER_CONSUMER_SECRET":'lALfd3mdbFDdS9FBQFkyEsR0vLuE9k144ZJO44kxhs', #fETDfXhHAs4bY2V6HCL5IAjyieQ2gox1HH5qfDX3L0',
-	"TWITTER_RETURN_URL"	: 'http://ldev.spiffcity.com/social/twitter/connect/',
+	"TWITTER_RETURN_URL"	: 'http://dev.spiffcity.com/social/twitter/connect/',
 	"IPINFO_API_KEY"		: '293291a4aceee5e935261b57a72a804df6020630c183e6345db44326e5e2768d',
 	"GROUPON_DEAL_URL"		: 'https://api.groupon.com/v2/deals.json',
 	"GROUPON_CLIENT_ID"		: '1ff96d1ec0c008d8427ee92ff623e8151538dd16',
@@ -314,3 +321,5 @@ else:
 
 MEDIA_UPLOAD_PATH 	= '/var/django/spiffcity_dev/resources/uploads/'
 FLAGPATH			= MEDIA_UPLOAD_PATH + "flags/"
+MEDIA_ROOT          = "/var/django/spiffcity_dev/resources/static/media/";
+CAT_IMAGE_PATH		=  "uploads/cat_image/"

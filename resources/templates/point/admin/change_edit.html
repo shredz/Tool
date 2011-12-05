@@ -1,0 +1,177 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_modify adminmedia %}
+{% load url from future %}
+
+{% block extrahead %}{{ block.super }}
+{% url 'admin:jsi18n' as jsi18nurl %}
+<script type="text/javascript" src="{{ jsi18nurl|default:"../../../jsi18n/" }}"></script>
+{{ media }}
+{% endblock %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css" />{% endblock %}
+
+{% block coltype %}{% if ordered_objects %}colMS{% else %}colM{% endif %}{% endblock %}
+
+{% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
+
+{% block breadcrumbs %}{% if not is_popup %}
+<div class="breadcrumbs">
+     <a href="../../../">{% trans "Home" %}</a> &rsaquo;
+     <a href="../../">{{ app_label|capfirst|escape }}</a> &rsaquo;
+     {% if has_change_permission %}<a href="../">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %} &rsaquo;
+     {% if add %}{% trans "Add" %} {{ opts.verbose_name }}{% else %}{{ original|truncatewords:"18" }}{% endif %}
+</div>
+{% endif %}{% endblock %}
+
+{% block content %}<div id="content-main">
+{% block object-tools %}
+{% if change %}{% if not is_popup %}
+  <ul class="object-tools">
+    {% block object-tools-items %}
+    <li><a href="history/" class="historylink">{% trans "History" %}</a></li>
+    {% if has_absolute_url %}<li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="viewsitelink">{% trans "View on site" %}</a></li>{% endif%}
+    {% endblock %}
+  </ul>
+{% endif %}{% endif %}
+{% endblock %}
+<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% csrf_token %}{% block form_top %}{% endblock %}
+<div>
+{% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
+{% if save_on_top %}{% submit_row %}{% endif %}
+{% if errors %}
+    <p class="errornote">
+    {% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+    </p>
+    {{ adminform.form.non_field_errors }}
+{% endif %}
+
+{% for fieldset in adminform %}
+  {% include "admin/includes/fieldset.html" %}
+{% endfor %}
+
+{% block after_field_sets %}{% endblock %}
+
+{% for inline_admin_formset in inline_admin_formsets %}
+    {% include inline_admin_formset.opts.template %}
+{% endfor %}
+
+{% block after_related_objects %}{% endblock %}
+<div class="submit-row">
+    <input type="hidden" name="_save_temp" id="_save_id" value="">
+    <input type="hidden" name="_addanother_" id="_addanother_id" value="">
+    <input type="hidden" name="_continue_" id="_continue_id" value="">
+        
+<input type="submit" name="_save" class="default" value="Save" onclick="saveFun();">
+<p class="deletelink-box"><a class="deletelink" href="delete/">Delete</a></p>
+
+<input type="submit" name="_addanother_temp" value="Save and add another" onclick="save_another();">
+<input type="submit" name="_continue_temp" value="Save and continue editing" onclick="save_cont();">
+</div>
+
+{% if adminform and add %}
+   <script type="text/javascript">document.getElementById("{{ adminform.first_field.id_for_label }}").focus();</script>
+{% endif %}
+
+{# JavaScript for prepopulated fields #}
+{% prepopulated_fields_js %}
+
+</div>
+</form>
+<script type="text/javascript">
+function IsNumeric(sText)
+
+{
+   var ValidChars = "0123456789.";
+   var IsNumber=true;
+   var Char;
+
+ 
+   for (i = 0; i < sText.length && IsNumber == true; i++) 
+      { 
+      Char = sText.charAt(i); 
+      if (ValidChars.indexOf(Char) == -1) 
+         {
+         IsNumber = false;
+         }
+      }
+   return IsNumber;
+   
+   }
+function saveFun()
+{
+    var from_val = document.getElementById('id_commission_percentage_range_from').value;
+    var to_val   = document.getElementById('id_commission_percentage_range_to').value;
+    if(IsNumeric(from_val) && IsNumeric(to_val))
+    {
+        if(parseInt(to_val) > parseInt(from_val))
+        {
+             document.getElementById('_save_id').value='Save';
+             alert(document.getElementById('_save_id').value);
+             document.getElementById('rule_form').submit();
+            //document.getElementById('rule_form').submit();
+        }
+        else{
+            alert('"Commission percentage range to" should be greater than "Commission percentage range from"');
+            return false;
+            
+        }
+    }
+    else
+    {
+        document.getElementById('_save_id').value='Save';
+        document.getElementById('rule_form').submit();
+    }
+}
+function save_cont()
+{
+  
+    var from_val = document.getElementById('id_commission_percentage_range_from').value;
+    var to_val   = document.getElementById('id_commission_percentage_range_to').value;
+    if(IsNumeric(from_val) && IsNumeric(to_val))
+    {
+        if(parseInt(to_val) > parseInt(from_val))
+        {
+            document.getElementById('_continue_id').value='Save and continue editing';
+            document.getElementById('rule_form').submit();
+            //document.getElementById('rule_form').submit();
+        }
+        else{
+            alert('"Commission percentage range to" should be greater than "Commission percentage range from"');
+            return false;
+            
+        }
+    }
+    else
+    {
+        document.getElementById('_continue_id').value='Save and continue editing';
+        document.getElementById('rule_form').submit();
+    }
+}
+function save_another()
+{
+  
+  var from_val = document.getElementById('id_commission_percentage_range_from').value;
+    var to_val   = document.getElementById('id_commission_percentage_range_to').value;
+    if(IsNumeric(from_val) && IsNumeric(to_val))
+    {
+        if(parseInt(to_val) > parseInt(from_val))
+        {
+            document.getElementById('_addanother_id').value='Save and add another';
+            document.getElementById('rule_form').submit();
+        }
+        else{
+            alert('"Commission percentage range to" should be greater than "Commission percentage range from"');
+            return false;
+            
+        }
+    }
+    else
+    {
+        document.getElementById('_addanother_id').value='Save and add another';
+        document.getElementById('rule_form').submit();
+    }
+}
+</script>
+
+</div>
+{% endblock %}

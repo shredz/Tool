@@ -1,4 +1,4 @@
-{% extends "spiffcity.html" %}
+{% extends "spiffcity_old_temp.html" %}
 {% block headstyles %}
 	
 	 <link href="http://cdndev.spiffcity.com/media/css/gmap/dealmap.css?v=08012011" rel="stylesheet" type="text/css" />
@@ -391,12 +391,12 @@ $.get("http://localhost:8000/polls/ajax/", function(data) {
                                 
                                     <input class="main_map_input inactive" title="city , state / zip" value="city , state / zip" type="text" id="txtLocation2">
                             
-	                            <a id="lnkKeyword" href="#" class="menu-button float"></a>
+	                            <a id="lnkKeyword" href="#" class="menu-button float" onclick="searchDeals();"></a>
 	                        </div>
 	                        
                             <div class="filter-heading browse-heading">Or browse</div>
-                                <div class="filter-heading browse-heading"><input type="radio" name="deals" value="15" checked onclick="ajaxcall(this.value);"> Local Deal</div>
-                                    <div class="filter-heading browse-heading"><input type="radio" name="deals" value="22"  onclick="ajaxcall(this.value);"> Internet Deal</div>
+                                <div class="filter-heading browse-heading"><input type="radio" name="deals" value="98" onclick="ajaxcall(this.value);" checked="checked"> Local Deal</div>
+                                    <div class="filter-heading browse-heading"><input type="radio" name="deals" value="99"  onclick="ajaxcall(this.value);"> Internet Deal</div>
                         </div>
                         <div class="clearfix deal-choices">
                             <div class="deal-choice float selected" menu="popmenu1">
@@ -418,9 +418,7 @@ $.get("http://localhost:8000/polls/ajax/", function(data) {
                                 <ul>
                                 {% for catg in catgs%}
 			                     <li class="MenuItemStyle menu_item clearfix" crumbText = 'All Categories'>
-                                        <input type="radio"  name='filters'
-                                            onclick="MainMenuClick(this,'Category', 'All');"
-                                            id="chkAll" name="chkAll" value="*" checked="checked" />
+<input type="radio"  name='filters' onclick="showList(this.value);" id="chkAll" name="chkAll" value="{{catg.id}}"  />
                                             <label for="chkAll" class="float item-text all-20">{{catg.title}}</label>
                                     </li>
                                 {% endfor %}
@@ -854,11 +852,37 @@ $.get("http://localhost:8000/polls/ajax/", function(data) {
 		function deallist()
 		{
 			$.get("http://dev.spiffcity.com/spiffs/deallist/1/", function(data) {
+		        $('#deal_list').html(data);
+		    });
+		
+		}
+		function deallistpage()
+		{
+			$.get("http://dev.spiffcity.com/spiffs/deallist/1/", function(data) {
 			//deal_id
 		        $('#deal_list').html(data);
 		   // alert('Load was performed.');
 		    });
 		
 		}
+		// for showing list page
+		function showList(val)
+		{
+			$.get("http://dev.spiffcity.com/spiffs/deallist/"+val+"/", function(data) {
+		        $('#deal_list').html(data);
+		    });
+		}
+		function searchDeals()
+		{
+			var keyword = document.getElementById('txtKeyword').value;
+			var inval = document.getElementById('txtLocation2').value;
+			
+			$.get("http://dev.spiffcity.com/spiffs/deallist/1/?key="+keyword+"&in="+inval, function(data) {
+		        $('#deal_list').html(data);
+		    });
+			//alert(keyword+"keyeword");
+			//alert(inval+"in");
+		}
+		
 		</script>  
 {% endblock %}

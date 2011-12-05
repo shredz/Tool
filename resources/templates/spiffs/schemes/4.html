@@ -1,0 +1,340 @@
+{% autoescape off %}
+<script type = "text/javascript">
+		
+		$(document).ready(function(){
+			$('.parda').fadeIn();
+			$('.popup-info-div').hide();
+			$('.login-box').hide();
+			$('.signup-form-container').hide();
+			$('.parda').hide();
+			$('.search-form-box').hide();
+			$('#settings-menu').hide();
+			$('#user-menu').hide();
+			$('#marchents').hide();
+			$('#company-info').hide();
+			$('#follow-us').hide();
+		//	$('.price-diff').hide();
+			
+			$(".left-tool-bar .left-menu").corner("20px");
+			
+			$('.image-container .deal-image ').hover(function(){
+				$(this).find('.popup-info-div').fadeIn();
+			});
+			$('.image-container .deal-image ').mouseleave(function(){
+				$(this).find('.popup-info-div').fadeOut();
+			});
+			
+			$('#login-window-button').click(function(){
+				$('.login-box').fadeIn();
+			});
+			$('.cross').click(function(){
+				$('.login-box').fadeOut();
+			});
+			$('#signup-window-button').click(function(){
+				$('.signup-form-container').fadeIn();
+				$('.parda').fadeIn();
+			});
+			$('.cross2').click(function(){
+				$('.signup-form-container').fadeOut();
+				$('.parda').fadeOut();
+			});
+			$('#search-button').click(function(){
+				$('.search-form-box').fadeIn();
+			});
+			$('.search-cross').click(function(){
+				$('.search-form-box').fadeOut();
+			});
+			$('#settings').click(function(){
+				$('#settings-menu').fadeIn();
+				
+			});
+			$('#settings').blur(function(){
+				$('#settings-menu').fadeOut();
+			});
+			//$('#settings').live('blur', function() {
+			//	$('#settings-menu').fadeOut();
+			//});
+						
+			$('#user').click(function(){
+				$('#user-menu').fadeIn();
+			});
+			$('#user').blur(function(){
+				$('#user-menu').fadeOut();
+			});
+			$('#am').click(function(){
+				$('#marchents').fadeIn();
+				return false;
+			});
+			$('#am').blur(function(){
+				$('#marchents').fadeOut();
+			});
+			$('#companyInfo').click(function(){
+				$('#company-info').fadeIn();
+				return false;
+			});
+			$('#companyInfo').blur(function(){
+				$('#company-info').fadeOut();
+			});
+			$('#followUs').click(function(){
+				$('#follow-us').fadeIn();
+				return false;
+			});
+			$('#followUs').blur(function(){
+				$('#follow-us').fadeOut();
+			});
+			$('.deal-image').mouseover(function(){
+				var diff = $(this).find('.price-diff');
+				diff.fadeIn();
+				//$('.price-diff').fadeIn();
+			});
+			$('.deal-image').mouseout(function(){
+				var diff = $(this).find('.price-diff');
+				diff.fadeOut();
+			});
+			
+			//Location and email collection at start
+			
+		/*	$('.get-location').animate({
+				top: '40%'
+			});
+			$('#form-button-1').click(function(){
+				$('.get-location').animate({
+					top: '100%'
+				});
+				$('.get-email').animate({
+					top: '40%'
+				});
+				return false;
+			});
+			$('#form-button-2').click(function(){
+				$('.get-email').fadeOut();
+				$('.parda2').fadeOut();
+				return false;
+			}); */
+			//------------
+			
+		});
+		
+		</script>
+<!-- Deals Listing starts -->
+					<div class="centerize">
+						<div class="deals-container scheme-2">
+							<div class="location-bar"><p>Atlanta</p></div>
+							<div class="map-deal-container" >
+								<div class="deal-location-map">
+									<!-- Map Start -->
+									<iframe width="300" height="140" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Atlanta&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=44.25371,79.013672&amp;vpsrc=0&amp;ie=UTF8&amp;hq=&amp;hnear=Atlanta,+Fulton,+Georgia&amp;t=m&amp;ll=33.748893,-84.388046&amp;spn=0.037111,0.095787&amp;z=12&amp;iwloc=A&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Atlanta&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=44.25371,79.013672&amp;vpsrc=0&amp;ie=UTF8&amp;hq=&amp;hnestr=Atlanta,+Fulton,+Georgia&amp;t=m&amp;ll=33.748893,-84.388046&amp;spn=0.037111,0.095787&amp;z=12&amp;iwloc=A" style="color:#0000FF;text-align:left">View Larger Map</a></small>
+									<!--Map End -->
+								</div>
+								<div class="image-container  deal7">
+									<div class="deal-image" >
+										<img src="{{deals.deal1.image_url}}" height="100%" />
+										<SPAN class="credits">50</SPAN>
+										<div class="popup-info-div" style="margin-top:-320px;"  >
+											<h2>Deal Information:</h2>
+											<p>{{deals.deal1.description}}</p>
+											<a href="{{deals.deal1.link}}" class="price-diff">
+												<div id="old-price">{{deals.deal1.option.value}}</div>
+											<div id="new-price">{{deals.deal1.currency}} {{deals.deal1.price}}</div>
+											</a>
+										</div>
+										
+									</div> 
+									<div class="deal-info">
+										<div class="deal-info-text">{{deals.deal1.title}} </div>
+									</div>
+									
+								</div>
+								<div class="image-container  deal3">
+									<div class="deal-image">
+									<img src="{{deals.deal2.image_url}}" height="100%" />
+									<div class="popup-info-div" style="margin-top:-260px;">
+										
+										<h2>Deal Information:</h2>
+										<p>{{deals.deal2.description}}</p>
+										<a href="{{deals.deal2.link}}" class="price-diff">
+											<div id="old-price">{{deals.deal2.option.value}}</div>
+											<div id="new-price">{{deals.deal2.currency}} {{deals.deal2.price}}</div>
+										</a>
+										
+									</div>
+									<SPAN class="credits">50</SPAN>	
+									</div>
+									<div class="deal-info">
+										<!--<span class="price-diff">
+											<div id="old-price">$50</div>
+											<div id="new-price">$25</div>
+										</span> -->
+										<div class="deal-info-text">{{deals.deal2.title}} </div>
+									</div>
+									
+								</div>
+								<div class="small-deal-window image-container" id="small-deal-window" >
+									<div class="deal-image">
+									<img src="{{deals.deal3.image_url}}" />
+									<div class="popup-info-div" style="margin-top:-160px; height:95px;" >
+										<h2>{{deals.deal3.title}}</h2>
+										<p>{{deals.deal3.description}}</p>
+										<a href="{{deals.deal3.link}}" class="price-diff">
+											<div id="old-price">{{deals.deal3.option.value}}</div>
+											<div id="new-price">{{deals.deal3.currency}} {{deals.deal3.price}}</div>
+										</a>
+									</div>
+									<SPAN class="credits" style="top:-100px;">50</SPAN>	
+									</div>
+								</div>
+							</div>  
+							<div class="deal-container">
+								<div class="image-container  deal2">
+									<div class="deal-image">
+									<img src="{{deals.deal4.image_url}}" width="100%" />
+									<SPAN class="credits"  style="top:-125px;">50</SPAN>
+									<div class="popup-info-div" style="margin-top:-300px;" >
+										
+										<h2>Deal Information:</h2>
+											<p>{{deals.deal4.description}}</p>
+									</div>
+										
+									</div>
+									<div class="deal-info">
+										<a href="{{deals.deal4.link}}">
+											<span class="price-diff">
+												<div id="old-price">{{deals.deal4.option.value}}</div>
+											<div id="new-price">{{deals.deal4.currency}} {{deals.deal4.price}}</div>
+											</span>
+										</a>
+										<div class="deal-info-text">{{deals.deal3.title}} </div>
+									</div>
+									
+								</div>
+							</div>
+						<div class="deal-container">
+						</div>
+						<div class="deal-container">
+								<div class="image-container  deal8">
+									<div class="deal-image">
+									<img src="{{deals.deal5.image_url}}" height="100%" />
+									<div class="popup-info-div" style="margin-top:-260px;">
+										<h2>Deal Information:</h2>
+										<p>{{deals.deal5.description}}</p>
+										<a href="{{deals.deal5.link}}" class="price-diff">
+											<div id="old-price">{{deals.deal5.option.value}}</div>
+											<div id="new-price">{{deals.deal5.currency}} {{deals.deal5.price}}</div>
+										</a>
+									</div>
+									<SPAN class="credits" >50</SPAN>	
+									</div>
+									<div class="deal-info">
+										<!--<span class="price-diff">
+											<div id="old-price">$50</div>
+											<div id="new-price">$25</div>
+										</span> -->
+										<div class="deal-info-text">{{deals.deal5.title}}</div>
+									</div>
+									
+								</div>
+							</div>
+							<div class="deal-container">
+								<div class="image-container  deal4">
+									<div class="deal-image">
+									<img src="{{deals.deal6.image_url}}" height="100%" />	
+									<div class="popup-info-div" style="margin-top:-260px;">
+										<h2>Deal Information:</h2>
+										<p>{{deals.deal6.description}}</p>
+										<a href="{{deals.deal6.link}}" class="price-diff">
+											<div id="old-price">{{deals.deal6.option.value}}</div>
+											<div id="new-price">{{deals.deal6.currency}} {{deals.deal6.price}}</div>
+										</a>
+									</div>
+									<SPAN class="credits">50</SPAN>	
+									</div>
+									<div class="deal-info">
+										<!--<span class="price-diff">
+											<div id="old-price">$50</div>
+											<div id="new-price">$25</div>
+										</span> -->
+										<div class="deal-info-text">{{deals.deal6.title}} </div>
+									</div>
+									
+								</div>
+							</div>
+							<div class="deal-container">
+								<div class="image-container  deal6">
+									<div class="deal-image">
+										<img src="{{deals.deal7.image_url}}" width="100%" />
+										<div class="popup-info-div" style="margin-top:-300px;">
+											
+											<h2>Deal Information:</h2>
+											<p>{{deals.deal7.description}}</p>
+										</div>
+										<SPAN class="credits"  style="top:-125px;">50</SPAN>
+										
+									</div>
+									<div class="deal-info">
+										<a href="{{deals.deal7.link}}">
+											<span class="price-diff">
+												<div id="old-price">{{deals.deal7.option.value}}</div>
+											<div id="new-price">{{deals.deal7.currency}} {{deals.deal7.price}}</div>
+											</span>
+										</a>
+										<div class="deal-info-text">{{deals.deal7.title}} </div>
+									</div>
+									
+								</div>
+							</div>
+							<div class="deal-container">
+								<div class="image-container  deal6">
+									<div class="deal-image">
+									<img src="{{deals.deal8.image_url}}" width="100%" />	
+									<div class="popup-info-div" style="margin-top:-300px;">
+										
+										<h2>Deal Information:</h2>
+											<p>{{deals.deal8.description}}</p>
+									</div>
+									<SPAN class="credits" style="top:-125px;">50</SPAN>
+									</div>
+									<div class="deal-info">
+										<a href="{{deals.deal8.link}}">
+											<span class="price-diff">
+												<div id="old-price">{{deals.deal8.option.value}}</div>
+											<div id="new-price">{{deals.deal8.currency}} {{deals.deal8.price}}</div>
+											</span>
+										</a>
+										<div class="deal-info-text">{{deals.deal8.title}} </div>
+									</div>
+									
+								</div>
+							</div>
+							<div class="deal-container">
+								<div class="image-container  deal5">
+									<div class="deal-image">
+									<img src="{{deals.deal9.image_url}}" height="100%" />	
+									<div class="popup-info-div" style="margin-top:-260px;">
+										
+										<h2>Deal Information:</h2>
+											<p>{{deals.deal9.description}}</p>
+										<a href="{{deals.deal9.link}}" class="price-diff">
+											<div id="old-price">{{deals.deal9.option.value}}</div>
+											<div id="new-price">{{deals.deal9.currency}} {{deals.deal9.price}}</div>
+										</a>
+									</div>
+									<SPAN class="credits">50</SPAN>	
+									</div>
+									<div class="deal-info">
+										<!--<span class="price-diff">
+											<div id="old-price">$50</div>
+											<div id="new-price">$25</div>
+										</span> -->
+										<div class="deal-info-text">{{deals.deal9.title}} </div>	
+									</div>
+								
+								</div>
+							</div>
+							<!--<div class="arrows-holder">
+								<a href="#" id="left" ></a>
+								<a href="#" id="right" ></a>	
+							</div> -->
+						</div>
+					</div>
+				<!--Deals listing ends -->
+{% endautoescape %}

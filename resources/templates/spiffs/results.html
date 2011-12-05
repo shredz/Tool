@@ -1,0 +1,21 @@
+{% if result_city|length %}
+	
+	<table>
+	{% for city in result_city %}
+	<tr><td>		
+	<a href='#' name='{{ city.id }}' onclick="change_list('{{ city.city_name}}')">{{ city.city_name }}</a>
+	</tr></td>	
+	{% endfor %}
+	</table>	
+		
+		
+	
+{% else %}
+
+	<div class="note">
+
+	Your search yielded no results
+
+	</div>
+
+{% endif %}

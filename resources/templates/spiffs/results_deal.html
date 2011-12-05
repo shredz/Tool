@@ -1,0 +1,72 @@
+
+<div class="MainList_Cont"><!--MainList_Cont Start-->
+{% if results_deal|length %}
+                            	
+                                <div class="DControll2"><img src="images/controll2.png" /></div>
+                                
+                                {% for deal in results_deal %}
+                                <div class="MainList_Box"><!--MainList_Box Start-->
+                                	
+                                    <h1>{{deal.title}}</h1>
+                                    
+                                    <div class="ListPhoto"><img src="{{deal.image_url}}" width=209 height=133 alt="" /></div>
+                                    
+                                    <div class="ListText"><!--ListText Start-->
+                                    	
+                                        <span>{{deal.title}}</span>
+                                        <p>
+					{{ deal.description }}
+					</p>
+                                        
+                                        <div class="TextView">
+                                        	<a href="#">View at Spiff City</a>
+                                        </div>
+                                        
+                                        <div class="List_Socail1"><!--List_Socail1 Start-->
+                                        
+                                            <div class="List_Socail"><!--List_Socail Start-->
+                                                <p><a href="#"><img src="{{media}}/media/images/facbook2.png" alt="Like" title="Like" /></a></p>
+                                                <p><a href="#"><img src="{{media}}/media/images/twitter2.png" alt="Follow Us" title="Follow Us"/></a></p>
+                                                <span><a href="{{deal.purchase_url}}" target='_blank'>more info</a></span>
+                                            </div><!--List_Socail  End-->
+                                             
+                                        </div><!--List_Socail1  End--> 
+                                        
+                                        <div class="List_Share"><!--List_Share Start-->
+                                          <p><a href="#">Share</a></p>
+                                        </div><!--List_Share End-->
+                                         
+                                    </div><!--ListText  End-->
+			        
+                                    <div class="List_Hours"><!--List_Hours Start-->
+                                       	
+                                        <div class="Top1">You save <strong>{{deal.discount}}</strong></div>
+                                                
+                                        <div class="Bottom1">
+                                             <p>Time Left</p>
+                                            <span>2 Hours</span>
+                                        </div>
+                                         <div class="Points1">
+                                             <p>Get Spiffed 50pts</p>
+                                            <p>social rewards</p>
+                                         </div>
+                                         
+                                    </div><!--List_Hours  End-->  
+                                    
+                                    <div class="List_Rating"><!--List_Rating Start-->
+                                    
+                                    	<h1>Rating :</h1>
+                                        <span><img src="{{media}}/media/images/rating.png" alt="rating" /></span>
+                                        <span>11 reviews</span>
+                                        <p><a href="#">read more</a></p>
+                                    
+                                    </div><!--List_Rating  End-->
+                                   
+                                    
+                                </div><!--MainList_Box  End-->
+                                {% endfor %}
+{% else %}
+No results found.                               
+{% endif %}                  
+                            
+</div><!--MainList_Cont End-->

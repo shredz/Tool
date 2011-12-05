@@ -1,0 +1,117 @@
+{% load adminmedia %}
+{% load i18n %}
+<!-- hader -->
+{% include "admin/header.html" %}
+<!-- end heade -->
+<!-- menu part -->
+{% include "admin/menu.html" %}
+<!-- end menu part -->
+<div id="content">
+<div class="box">
+  <div class="left"></div>
+  <div class="right"></div>
+  <div class="heading">
+    <h1 style="background-image: url({% admin_media_prefix %}img/admin/user.png);">Dashboard</h1>
+    <div  class="buttons"> </div>
+  </div>
+
+  <div class="content" >
+		<table width="90%" border="0"  align="center" cellpadding="0" cellspacing="0">
+             <tr>
+                <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+					  <td class="iconImg" ><a href="/admin/auth/user/"><img src="{% admin_media_prefix %}img/admin/members_icon.png" width="128" height="128" border="0" /></a><br>
+					  <span align="center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin/auth/user/">Users</a> </span></td>
+					  
+                   </tr>
+                  </table></td> <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td class="iconImg"><a href="/admin/auth/group/"><img src="{% admin_media_prefix %}img/admin/user-group.jpeg" width="128" height="128" border="0" /></a> <br>
+					  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<a href="/admin/auth/group/">Groups</a> </span></td>
+                     
+                    </tr>
+                  </table> </td>
+
+                  <td> <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td class="iconImg"><a href="/admin/core/category/"><img src="{% admin_media_prefix %}img/admin/support.png" width="128" height="128" border="0" /></a> <br>
+					  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin/core/category/">Category</a> </span></td><td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+					  <td class="iconImg"><a href="/admin/location/country/"><img src="{% admin_media_prefix %}img/admin/world.jpeg" width="128" height="128" border="0" /></a><br>
+					  <span align="center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin/geo/country/">Countries</a> </span></td>
+					  <td class="iconImg"><a href="admin/geo/location/"><img src="{% admin_media_prefix %}img/admin/location.jpeg" width="128" height="128" border="0" /></a><br>
+					  <span align="center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin/geo/location/">Locations</a> </span></td>
+                   </tr>
+                  </table></td>
+                                         </tr>
+                  </table> </td> 
+
+                   </tr>
+                   
+                    <tr>
+                  <td height="60">&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  </tr>
+                <tr>
+                    <tr>
+                <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+					  <td class="iconImg"><a href="/admin/security/allowedhosts/"><img src="{% admin_media_prefix %}img/admin/ipaddress.jpeg" width="128" height="128" border="0" /></a><br>
+					  <span align="center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin/security/allowedhosts/">Allowed Hosts</a> </span></td>
+					  
+                   </tr>
+                  </table></td> <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td class="iconImg"><a href="/admin/sites/site/"><img src="{% admin_media_prefix %}img/admin/sites.jpeg" width="128" height="128" border="0" /></a> <br>
+					  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<a href="/admin/sites/site/">Sites</a> </span></td>
+                     
+                    </tr>
+                  </table> </td>
+
+                  <td> <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td class="iconImg"><a href="/admin/password_change/"><img src="{% admin_media_prefix %}img/admin/change_passIcon.png" width="128" height="128" border="0" /></a> <br>
+					  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin/password_change/">Change Password</a> </span></td><td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+					  <td class="iconImg"><a href="/admin/spiffs/activitytype/"><img src="{% admin_media_prefix %}img/admin/acityvity.jpeg" width="128" height="128" border="0" /></a><br>
+					  <span align="center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin/spiffs/activitytype/">Activity Types</a> </span></td>
+					  <td class="iconImg"><a href="/admin/spiffs/deal/"><img src="{% admin_media_prefix %}img/admin/deals.jpeg" width="128" height="128" border="0" /></a><br>
+					  <span align="center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin/spiffs/deal/">Deals</a> </span></td>
+                   </tr>
+                  </table></td>
+                                         </tr>
+                  </table> </td> 
+
+                   </tr>
+                   
+                   
+                <tr>
+                  <td height="60">&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  </tr>
+                <tr>
+                  
+                  </table></td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td height="150">&nbsp;</td>
+            </tr>
+        </table>
+</div>
+</div>
+</div>
+<!-- footer part -->
+{% include "admin/footer.html" %}
+</body></html>

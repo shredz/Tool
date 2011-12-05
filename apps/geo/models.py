@@ -26,12 +26,12 @@ class Country(models.Model):
 
 class Address(models.Model):
 	zipcode 		= models.CharField(max_length=7)
-	street_line_1	= models.CharField(max_length=30)
-	street_line_2	= models.CharField(max_length=30)
+	street_line_1		= models.CharField(max_length=30)
+	street_line_2		= models.CharField(max_length=30)
 	city			= models.CharField(max_length=25)
 	state			= models.CharField(max_length=20)
 	country			= models.ForeignKey('geo.Country')
-	phonenumebr 	= models.ForeignKey('core.PhoneNumber')
+	phonenumebr 		= models.ForeignKey('core.PhoneNumber')
 	location 		= models.ForeignKey('geo.Location')
 	
 class Location(models.Model):

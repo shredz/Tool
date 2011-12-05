@@ -1,0 +1,146 @@
+{% load adminmedia %}
+{% load url from future %}
+{% load i18n %}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" dir="ltr" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>{% block title %}Spiffcity{% endblock %}</title><link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/index.css">
+<style type="text/css">
+</style>
+    <script type="text/javascript">
+	</script>
+</head>
+<body>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+  <tr>
+    <td height="61" valign="middle" class="logobg"><table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" class="headertxt">
+      <tr>
+        <td width="300" class="heading"><!--<a href="home.html"><img src="images/logo.png" width="260" height="37" /></a>--></td>
+        <td height="65" align="center" style="background:url({% admin_media_prefix %}img/admin/controlPannel_img.gif) top center no-repeat">&nbsp;</td>
+        <td width="300" align="right"></td>
+      </tr>
+    </table></td>
+  </tr>
+
+
+  <tr>
+    <td height="67">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><table class="loginbox" border="0" cellspacing="0" cellpadding="0">
+
+     <tr>
+        <td width="50" height="50">&nbsp;</td>
+        <td>&nbsp;</td>
+        <td width="50">&nbsp;</td>
+      </tr>
+      <tr>
+        <td height="40">&nbsp;</td>
+        <td height="40" align="center" class="brBtm">Enter the user name into &quot;Username&quot; and password into the &quot;Password&quot; fields respectively. Then click &quot;LogIn&quot;.</td>
+
+        <td height="40">&nbsp;  
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp; </td>
+        <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td height="30" align="center" valign="middle">&nbsp;</td>
+            <td> </td>
+
+			
+          </tr>
+          <tr>
+            <td width="40%" align="center" valign="middle" class="brRight"><img src="{% admin_media_prefix %}img/admin/lockImg.gif" width="124" height="118" /></td>
+            <td><table width="100%" border="0" cellspacing="15" cellpadding="0"> 
+				
+				<form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+				<input type="hidden" value="1" name="this_is_the_login_form">
+   				 <input type="hidden" value="/admin/" name="next">
+			  <tr>
+				<td></td>
+				<td><font color="red">{% if form.non_field_errors or form.this_is_the_login_form.errors %}
+{% for error in form.non_field_errors|add:form.this_is_the_login_form.errors %}
+Invalid Username/Password.
+{% endfor %}
+{% else %} 
+{% if form.this_is_the_login_form.errors %}
+{% if form.username.errors %}Invalid Username/Password.{% endif %}
+{% else %}
+{% if form.password.errors %}Invalid Username/Password.{% endif %}
+{% endif %}
+{% endif %}
+
+</font></td>
+
+				</tr>
+				<tr>
+                <td align="right"><label class="required" for="id_username">Username:</label> </td>
+                <td>  <label>
+				{{ form.username }}
+               </label></td>
+              </tr>
+              <tr>
+
+                <td align="right"><label class="required" for="id_password">Password:</label></td>
+                <td>          
+                
+				 {{ form.password }}</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td><label>
+                  <input type="submit" name="button" id="button" class="subBtn" value="Log in" />
+
+                </label></td>
+              </tr>
+			    </form>
+            </table>
+
+			</td>
+          </tr>
+        </table></td>
+        <td>&nbsp;</td>
+
+      </tr>
+      
+      <tr>
+        <td height="50">&nbsp;</td>
+        <td height="50">&nbsp;</td>
+        <td height="50">&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td class="links">&nbsp;&nbsp;&nbsp;&copy; 2011, <a href="/">Spiffcity</a> All rights reserved</td>
+
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>

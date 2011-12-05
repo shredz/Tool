@@ -1,0 +1,107 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_modify adminmedia %}
+{% load url from future %}
+
+
+{% block content %}
+            
+    {% block branding %}
+<h1 id="site-name">{% trans 'Import filename' %}</h1>
+<b>Note:</b> Please first upload the csv file and click on Save then click on import csv.
+
+{% endblock %}        
+            <div id="content-main">
+{% block object-tools %}
+{% if change %}{% if not is_popup %}
+  <div style="margin:0px 170px">
+<ul class="object-tools" style="margin-top:-5px;">
+          
+            <li>
+              <!-- <a  href="/admin/spiffs/deal/"> -->
+                <input type="button" name="_continue" class="default" value="Back" o style="margin-left:1120px; margin-top:-8px; " onclick="backfun();"> 
+               <!--</a> -->
+            </li>
+          
+        </ul>
+</div>
+  {% block object-tools-items %}
+  <ul class="object-tools"  style="margin-top:-5px;">
+    <li><a href="/admin/temp/temp/importfile/" class="historylink">{% trans "Import csv" %}</a></li>
+  </ul>
+  <input type="button" name="_continue" class="default" value="Save" onclick="Checkfiles();" style="margin-left:1120px; margin-top:-20px; "> 
+  <ul class="object-tools" style="margin-top:-5px;">
+    {% if has_absolute_url %}<li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="viewsitelink">{% trans "View on site" %}</a></li>{% endif%}
+  </ul>
+  
+  {% endblock %}
+
+{% endif %}{% endif %}
+{% endblock %}
+<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% csrf_token %}{% block form_top %}{% endblock %}
+<div>
+{% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
+{% if save_on_top %}{% submit_row %}{% endif %}
+{% if errors %}
+    <p class="errornote">
+    {% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+    </p>
+    {{ adminform.form.non_field_errors }}
+{% endif %}
+
+{% for fieldset in adminform %}
+  {% include "admin/includes/fieldset.html" %}
+{% endfor %}
+
+{% block after_field_sets %}{% endblock %}
+
+{% for inline_admin_formset in inline_admin_formsets %}
+    {% include inline_admin_formset.opts.template %}
+    
+    
+{% endfor %}
+<span id="error_id"></span>
+{% block after_related_objects %}{% endblock %}
+
+
+<div class="submit-row">
+<input type="hidden" name="_continue"  value="Save and continue editing" >
+
+</div>
+{% if adminform and add %}
+   <script type="text/javascript">document.getElementById("{{ adminform.first_field.id_for_label }}").focus();</script>
+{% endif %}
+
+{# JavaScript for prepopulated fields #}
+{% prepopulated_fields_js %}
+
+</div>{{ ddd }}
+</form></div>
+<script language="javascript">
+function Checkfiles()
+{
+var fup = document.getElementById('id_filename');
+var fileName = fup.value;
+var ext = fileName.substring(fileName.lastIndexOf('.') + 1);
+if(ext == "csv" || ext == "CSV" )
+{
+//return true;
+document.getElementById('error_id').innerHTML="";
+document.getElementById('temp_form').submit();
+} 
+else
+{
+
+document.getElementById('error_id').innerHTML="<font color='red'>Please select file or check your file format only csv file is allowed to upload.</font>";
+fup.focus();
+return false;
+}
+}
+</script>
+<script type="text/javascript">
+            function backfun()
+            {
+            alert('hi');
+               //window.location="";
+            }
+</script>
+{% endblock %}

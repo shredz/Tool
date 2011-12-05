@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib import admin
-
+#from PIL import Image as PImage
+import os
 import settings
 
 #**************************************#
@@ -54,11 +55,35 @@ class Category(models.Model):
 	title 		= models.CharField(max_length=50)
 	description = models.CharField(max_length=100)
 	parent		= models.ForeignKey('self')
-	
+	image1		= models.FileField(upload_to=settings.CAT_IMAGE_PATH,blank=True)
+	image2		= models.FileField(upload_to=settings.CAT_IMAGE_PATH,blank=True)
 	objects		= CategoryManager()
+		
+	#def admin_src(self):
+	#image_src = "<img id='firstid' width='52' height='22' src='http://cdndev.spiffcity.com/media/%s'> "% self.src
+	#	return image_src;
+	#	src.allow_tags=True
+		
+	def thumbnail(self):
+		#return '<img border="0" alt="" src="http://cdndev.spiffcity.com/media/%s" height="40" />' % ((self.image1))
+		return "<img border='0' alt='' src='http://cdndev.spiffcity.com/media/%s' height='40' />" % ((self.image1))
+		#return valu.encode('utf-8')
+		thumbnail.allow_tags = True
+	def thumbnail2(self):
+		#return '<img border="0" alt="" src="http://cdndev.spiffcity.com/media/%s" height="40" />' % ((self.image1))
+		return "<img border='0' alt='' src='http://cdndev.spiffcity.com/media/%s' height='40' />" % ((self.image2))
+		#return valu.encode('utf-8')
+		thumbnail2.allow_tags = True
+	def maincategory(self):
+		#return '<img border="0" alt="" src="http://cdndev.spiffcity.com/media/%s" height="40" />' % ((self.image1))
+		return self.parent
+		#return valu.encode('utf-8')
+		maincategory.allow_tags = True
 	
 	def __unicode__ (self):
 		return self.title
+		
+
 
 #admin.site.register(Category)
 
@@ -68,12 +93,14 @@ class SpiffObject(models.Model):
 	description = models.TextField()
 	category	= models.ForeignKey(Category)
 	image_url	= models.URLField(verify_exists=False)
-	purchase_url= models.URLField(verify_exists=False, unique=True)
+	purchase_url= models.URLField(verify_exists=False)
 	approved	= models.BooleanField(default=False)
 	is_free 	= models.BooleanField(default=False)	
 	is_featured = models.BooleanField(default=False)
 
-	
+	#class Meta:
+	#	abstract = True
+		
 	def __unicode__(self):
 		return self.title
 
@@ -99,5 +126,6 @@ class SpiffTicket(models.Model):
 	purchase_url	= models.URLField(verify_exists=False) # Don't verify, assume valid
 	full_details	= models.TextField()
 	reward_points	= models.IntegerField(default=0)
+	
 
-admin.site.register(Category)
+#admin.site.register(Category)

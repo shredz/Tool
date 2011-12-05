@@ -1,0 +1,41 @@
+{% load i18n %}
+<select name="catdd" id="catdd">
+{% for choice in choices %}
+    {% if choice.query_string != "?" %}
+        <option value="{{ choice.query_string}}">{{ choice.display }}</option>
+    {% endif %}
+{% endfor %}
+</select><input type="button" nmae="Assign" value="Assign Category" onclick="Checkselect();" id="assigncatid">
+  <script language="javascript">
+function Checkselect()
+{
+    var check = false;
+    document.getElementById('changelist-form').action = 'assigncat/';
+    
+    if($(".action-select:checked").attr("checked"))
+    {
+      document.getElementById('changelist-form').submit();
+    }
+    else
+    {
+     
+     alert("Please checked atleast one checkbox");   
+    }
+   //$("#assigncatid").click(function(event){
+   //  alert("Thanks for visiting!");
+   //});
+
+
+
+
+}
+/*
+$(function () { // this line makes sure this code runs on page load
+	$('#action-toggle').click(function () {
+		
+	});
+});
+*/
+
+</script>
+ 

@@ -7,7 +7,8 @@ if 	 sys.argv[1] == "TESTIMPORT":
 
 elif sys.argv[1] == "CJREPORTS":
 	from apps.importer.commisionjunction import CJ
-	CJ ().make_reports()
+	#CJ ().make_reports()get_reports
+	print CJ ().make_reports()
 	
 	
 

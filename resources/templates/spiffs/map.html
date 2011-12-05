@@ -1,0 +1,574 @@
+{% extends "spiffcity.html" %}
+{% block headstyles %}
+	
+	 <link href="http://cdndev.spiffcity.com/media/css/gmap/dealmap.css?v=08012011" rel="stylesheet" type="text/css" />
+	  <link href="http://cdndev.spiffcity.com/media/css/gmap/dhtmlwindow_css.css?v=08012011" rel="stylesheet" type="text/css" />
+	<!--[if IE]>
+    <link rel="stylesheet" href="http://www.thedealmap.com/css/ie.css?v=08012011" type="text/css" />
+	<![endif]-->
+	  <link href="http://cdndev.spiffcity.com/media/css/gmap/style.css?v=08012011" rel="stylesheet" type="text/css" />
+
+	<script type="text/javascript">
+		var CurrentDate = "11/11/2011 11:25:14 PM";
+		var __appversion = "08012011";
+		var __tileversion = "45";
+		var iVisit = 0;
+		var iFeaturedDealCurrentPage = -1;
+		var iQuickListCurrentPage;
+		var sDealId = '';
+		/* Start QueryString Parameters */
+		var sLocation = '';
+		var dlat = '';
+		var dlon = '';
+		dlat = dlat != 0 ? dlat : "";
+		dlon = dlon != 0 ? dlon : "";
+		var sCategory = '';
+		var sStyle = '';
+		var sKeyword = '';
+		var iFeaturedDealCurrentPage = '';
+		var iQuickListCurrentPage = '';
+		/* End QueryString Parameters */
+		var sFeaturedDealDefaultLocation = ""; // Store in web.config
+		var IsConnected = false;
+		var UserID = "";
+		var uEmailAddress = "";
+		var uFirstName = "";
+		var uLastName = "";
+		var uCity = "";
+		var uState = "";
+		var uCountry = "";
+		var uLatitude = "";
+		var uLongitude = "";
+		var uPhotoUrl = "";
+		var mapControl = null;
+		var rootDomain = "http://www.thedealmap.com/";
+		function RediredctToAddDeal() {
+		    window.location.href = "../submit";
+		}
+
+(function() {
+$.get("http://localhost:8000/polls/ajax/", function(data) {
+        alert(data);
+    });
+});
+	</script>
+
+	<script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/Header.js?v=08012011"></script>
+	
+
+	<script src="http://www.google.com/jsapi?key=ABQIAAAAENAXNT0oq12QchWqjpHfxBQUck7JsdZaGfWkK-bFlF2ccQ2ePBQBq1DNQAu4oRtP5oDwa25VHd53Ng&sensor=false" type="text/javascript"></script>
+    <script>
+	google.load("maps", "2");
+        google.setOnLoadCallback(mapsAPILoaded);
+    </script>
+    <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/jquery-jtemplates.js?v=08012011"></script> 
+ <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/jquery.cookie.js?v=08012011"></script> 
+ <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/Footer.js?v=08012011"></script> 
+  <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/DealMaster.js?v=08012011"></script> 
+  <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/animatedcollapse.js?v=08012011"></script> 
+   <script type="text/javascript" src="http://cdndev.spiffcity.com/media/js/gmap/popupmenu.js?v=08012011"></script>
+<script type="text/javascript" src="http://www.thedealmap.com/JavaScript/JScript.js?v=08012011"></script>
+<script type="text/javascript" src="http://www.thedealmap.com/JavaScript/dhtmlwindow.js?v=08012011"></script>
+<script type="text/javascript" src="http://www.thedealmap.com/JavaScript/modal.js?v=08012011"></script>
+<script type="text/javascript" src="http://www.thedealmap.com/JavaScript/query.countdown.js?v=08012011"></script>
+<script type="text/javascript" src="http://www.thedealmap.com/JavaScript/popup.js?v=08012011"></script>>
+
+	 <style type="text/css">
+        #mask
+        {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 9000;
+            background-color: #000;
+            display: none;
+        }
+        #boxes .window
+        {
+            /*position:absolute;*/
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 440px;
+            height: 200px;
+            display: none;
+            z-index: 9999;
+            padding: 20px;
+        }
+        #boxes #dialog
+        {
+            width: 375px;
+            height: 203px;
+            padding: 10px;
+            background-color: #ffffff;
+        }
+        #boxes #dialog1
+        {
+            width: 375px;
+            height: 203px;
+        }
+        #dialog1 .d-header
+        {
+            background: url(images/login-header.png) no-repeat 0 0 transparent;
+            width: 375px;
+            height: 150px;
+        }
+        #dialog1 .d-header input
+        {
+            position: relative;
+            top: 60px;
+            left: 100px;
+            border: 3px solid #cccccc;
+            height: 22px;
+            width: 200px;
+            font-size: 15px;
+            padding: 5px;
+            margin-top: 4px;
+        }
+        #dialog1 .d-blank
+        {
+            float: left;
+            background: url(images/login-blank.png) no-repeat 0 0 transparent;
+            width: 267px;
+            height: 53px;
+        }
+        #dialog1 .d-login
+        {
+            float: left;
+            width: 108px;
+            height: 53px;
+        }
+        #boxes #dialog2
+        {
+            background: url(images/notice.png) no-repeat 0 0 transparent;
+            width: 326px;
+            height: 229px;
+            padding: 50px 0 20px 25px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+   <div class="Mapcont_Left"><!--Mapcont_Left Start-->
+
+                    
+
+                    	<div class="Mapcont_Left_Top"><!--Mapcont_Left_Top Start-->
+
+                        
+
+                        	<div class="Mapbt"><a href="#" class="active">Map View</a></div>
+
+                            <div class="Mapbt"><a href="/spiffs/deals/list/">List View</a></div>
+
+                            <div class="Mapbt"><a href="#">Grid View</a></div>
+
+                            
+
+                            <div class="LocalBt"><!--LocalBt Start-->
+
+                            	
+
+                                
+
+                            
+
+                            </div><!--LocalBt  End-->
+
+                            
+
+                            <div class="Mapsocail_Icon"><!--Mapsocail_Icon Start-->
+
+                            	
+
+                                <p><a href="#"><img src="images/social1.png" alt="My Account" title="My Account" /></a></p>
+
+                                <p><a href="#"><img src="images/social2.png" alt="My Friends" title="My Friends" /></a></p>
+
+                                <!--<p><a href="#"><img src="images/social3.png" alt="My Account" title="My Account" /></a></p>
+
+                                <p><a href="#"><img src="images/social4.png" alt="My Friends" title="My Friends" /></a></p>-->
+
+                                <p><a href="#"><img src="images/social5.png" alt="Content" title="Content" /></a></p>
+
+                            
+
+                            </div><!--Mapsocail_Icon  End-->
+
+                            
+
+                        </div><!--Mapcont_Left_Top End-->
+
+                        
+
+                        <div class="Mapcont_Left_Midd"><!--Mapcont_Left_Midd Start-->
+
+                        	
+
+                            <div class="Mapcont_Box"><!--Mapcont_Box Start-->
+
+                            	
+
+                                <!--<img src="images/mapbox2.png" alt="map"  />-->
+
+                            </div><!--Mapcont_Box  End-->
+
+                            
+
+                            <div class="Mapcont_Controll"><!--Mapcont_Controll Start-->
+
+                            	
+				<div class="dynamic-map-section" id = 'dynamic-map-section'>
+			            <div id="DynamicMapContainer" class="DynamicMapContainer">			    
+                            <div class='float map-wrapper'>
+                                <div id="DynamicMap" class="dynamic_map">
+			                            </div>
+			                            <div id="RefreshDealsContainer" style="display: none;">
+				                            <a id="lnkRefreshDeals" href="#">
+					                            <img border="0" src="images/refresh_deals.png"></a>
+			                            </div>
+                            </div>			    
+			            </div>
+			            <div id ='map-bottom-trans' class='trans-back map-bottom-abs'></div>
+			            <div id = 'heat-map-info' class="heat-map-info map-bottom-abs">
+			                <div class="heat-top">Zoom in on the map or use the location search box to see great deals in your city.</div>
+			                <div class="clearfix heat-bottom">
+			                    <div class="float">A handful of deals</div>
+			                    <div class="float heat-check"></div>
+			                    <div class="float">Holy tons of deals</div>
+			                </div>
+			            </div>
+			            <div class="map-deal map-bottom-abs" id ='map-deal-container' style="display:none"></div>
+			            
+			            <div class="email-cta">
+			            
+			            </div>			            
+			        </div>
+
+                                <img src="images/cotroller.png" alt=""  />
+
+                            
+
+                            </div><!--Mapcont_Controll End-->
+
+                        
+
+                        </div><!--Mapcont_Left_Midd  End-->
+
+                                            
+
+                    </div><!--Mapcont_Left End-->
+
+                    
+
+                    
+
+                    <div class="Mapcont_Right"><!--Mapcont_Right Start-->
+
+                    	
+
+                        <div class="Deal_Container"><!--Deal_Container Start-->
+
+                        	
+
+                            <div class="Deal_Cont_Top"><span>Top</span></div><!--Deal_Cont_Top Start End-->
+
+                            
+
+                            <div class="Deal_Cont_Midd"><!--Deal_Cont_Midd Start-->
+
+                            	
+
+                                <div class="DMiddle"><!--DMiddle Start-->
+
+                                	<div class="DControll1"><img src="images/controll1.png" /></div>
+
+                                    <ul>
+
+                                    
+
+                                    	<li>
+
+                                        	
+
+                                            <h1>Lorem Ipsum is simply dummy text</h1>
+
+                                            
+
+                                            <div class="Photodeal"><img src="images/photo1.png" alt="photo" /></div><!--Photodeal Start End-->
+
+                                            
+
+                                            <div class="Textdeal"><!--Textdeal Start-->
+
+                                            	
+
+                                                <span>Lorem Ipsum</span>
+
+                                                <h2><a href="#">View at Spiff City</a></h2>  
+
+                                                
+
+                                              	<div class="Deal_Socail"><!--Deal_Socail Start-->
+
+                                                    <p><a href="#"><img src="images/face1.png" alt="face" /></a></p>
+
+                                                    <p><a href="#"><img src="images/twitt1.png" alt="twitt" /></a></p>
+
+                                                     <span><a href="#">more info</a></span>
+
+                                            	</div><!--Deal_Socail  End--> 
+
+                                                                                        
+
+                                            </div><!--Textdeal End-->
+
+                                            
+
+                                            <div class="Deal_Rating"><!--Deal_Rating Start-->
+
+                                            	<div class="Top1">You save <strong>50%</strong></div>
+
+                                                
+
+                                                <div class="Bootom1">
+
+                                                	 <p>Time Left</p>
+
+                                                    <span>2 Hours</span>
+
+                                                </div>
+
+                                            </div><!--Deal_Rating  End-->
+
+                                           
+
+                                        </li>
+
+                                        
+
+                                        <li>
+
+                                        	
+
+                                            <h1>It is a long established fact that a reader </h1>
+
+                                            
+
+                                            <div class="Photodeal"><img src="images/photo1.png" alt="photo" /></div><!--Photodeal Start End-->
+
+                                            
+
+                                            <div class="Textdeal"><!--Textdeal Start-->
+
+                                            	
+
+                                                <span>Lorem Ipsum</span>
+
+                                                <h2><a href="#">View at Spiff City</a></h2>  
+
+                                                
+
+                                              	<div class="Deal_Socail"><!--Deal_Socail Start-->
+
+                                                    <p><a href="#"><img src="images/face1.png" alt="face" /></a></p>
+
+                                                    <p><a href="#"><img src="images/twitt1.png" alt="twitt" /></a></p>
+
+                                                     <span><a href="#">more info</a></span>
+
+                                            	</div><!--Deal_Socail  End--> 
+
+                                                                                        
+
+                                            </div><!--Textdeal End-->
+
+                                            
+
+                                            <div class="Deal_Rating"><!--Deal_Rating Start-->
+
+                                            	<div class="Top1">You save <strong>50%</strong></div>
+
+                                                
+
+                                                <div class="Bootom1">
+
+                                                	 <p>Time Left</p>
+
+                                                    <span>2 Hours</span>
+
+                                                </div>
+
+                                            </div><!--Deal_Rating  End-->
+
+                                           
+
+                                        </li>
+
+                                        
+
+                                        
+
+                                        <li>
+
+                                        	
+
+                                            <h1>Contrary to popular belief, Lorem Ipsum is not </h1>
+
+                                            
+
+                                            <div class="Photodeal"><img src="images/photo1.png" alt="photo" /></div><!--Photodeal Start End-->
+
+                                            
+
+                                            <div class="Textdeal"><!--Textdeal Start-->
+
+                                            	
+
+                                                <span>Lorem Ipsum</span>
+
+                                                <h2><a href="#">View at Spiff City</a></h2>  
+
+                                                
+
+                                              	<div class="Deal_Socail"><!--Deal_Socail Start-->
+
+                                                    <p><a href="#"><img src="images/face1.png" alt="face" /></a></p>
+
+                                                    <p><a href="#"><img src="images/twitt1.png" alt="twitt" /></a></p>
+
+                                                     <span><a href="#">more info</a></span>
+
+                                            	</div><!--Deal_Socail  End--> 
+
+                                                                                        
+
+                                            </div><!--Textdeal End-->
+
+                                            
+
+                                            <div class="Deal_Rating"><!--Deal_Rating Start-->
+
+                                            	<div class="Top1">You save <strong>50%</strong></div>
+
+                                                
+
+                                                <div class="Bootom1">
+
+                                                	 <p>Time Left</p>
+
+                                                    <span>2 Hours</span>
+
+                                                </div>
+
+                                            </div><!--Deal_Rating  End-->
+
+                                           
+
+                                        </li>
+
+                                        
+
+                                        <li>
+
+                                        	
+
+                                            <h1>The standard chunk of Lorem Ipsum used</h1>
+
+                                            
+
+                                            <div class="Photodeal"><img src="images/photo1.png" alt="photo" /></div><!--Photodeal Start End-->
+
+                                            
+
+                                            <div class="Textdeal"><!--Textdeal Start-->
+
+                                            	
+
+                                                <span>Lorem Ipsum</span>
+
+                                                <h2><a href="#">View at Spiff City</a></h2>  
+
+                                                
+
+                                              	<div class="Deal_Socail"><!--Deal_Socail Start-->
+
+                                                    <p><a href="#"><img src="images/face1.png" alt="face" /></a></p>
+
+                                                    <p><a href="#"><img src="images/twitt1.png" alt="twitt" /></a></p>
+
+                                                     <span><a href="#">more info</a></span>
+
+                                            	</div><!--Deal_Socail  End--> 
+
+                                                                                        
+
+                                            </div><!--Textdeal End-->
+
+                                            
+
+                                            <div class="Deal_Rating"><!--Deal_Rating Start-->
+
+                                            	<div class="Top1">You save <strong>50%</strong></div>
+
+                                                
+
+                                                <div class="Bootom1">
+
+                                                	 <p>Time Left</p>
+
+                                                    <span>2 Hours</span>
+
+                                                </div>
+
+                                            </div><!--Deal_Rating  End-->
+
+                                           
+
+                                        </li>
+
+                                        
+
+                                        
+
+                                        
+
+                                        	
+
+                                    </ul>
+
+                                
+
+                                
+
+                                
+
+                                
+
+                                </div><!--DMiddle End--> 
+
+                                
+
+                                
+
+                                
+
+                                
+
+                                
+
+                            </div><!--Deal_Cont_Midd End-->
+
+                            
+
+                            <div class="Deal_Cont_Bottom"><span>Bottom</span></div><!--Deal_Cont_Bottom Start End-->
+
+                        
+
+                        </div><!--Deal_Container End-->
+
+                    	
+
+                    </div><!--Mapcont_Right End-->
+
+{% endblock %}

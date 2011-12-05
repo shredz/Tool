@@ -1,0 +1,26 @@
+{% load adminmedia %}
+{% load i18n %}
+<!-- hader -->
+{% include "admin/header.html" %}
+<!-- end heade -->
+<!-- menu part -->
+{% include "admin/menu.html" %}
+<!-- end menu part -->
+    <div id="content" class="{% block coltype %}colM{% endblock %}">
+        {% block pretitle %}{% endblock %}
+        {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
+        {% block content %}
+        {% block object-tools %}{% endblock %}
+        {{ content }}
+        {% endblock %}
+        {% block sidebar %}{% endblock %}
+        <br class="clear" />
+    </div>
+    <!-- END Content -->
+
+{% include "admin/footer.html" %}
+</div>
+<!-- END Container -->
+
+</body>
+</html>

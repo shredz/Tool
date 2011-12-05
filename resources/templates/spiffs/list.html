@@ -1,0 +1,354 @@
+{% extends "spiffcity.html" %}
+{% block content %}
+ <div class="Gridview_Cont"><!--Gridview_Cont Start-->
+             	
+                  <div class="Gridview_Left_Top"><!--Gridview_Left_Top Start-->
+                        
+                        <div class="Mapbt"><a href="mapview.html">Map View</a></div>
+                        <div class="Mapbt"><a href="/spiffs/deals/list/" class="active">List View</a></div>
+                        <div class="Mapbt"><a href="#">Grid View</a></div>
+                        
+                        <div class="LocalBt"><!--LocalBt Start-->
+                            
+                            
+                        
+                        </div><!--LocalBt  End-->
+                            
+                            <div class="Mapsocail_Icon"><!--Mapsocail_Icon Start-->
+                            	
+                                <p><a href="#"><img src="images/social1.png" alt="My Account" title="My Account" /></a></p>
+                                <p><a href="#"><img src="images/social2.png" alt="My Friends" title="My Friends" /></a></p>
+                                <!--<p><a href="#"><img src="images/social3.png" alt="My Account" title="My Account" /></a></p>
+                                <p><a href="#"><img src="images/social4.png" alt="My Friends" title="My Friends" /></a></p>-->
+                                <p><a href="#"><img src="images/social5.png" alt="Content" title="Content" /></a></p>
+                            
+                            </div><!--Mapsocail_Icon  End-->
+                            
+                   </div><!--Gridview_Left_Top End-->
+                   
+                   <div class="Gridview_Right_Top"><!--Gridview_Right_Top Start-->
+                   	
+                    	<img src="images/grid_controll.png" alt="" />
+                   
+                   </div><!--Gridview_Right_Top Start-->
+             
+</div><!--Gridview_Cont  End-->
+<div class="Listing_Container"><!--Listing_Container Start-->
+             	
+                	<div class="GreyListing_Cont"><!--GreyListing_Cont Start-->
+                    
+                    	 <div class="Grey_List_Top"><span>top</span></div>
+                         
+                         <div class="Grey_List_Midd"><!--Grey_List_Midd Start-->
+                         	
+                            <div class="MainList_Cont"><!--MainList_Cont Start-->
+                            	
+                                <div class="DControll2"><img src="images/controll2.png" /></div>
+                                {% for deal in deals %}
+                                <div class="MainList_Box"><!--MainList_Box Start-->
+                                	
+                                    <h1>Lorem Ipsum is simply dummy textLorem Ipsum is simply dummy text</h1>
+                                    
+                                    <div class="ListPhoto"><img src="images/prolist1.gif" alt="" /></div>
+                                    
+                                    <div class="ListText"><!--ListText Start-->
+                                    	
+                                        <span>{{ deal.title }}</span>
+                                        <p>
+					{{ deal.description }}
+					</p>
+                                        
+                                        <div class="TextView">
+                                        	<a href="#">View at Spiff City</a>
+                                        </div>
+                                        
+                                        <div class="List_Socail1"><!--List_Socail1 Start-->
+                                        
+                                            <div class="List_Socail"><!--List_Socail Start-->
+                                                <p><a href="#"><img src="images/facbook2.png" alt="Like" title="Like" /></a></p>
+                                                <p><a href="#"><img src="images/twitter2.png" alt="Follow Us" title="Follow Us"/></a></p>
+                                                <span><a href="#">more info</a></span>
+                                            </div><!--List_Socail  End-->
+                                             
+                                        </div><!--List_Socail1  End--> 
+                                        
+                                        <div class="List_Share"><!--List_Share Start-->
+                                          <p><a href="#">Share</a></p>
+                                        </div><!--List_Share End-->
+                                         
+                                    </div><!--ListText  End-->
+			        
+                                    <div class="List_Hours"><!--List_Hours Start-->
+                                       	
+                                        <div class="Top1">You save <strong>50%</strong></div>
+                                                
+                                        <div class="Bottom1">
+                                             <p>Time Left</p>
+                                            <span>2 Hours</span>
+                                        </div>
+                                         <div class="Points1">
+                                             <p>Get Spiffed 50pts</p>
+                                            <p>social rewards</p>
+                                         </div>
+                                         
+                                    </div><!--List_Hours  End-->  
+                                    
+                                    <div class="List_Rating"><!--List_Rating Start-->
+                                    
+                                    	<h1>Rating :</h1>
+                                        <span><img src="images/rating.png" alt="rating" /></span>
+                                        <span>11 reviews</span>
+                                        <p><a href="#">read more</a></p>
+                                    
+                                    </div><!--List_Rating  End-->
+                                   
+                                    
+                                </div><!--MainList_Box  End-->
+                                {% endfor %}
+                                <div class="MainList_Box"><!--MainList_Box Start-->
+                                	
+                                    <h1>Lorem Ipsum is simply dummy textLorem Ipsum is simply dummy text</h1>
+                                    
+                                    <div class="ListPhoto"><img src="images/prolist2.gif" alt="" /></div>
+                                    
+                                    <div class="ListText"><!--ListText Start-->
+                                    	
+                                        <span>Deal Title</span>
+                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                                        
+                                        <div class="TextView">
+                                        	<a href="#">View at Spiff City</a>
+                                        </div>
+                                        <div class="List_Socail1"><!--List_Socail1 Start-->
+                                        
+                                            <div class="List_Socail"><!--List_Socail Start-->
+                                                <p><a href="#"><img src="images/facbook2.png" alt="Like" title="Like" /></a></p>
+                                                <p><a href="#"><img src="images/twitter2.png" alt="Follow Us" title="Follow Us"/></a></p>
+                                                <span><a href="#">more info</a></span>
+                                            </div><!--List_Socail  End-->
+                                             
+                                        </div><!--List_Socail1  End--> 
+                                        
+                                        <div class="List_Share"><!--List_Share Start-->
+                                          <p><a href="#">Share</a></p>
+                                        </div><!--List_Share End-->
+                                         
+                                    </div><!--ListText  End-->
+                                    
+                                    <div class="List_Hours"><!--List_Hours Start-->
+                                       	
+                                        <div class="Top1">You save <strong>50%</strong></div>
+                                                
+                                        <div class="Bottom1">
+                                             <p>Time Left</p>
+                                            <span>2 Hours</span>
+                                        </div>
+                                        
+                                        <div class="Points1">
+                                             <p>Get Spiffed 50pts</p>
+                                            <p>social rewards</p>
+                                         </div>
+                                         
+                                    </div><!--List_Hours  End-->  
+                                    
+                                    <div class="List_Rating"><!--List_Rating Start-->
+                                    
+                                    	<h1>Rating :</h1>
+                                        <span><img src="images/rating.png" alt="rating" /></span>
+                                        <span>11 reviews</span>
+                                        <p><a href="#">read more</a></p>
+                                    
+                                    </div><!--List_Rating  End-->
+                                   
+                                    
+                                </div><!--MainList_Box  End-->
+                                
+                                <div class="MainList_Box"><!--MainList_Box Start-->
+                                	
+                                    <h1>Lorem Ipsum is simply dummy textLorem Ipsum is simply dummy text</h1>
+                                    
+                                    <div class="ListPhoto"><img src="images/prolist3.gif" alt="" /></div>
+                                    
+                                    <div class="ListText"><!--ListText Start-->
+                                    	
+                                        <span>Deal Title</span>
+                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                                        
+                                        <div class="TextView">
+                                        	<a href="#">View at Spiff City</a>
+                                        </div>
+                                        <div class="List_Socail1"><!--List_Socail1 Start-->
+                                        
+                                            <div class="List_Socail"><!--List_Socail Start-->
+                                                <p><a href="#"><img src="images/facbook2.png" alt="Like" title="Like" /></a></p>
+                                                <p><a href="#"><img src="images/twitter2.png" alt="Follow Us" title="Follow Us"/></a></p>
+                                                <span><a href="#">more info</a></span>
+                                            </div><!--List_Socail  End-->
+                                             
+                                        </div><!--List_Socail1  End--> 
+                                        
+                                        <div class="List_Share"><!--List_Share Start-->
+                                          <p><a href="#">Share</a></p>
+                                        </div><!--List_Share End-->
+                                         
+                                    </div><!--ListText  End-->
+                                    
+                                    <div class="List_Hours"><!--List_Hours Start-->
+                                       	
+                                        <div class="Top1">You save <strong>50%</strong></div>
+                                                
+                                        <div class="Bottom1">
+                                             <p>Time Left</p>
+                                            <span>2 Hours</span>
+                                        </div>
+                                         <div class="Points1">
+                                             <p>Get Spiffed 50pts</p>
+                                            <p>social rewards</p>
+                                         </div>
+                                         
+                                    </div><!--List_Hours  End-->  
+                                    
+                                    <div class="List_Rating"><!--List_Rating Start-->
+                                    
+                                    	<h1>Rating :</h1>
+                                        <span><img src="images/rating.png" alt="rating" /></span>
+                                        <span>11 reviews</span>
+                                        <p><a href="#">read more</a></p>
+                                    
+                                    </div><!--List_Rating  End-->
+                                   
+                                    
+                                </div><!--MainList_Box  End-->
+                                
+                                
+                                <div class="MainList_Box"><!--MainList_Box Start-->
+                                	
+                                    <h1>Lorem Ipsum is simply dummy textLorem Ipsum is simply dummy text</h1>
+                                    
+                                    <div class="ListPhoto"><img src="images/prolist4.gif" alt="" /></div>
+                                    
+                                    <div class="ListText"><!--ListText Start-->
+                                    	
+                                        <span>Deal Title</span>
+                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                                        
+                                        <div class="TextView">
+                                        	<a href="#">View at Spiff City</a>
+                                        </div>
+                                        <div class="List_Socail1"><!--List_Socail1 Start-->
+                                        
+                                            <div class="List_Socail"><!--List_Socail Start-->
+                                                <p><a href="#"><img src="images/facbook2.png" alt="Like" title="Like" /></a></p>
+                                                <p><a href="#"><img src="images/twitter2.png" alt="Follow Us" title="Follow Us"/></a></p>
+                                                <span><a href="#">more info</a></span>
+                                            </div><!--List_Socail  End-->
+                                             
+                                        </div><!--List_Socail1  End--> 
+                                        
+                                        <div class="List_Share"><!--List_Share Start-->
+                                          <p><a href="#">Share</a></p>
+                                        </div><!--List_Share End-->
+                                         
+                                    </div><!--ListText  End-->
+                                    
+                                    <div class="List_Hours"><!--List_Hours Start-->
+                                       	
+                                        <div class="Top1">You save <strong>50%</strong></div>
+                                                
+                                        <div class="Bottom1">
+                                             <p>Time Left</p>
+                                            <span>2 Hours</span>
+                                        </div>
+                                        
+                                        <div class="Points1">
+                                             <p>Get Spiffed 50pts</p>
+                                            <p>social rewards</p>
+                                         </div>
+                                         
+                                    </div><!--List_Hours  End-->  
+                                    
+                                    <div class="List_Rating"><!--List_Rating Start-->
+                                    
+                                    	<h1>Rating :</h1>
+                                        <span><img src="images/rating.png" alt="rating" /></span>
+                                        <span>11 reviews</span>
+                                        <p><a href="#">read more</a></p>
+                                    
+                                    </div><!--List_Rating  End-->
+                                   
+                                    
+                                </div><!--MainList_Box  End-->
+                                
+                                
+                                <div class="MainList_Box"><!--MainList_Box Start-->
+                                	
+                                    <h1>Lorem Ipsum is simply dummy textLorem Ipsum is simply dummy text</h1>
+                                    
+                                    <div class="ListPhoto"><img src="images/prolist5.gif" alt="" /></div>
+                                    
+                                    <div class="ListText"><!--ListText Start-->
+                                    	
+                                        <span>Deal Title</span>
+                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                                        
+                                        <div class="TextView">
+                                        	<a href="#">View at Spiff City</a>
+                                        </div>
+                                        <div class="List_Socail1"><!--List_Socail1 Start-->
+                                        
+                                            <div class="List_Socail"><!--List_Socail Start-->
+                                                <p><a href="#"><img src="images/facbook2.png" alt="Like" title="Like" /></a></p>
+                                                <p><a href="#"><img src="images/twitter2.png" alt="Follow Us" title="Follow Us"/></a></p>
+                                                <span><a href="#">more info</a></span>
+                                            </div><!--List_Socail  End-->
+                                             
+                                        </div><!--List_Socail1  End--> 
+                                        
+                                        <div class="List_Share"><!--List_Share Start-->
+                                          <p><a href="#">Share</a></p>
+                                        </div><!--List_Share End-->
+                                         
+                                    </div><!--ListText  End-->
+                                    
+                                    <div class="List_Hours"><!--List_Hours Start-->
+                                       	
+                                        <div class="Top1">You save <strong>50%</strong></div>
+                                                
+                                        <div class="Bottom1">
+                                             <p>Time Left</p>
+                                            <span>2 Hours</span>
+                                        </div>
+                                        <div class="Points1">
+                                             <p>Get Spiffed 50pts</p>
+                                            <p>social rewards</p>
+                                         </div>
+                                         
+                                    </div><!--List_Hours  End-->  
+                                    
+                                    <div class="List_Rating"><!--List_Rating Start-->
+                                    
+                                    	<h1>Rating :</h1>
+                                        <span><img src="images/rating.png" alt="rating" /></span>
+                                        <span>11 reviews</span>
+                                        <p><a href="#">read more</a></p>
+                                    
+                                    </div><!--List_Rating  End-->
+                                   
+                                    
+                                </div><!--MainList_Box  End-->
+                            
+                            
+                            </div><!--MainList_Cont End-->
+                         
+                            
+                         </div><!--Grey_List_Midd  End-->
+                         
+                         <div class="Grey_List_Bottom"><span>bottom</span></div>
+                    	
+                        
+                    
+                    </div><!--GreyListing_Cont  End-->
+             	
+             </div><!--Listing_Container End-->
+
+{% endblock %}

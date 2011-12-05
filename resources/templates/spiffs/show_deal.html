@@ -5,9 +5,7 @@
                                 <ul>
                                 {% for catg in catgs%}
 			                     <li class="MenuItemStyle menu_item clearfix" crumbText = 'All Categories'>
-                                        <input type="radio"  name='filters'
-                                            onclick="MainMenuClick(this,'Category', 'All');"
-                                            id="chkAll" name="chkAll" value="*" checked="checked" />
+ <input type="radio"  name='filters' onclick="showList(this.value);" id="chkAll" name="chkAll" value="{{catg.id}}" checked="checked" />
                                             <label for="chkAll" class="float item-text all-20">{{catg.title}}</label>
                                     </li>
                                 {% endfor %}

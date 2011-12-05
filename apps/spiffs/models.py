@@ -1,12 +1,15 @@
 from django.db import models
 from django.contrib import admin
 from django.db.models import Q
-
 import settings
 from apps.core.models import SpiffObject,SpiffTicket
+from apps.core.models import Category,PhoneNumber
 from apps.members.models import UserPoint
+from apps.core.models import *
+from apps.geo.models import *
 
 import datetime
+import csv
 
 class DealManager(models.Manager):
 	
@@ -38,23 +41,38 @@ class DealVisit(models.Model):
 class Deal(SpiffObject):
 	sku 				= models.CharField(max_length=50)
 	deal_id 			= models.CharField(max_length=30)
-	advertiser_name 	= models.CharField(max_length=200)
+	#cat_title 			= models.ForeignKey('core.Category')
+	advertiser_name 	        = models.CharField(max_length=200)
 	price 				= models.DecimalField(max_digits=10, decimal_places=2)
 	currency 			= models.CharField(max_length=30)
-	mid					= models.CharField(max_length=50)
-	
+	mid				= models.CharField(max_length=50)
+	address				= models.CharField(max_length=255)
+	discount			= models.CharField(max_length=100)
+	date				= models.DateTimeField()
 	objects				= DealManager()
 	
+	def categories(self):
+		
+		#return self.category.join(self.title)
+		return "%s" % ((self.category))
+		
+	
+		
 	def __unicode__(self):
 		return self.title
-		
+	
+	def cat_list(self):
+		cat_list = Category.objects.values_list('id','title')
+		#list_title = []
+		##	title = cat.title
+		#	list_title.append(title)
+		return cat_list
+	
 	def shared (self, user):
 		at = ActivityType.objects.get(title="SHARED_DEAL")
 		sa = ShareActivity(user=user,activity_type=at,deal=self,points=2,network="facebook")
 		sa.save()
 		user.award_points(sa)
-		
-		
 	
 	def buy (self,user):
 		ud = UserDeal(user=user, deal=self)
@@ -92,12 +110,11 @@ class Deal(SpiffObject):
 	def search(keyword):
 		deals = Deal.objects.filter(Q(title__contains=keyword)| Q(description__contains=keyword))
 		return Deal.assign_left(deals)
-	
-	
-	
+		
+		
 	
 
-admin.site.register(Deal)		
+#admin.site.register(Deal)		
 
 class Coupon(SpiffTicket):
 	deal			= models.ForeignKey(Deal, related_name='coupons')
@@ -182,11 +199,11 @@ class Activity(models.Model):
 			ls[now-time_range[0]]=Activity.objects.filter(user=user,added__gt=now-time_range[0],added__lte=now-time_range[1]).count()
 		
 		return ls
-
+	
 class ShareActivity(Activity):
 	deal			= models.ForeignKey(Deal)
 	network			= models.CharField(max_length=20)
-
+	
 class SpiffActivity(Activity):
 	userdeal		= models.ForeignKey(UserDeal)
 	points			= models.DecimalField(max_digits=5, decimal_places=2)

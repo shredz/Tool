@@ -1,0 +1,344 @@
+{% load adminmedia %}
+{% load i18n %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" dir="ltr" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>{% block title %}Spiffcity{% endblock %}</title>
+
+<script type="text/javascript" src="{% admin_media_prefix %}js/admin/jquery.js"></script>
+ <script type="text/javascript" src="{% admin_media_prefix %}js/admin/ajax.js"></script>
+<script type="text/javascript" src="{% admin_media_prefix %}js/admin/ui.js"></script>
+<script type="text/javascript" src="{% admin_media_prefix %}js/admin/superfish.js"></script>
+<script type="text/javascript" src="{% admin_media_prefix %}js/admin/tab.js"></script>
+<script type="text/javascript" src="{% admin_media_prefix %}js/admin/jqModal.js"></script> 
+
+
+<!-- all js -->
+
+<!-- all js -->
+<script type="text/javascript" src="{% admin_media_prefix %}js/admin/actions.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/jqmodal.css">
+<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/ui.css">
+<!-- for default django css -->
+<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/base.css" />
+<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css" />
+<style>
+ ul.makelist {list-style:none; padding:0; margin:0}
+
+ul.prArticles li.prList {border-bottom:2px solid #ccc; padding-bottom:10px; margin-bottom:10px; width:100%; float:left}
+ul.prArticles li.prList .col3 {width:270px; float:left}
+ul.prArticles li.prList .col4 {width:180px; float:left }
+ul.prArticles li.prList p{padding:0 0 0 0; margin:0 0 0 0}
+ul.prArticles li.prList ul {padding-left:70px; list-style:disc; margin:0 0 0 0}
+ul.prArticles li.prList .col5 ul {padding:0 0 0 15px; color:#a66523; list-style:disc}
+ul.prArticles li.prList .col5 .col5Hrd {color:#FFFFFF; background:url(../img/admin/img7.gif) 0 0 no-repeat; height:30px; line-height:27px; padding-left:30px; margin-top:10px}
+.col2 {width:520px; overflow:auto; position:relative; right:0; background-color:#FFFFFF; margin-left:10px; height:698px; text-align:left; color:#666; padding:15px 20px 0 20px} 
+
+.fl {
+    float: left;
+}
+.prHeader {color:#000000; font-size:17px; font-weight:bold; font-family:Helvetica, "Lucida Sans Unicode", Arial}
+.text14 {font-size:14px}
+.text15 {font-size:15px}
+.text22 {font-size:22px}
+.upperCase, .upperCase a {text-transform:uppercase}
+.clr {clear:both; padding:0; margin:0; overflow:hidden; height:0}
+
+</style>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+	$('.nav').superfish({
+		hoverClass	 : 'sfHover',
+		pathClass	 : 'overideThisToUse',
+		delay		 : 0,
+		animation	 : {height: 'show'},
+		speed		 : 'normal',
+		autoArrows   : false,
+		dropShadows  : false,
+		disableHI	 : false, /* set to true to disable hoverIntent detection */
+		onInit		 : function(){},
+		onBeforeShow : function(){},
+		onShow		 : function(){},
+		onHide		 : function(){}
+	});
+
+	$('.nav').css('display', 'block');
+
+        /*$("#form").validationEngine({
+                success :  false,
+                failure : function() {}
+        });*/
+});
+</script>
+
+
+<style type="text/css">
+        .jqmOverlay { background-color: #FFF; }
+            .jqmWindow {
+                background: #888888 url(modal_bckgrn.gif) left top repeat-x;
+                color: #000;
+                border: 1px solid #888888;
+                padding: 0 0px 50px;
+            }
+
+            button.jqmClose {
+                background: none;
+                border: 0px solid #EAEAEB;
+                color: #000;
+                clear: right;
+                float: right;
+                padding: 0;
+                margin-top:5px;
+                margin-left:5px;
+                cursor: pointer;
+                font-size: 8px;
+
+                letter-spacing: 1px;
+            }
+
+            button.jqmClose:hover, button.jqmClose:active {
+                color: #FFF;
+				border: 0px solid #FFF;
+            }
+
+            #jqmTitle {
+                background: transparent;
+                color: black;
+                text-transform: capitalize;
+                height: 50px;
+                padding: 0px 5px 0 10px;
+
+            }
+
+            #jqmContent {
+                width: 100%;
+                height: 90%;
+                display: block;
+                clear: both;
+                margin: 0;
+                margin-top: 0px;
+                background: #e8e8e8;
+                border: 1px solid #888888;
+            }
+        </style>
+		
+<script type="text/javascript">
+    $(document).ready(function(){
+    //thickbox replacement
+    var closeModal = function(hash)
+    {
+        var $modalWindow = $(hash.w);
+
+        //$('#jqmContent').attr('src', 'blank.html');
+        $modalWindow.fadeOut('2000', function()
+        {
+            hash.o.remove();
+            //refresh parent
+
+            if (hash.refreshAfterClose === 'true')
+            {
+
+                window.location.href = document.location.href;
+            }
+        });
+    };
+    var openInFrame = function(hash)
+    {
+        var $trigger = $(hash.t);
+        var $modalWindow = $(hash.w);
+        var $modalContainer = $('iframe', $modalWindow);
+        var myUrl = $trigger.attr('href');
+        var myTitle = $trigger.attr('title');
+        var newWidth = 0, newHeight = 0, newLeft = 0, newTop = 0;
+        $modalContainer.html('').attr('src', myUrl);
+        $('#jqmTitleText').text(myTitle);
+        myUrl = (myUrl.lastIndexOf("#") > -1) ? myUrl.slice(0, myUrl.lastIndexOf("#")) : myUrl;
+        var queryString = (myUrl.indexOf("?") > -1) ? myUrl.substr(myUrl.indexOf("?") + 1) : null;
+
+        if (queryString != null && typeof queryString != 'undefined')
+        {
+            var queryVarsArray = queryString.split("&");
+            for (var i = 0; i < queryVarsArray.length; i++)
+            {
+                if (unescape(queryVarsArray[i].split("=")[0]) == 'width')
+                {
+                    var newWidth = queryVarsArray[i].split("=")[1];
+                }
+                if (escape(unescape(queryVarsArray[i].split("=")[0])) == 'height')
+                {
+                    var newHeight = queryVarsArray[i].split("=")[1];
+                }
+                if (escape(unescape(queryVarsArray[i].split("=")[0])) == 'jqmRefresh')
+                {
+                    // if true, launches a "refresh parent window" order after the modal is closed.
+
+                    hash.refreshAfterClose = queryVarsArray[i].split("=")[1]
+                } else
+                {
+
+                    hash.refreshAfterClose = false;
+                }
+            }
+            // let's run through all possible values: 90%, nothing or a value in pixel
+            if (newHeight != 0)
+            {
+                if (newHeight.indexOf('%') > -1)
+                {
+
+                    newHeight = Math.floor(parseInt($(window).height()) * (parseInt(newHeight) / 100));
+
+                }
+                var newTop = Math.floor(parseInt($(window).height() - newHeight) / 2);
+            }
+            else
+            {
+                newHeight = $modalWindow.height();
+            }
+            if (newWidth != 0)
+            {
+                if (newWidth.indexOf('%') > -1)
+                {
+                    newWidth = Math.floor(parseInt($(window).width() / 100) * parseInt(newWidth));
+                }
+                var newLeft = Math.floor(parseInt($(window).width() / 2) - parseInt(newWidth) / 2);
+
+            }
+            else
+            {
+                newWidth = $modalWindow.width();
+            }
+
+            // do the animation so that the windows stays on center of screen despite resizing
+            $modalWindow.css({
+                width: newWidth,
+                height: newHeight,
+                opacity: 0
+            }).jqmShow().animate({
+                width: newWidth,
+                height: newHeight,
+                top: newTop,
+                left: newLeft,
+                marginLeft: 0,
+                opacity: 1
+            }, 'slow');
+        }
+        else
+        {
+            // don't do animations
+            $modalWindow.jqmShow();
+        }
+
+    }
+
+    $('#modalWindow').jqm({
+        overlay: 70,
+        modal: true,
+        trigger: 'a.thickbox',
+        target: '#jqmContent',
+        onHide: closeModal,
+        onShow: openInFrame
+    });
+
+            });
+	    
+</script>
+
+<!-- addedd -->
+<style>
+body{
+	background:url({% admin_media_prefix %}img/admin/bg.jpg) top center no-repeat #000000;
+	font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif;
+	text-decoration:none;
+	font-size:12px;
+}
+.logobg{
+	background-image:url({% admin_media_prefix %}img/admin/img1.gif);
+	background-repeat:repeat-x;
+	background-position:top left;
+}
+.heading1{
+	color:#FFF;
+	font-weight:bold;
+	font-size:18px;
+}
+
+.links {
+
+color:#FFFFFF}
+.links a{
+	color:#fff;
+	text-decoration:underline;
+}
+
+.links a:hover{
+	text-decoration:none;	
+}
+input{border:1px solid #c3c3c3; background-color:#efefef; padding:3px; width:auto}
+textarea{border:1px solid #c3c3c3; background-color:#efefef; padding:6px; width:auto}
+select{border:1px solid #c3c3c3; background-color:#efefef; padding:3px; width:auto}
+
+
+.tableMain tr td{
+	border-bottom:1px dotted #ccc;
+	padding:7px 10px 7px 10px;
+	font-size:12px;
+}
+
+.tableMain tr:hover{
+	/*background-color:#efefef;*/
+	background-color:#EFF3FF;
+}
+
+.tableMain table tr td {border:none; padding:0 0 0 0 }
+.tableMain table tr:hover {background-color:transparent}
+
+.tableMain tr.tableTitle{
+	background-color:#ccc;
+	font-size:14px;
+}
+
+</style>
+
+
+ <script type="text/javascript">
+
+$(document).ready(function () {
+ $('#action-toggle').click(function(){
+	 $("INPUT[type='checkbox']").each(function(){
+		 if (this.checked == true) {
+			  $('.action-select').attr('checked','checked'); 
+		 } else {
+			 $('.action-select').removeAttr("checked");
+		 }
+	 });
+ });
+ 
+
+
+});
+
+  </script>
+</head><body>
+   
+  <div class="logobg" valign="middle" height="61">
+  <div  class="heading1">
+  
+<table width="95%" cellspacing="0" cellpadding="0" border="0" align="center" class="headertxt">
+      <tbody><tr>
+        <td width="300" class="heading"><a href="home.html"><!--<img width="260" border="0"  height="37" src="images/logo1.png"></a>--></td>
+        <td height="61" align="center" style="background: url({% admin_media_prefix %}img/admin/controlPannel_img.gif) no-repeat scroll center top transparent;">&nbsp; </td>
+
+	
+        <td width="300" align="right"><font color="green">
+        {% if  user.username %}
+            <strong>{% filter force_escape %} {% trans 'Welcome,' %} {% firstof user.first_name user.username %}{% endfilter %}</strong>.
+            {% endif %}
+            <a href="/admin/logout"><img width="22" height="22" border="0"src="{% admin_media_prefix %}img/admin/logout.png" title="Logout"></a></td> 
+      </tr>
+    </tbody></table>
+</div>
+</div>

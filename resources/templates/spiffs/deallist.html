@@ -1,0 +1,35 @@
+{% autoescape off %}
+<!--pagignation start  -->
+                   
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if catg.has_previous %}
+                                <a href="?page={{catg.previous_page_number }}">previous</a>
+                            {% endif %}
+                            <span class="current">
+                                Page {{ catg.number }} of {{ catg.paginator.num_pages }}.
+                            </span>
+                            {% if catg.has_next %}
+                                <a href="?page={{ catg.next_page_number }}">next</a>
+                            {% endif %}
+                        </span>
+                    </div>
+<!-- pagignation end -->
+<div class="schemes-container" >						
+<div class="content-box">
+	<ul class="deal-list-view">
+{% for dealobj in catg.object_list %}
+	<li>
+	<img src="{{dealobj.image_url}}" />
+	<span>
+		<h1>{{dealobj.title}}</h1>
+	</span>
+	<span>{{dealobj.description}}</span>
+	<span>{{dealobj.currency}} {{catg.price}}</span>
+	<a href="{{dealobj.link}}" id="view-full-deal-button"  >view full deal</a>
+</li>
+{% endfor %}
+</ul>						
+	</div>
+</div>
+{% endautoescape %}

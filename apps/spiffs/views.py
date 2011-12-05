@@ -2,10 +2,13 @@ def index(request):
 	pass
 
 from apps.spiffs.models import *
+from apps.location.models import *
+from apps.geo.models import *
 from apps.members.models import *
 from apps.importer.commisionjunction.models import CDeal
 from apps.importer.linkshare.models import LDeal
 from apps.core.models import *
+from libs.paginator import *
 
 
 from libs.utils import Response
@@ -33,7 +36,9 @@ def front_page (request, layout , deal_type , page):
 	elif layout == "3":
 		total = 8
 		names = ["deal1","deal2","deal3","deal4","deal5","deal6","deal7","deal8"]
-	
+	elif layout == "4":
+		total = 9
+		names = ["deal1" ,"deal2" ,"deal3" ,"deal4" ,"deal5" ,"deal6" ,"deal7" ,"deal8" ,"deal9" ]
 	"""
 	TRACKING = ""
 	
@@ -64,14 +69,65 @@ def front_page (request, layout , deal_type , page):
 		count = count + 1
 	
 	return (ds,names)
+def deallist_page (request, layout , deal_type , page):
+	now = datetime.datetime.now()
+	layout = str(layout)
 	
+	if layout == "0":
+		total = 10
+		names = ["deal1" ,"deal2" ,"deal3" ,"deal4" ,"deal5" ,"deal6" ,"deal7" ,"deal8" ,"deal9" ,"deal10" ]
+	
+	if layout == "1":
+		total = 4
+		names = ["deal1","deal2","deal3","deal4"]	
+	
+	elif layout == "2":
+		total = 8
+		names = ["deal1","deal2","deal3","deal7","deal8", "deal4","deal6","deal5"]
+		
+	elif layout == "3":
+		total = 8
+		names = ["deal1","deal2","deal3","deal4","deal5","deal6","deal7","deal8"]
+	elif layout == "4":
+		total = 9
+		names = ["deal1" ,"deal2" ,"deal3" ,"deal4" ,"deal5" ,"deal6" ,"deal7" ,"deal8" ,"deal9" ]
+	"""
+	TRACKING = ""
+	
+	if deal_type == "CJ":
+		D = CDeal
+		TRACKING = "&sid=%s" % (request.user.id)
+		
+	elif deal_type == "LS":
+		D = LDeal
+		TRACKING = "&u1=%s" % (request.user.id)
+	
+	else:
+		D = Deal
+		TRACKING = "&u1=%s&sid=%s" % (request.user.id, request.user.id)
+		
+	"""
+	D = CDeal #SWITCH
+	deals = D.objects.list_page(page , total)
+	
+	ds = {}
+	count = 0
+	
+	for deal in deals:
+		deal.link = "/spiffs/deal/%s/%s/" % (deal_type , deal.id)
+		deal.purchase_url = "/spiffs/v/%s/%s/" % (deal_type, deal.id)
+		
+		ds[names[count]] = deal
+		count = count + 1
+	
+	return (ds,names)	
 			
 def deals (request,page):
 	if request.user.is_authenticated():
 		user = User.instance(request.user)
 		layout = user.get_config("Layout").value
 	else:
-		layout = 0
+		layout = 4
 	
 	deals, names = front_page(request, layout, "CJ" , int(page))	
 	
@@ -82,22 +138,21 @@ def deals (request,page):
 	params = {'deals' :  deals , "names" : names,"layout":layout}
 	return Response.render("spiffs/schemes/"+str(layout)+".html" , params,request)
 
-def deallist (request,page):
-	if request.user.is_authenticated():
-		user = User.instance(request.user)
-		layout = user.get_config("Layout").value
-	else:
-		layout = 0
+def deallist (request,cat_id):
+	cat_list = SpiffObject.objects.all().filter(category=cat_id)
+	paginator = Paginator(cat_list,5)
 	
-	deals, names = front_page(request, layout, "CJ" , int(page))	
+	try:
+		page = int(request.GET.get('page', '1'))
 	
-	#return Response.html(len(deals))
-	if len(deals) == 0:
-		return Response.html("<!-- END -->")
-	
-	params = {'deals' :  deals , "names" : names,"layout":layout}
-	return Response.render("spiffs/deallist.html" , params,request)
-	
+	except ValueError:
+		page = 1
+	try:
+		catg = paginator.page(page)
+		
+	except (EmptyPage, InvalidPage):
+		catg = paginator.page(paginator.num_pages)
+	return Response.render('spiffs/deallist.html', {"catg": catg},request)
 
 def visited(request, deal_type ,deal_id):
 	if request.user.is_authenticated():
@@ -157,12 +212,24 @@ def new_deals(request,page):
 	return Response.render("spiffs/new_deals.html" , {"deals": [left , right] , "page" : page , "nextpage" : int(page) + 1 },request)
 
 def gmap(request,page):	
-	catgs = Category.objects.values('title').filter(parent='15').distinct()
+	catgs = Category.objects.values('title','id').filter(parent=('99')).distinct('title')
 	return Response.render("spiffs/gmap.html" , {'catgs': catgs},request)
+	
+def map(request,page):	
+	catgs = Category.objects.values('title','id','image1','image2').filter(parent=('98')).distinct('title')
+	deals = SpiffObject.objects.all().filter(approved=1)[2:5]
+	
+	return Response.render("spiffs/map.html" , {'catgs': catgs,'deals' : deals},request)
+	
+def list(request):	
+	catgs = Category.objects.values('title','id','image1','image2').filter(parent=('98')).distinct('title')
+	deals = SpiffObject.objects.all().filter(approved=1)[2:5]
+	
+	return Response.render("spiffs/list.html" , {'catgs': catgs,'deals' : deals},request)
 
 def show_deal(request,page):	
-	catgs = Category.objects.values('title').filter(parent=page).distinct()
-	return Response.render("spiffs/show_deal.html" , {'catgs': catgs},request)
+	catg = Category.objects.values('title','id').filter(parent=page).distinct('title')
+	return Response.render("spiffs/show_deal.html" , {'catgs': catg},request)
 	
 def approve_deal(request, deal_id):
 	deal = Deal.objects.get(id=deal_id)
@@ -183,4 +250,18 @@ def search(request):
 		keyword = request.POST['str']
 		params = {'deals' : Deal.search(keyword) }
 		return Response.render("spiffs/deals.html" , params,request)
+		
+		
+def ajax_search(request,keyword):
+	results = State.objects.filter(Q(state_name__contains = keyword))
+	results_count = State.objects.filter(Q(state_name__contains = keyword)).count
+	stateid = 0
+	for result in results:
+		stateid = (result.id)
+	result_city = City.objects.filter(state_id = stateid)
+	return Response.render("spiffs/results.html" , {'results': results,'keyword': keyword, 'id':id, 'result_city': result_city }, request)
+		
+def ajax_list_deal(request,city_id):
+	results_deal = Deal.objects.all().filter(address__icontains = city_id)
+	return Response.render("spiffs/results_deal.html" , {'results_deal': results_deal }, request)
 		
