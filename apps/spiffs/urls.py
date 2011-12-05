@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     (r'^deal/(?P<deal_type>([a-zA-Z]*))/(?P<deal_id>([0-9]*))/$',"apps.spiffs.views.deal"),
     
     (r'^v/(?P<deal_type>([a-zA-Z]*))/(?P<deal_id>([0-9]*))/$',"apps.spiffs.views.visited"),
-    (r'^deals/map/(?P<page>([0-9]*))/$', 			"apps.spiffs.views.map"),
+    (r'^deals/map/$', 			"apps.spiffs.views.map"),
     (r'^deals/list/$', 			                        "apps.spiffs.views.list"),
     (r'^deals/ajax_search/(?P<keyword>([a-zA-Z]*))/$', 			"apps.spiffs.views.ajax_search"),
     (r'^deals/ajax_list_deal/(?P<city_id>([a-zA-Z]*))/$', 			"apps.spiffs.views.ajax_list_deal"),

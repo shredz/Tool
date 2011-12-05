@@ -215,7 +215,7 @@ def gmap(request,page):
 	catgs = Category.objects.values('title','id').filter(parent=('99')).distinct('title')
 	return Response.render("spiffs/gmap.html" , {'catgs': catgs},request)
 	
-def map(request,page):	
+def map(request):	
 	catgs = Category.objects.values('title','id','image1','image2').filter(parent=('98')).distinct('title')
 	deals = SpiffObject.objects.all().filter(approved=1)[2:5]
 	
